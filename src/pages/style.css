@@ -1,0 +1,16 @@
+p {
+    margin-top: 0;
+}
+.p-terminal {
+    background-color: #212121;
+    color: #fff;
+}
+.p-terminal .p-terminal-command {
+    color: #80cbc4;
+}
+.p-terminal .p-terminal-prompt {
+    color: #ffd54f;
+}
+.p-terminal .p-terminal-response {
+    color: #9fa8da;
+}

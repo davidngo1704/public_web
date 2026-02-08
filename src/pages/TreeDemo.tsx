@@ -547,7 +547,7 @@ export const TreeDemo = () => {
 
                     const item = itemDocuments.find(m => m.key === selectedKey);
 
-                    let response = await httpClient.postMethod('linux/execute', { command: `cd ${item.parentKey} && source venv/bin/activate && python3 ${node.label}` });
+                    let response = await httpClient.postMethod('linux/execute', { command: `cd ${item.parentKey} && source .venv/bin/activate && python ${node.label}` });
 
                     if (response) {
                         setResultContent(response);
@@ -555,7 +555,9 @@ export const TreeDemo = () => {
                     }
                 }
                 else if(node.key.endsWith('.js')){
-                    let response = await httpClient.postMethod('linux/execute', { command: `node ${node.key}` });
+                    const item = itemDocuments.find(m => m.key === selectedKey);
+                    
+                    let response = await httpClient.postMethod('linux/execute', { command: `cd ${item.parentKey} && node ${node.key}` });
 
                     if (response) {
                         setResultContent(response);

@@ -374,13 +374,13 @@ const App = () => {
                         <Route path="/start/documentation" component={Documentation} />
                         <Route path="/phong_tro" render={() => <DashboardAnalytics colorMode={colorMode} isNewThemeLoaded={newThemeLoaded} onNewThemeChange={(e: any) => setNewThemeLoaded(e)} />} />
                         <Route path="/uikit/formlayout" component={FormLayoutDemo} />
-                        <Route path="/uikit/floatlabel" component={FloatLabelDemo} />
+                        <Route path="/source" component={TreeDemo} />
                         <Route path="/config" component={InputDemo} />
+                        <Route path="/uikit/floatlabel" component={FloatLabelDemo} />
                         <Route path="/uikit/invalidstate" component={InvalidStateDemo} />
                         <Route path="/uikit/button" component={ButtonDemo} />
                         <Route path="/uikit/table" component={TableDemo} />
                         <Route path="/uikit/list" component={ListDemo} />
-                        <Route path="/source" component={TreeDemo} />
                         <Route path="/uikit/panel" component={PanelDemo} />
                         <Route path="/uikit/overlay" component={OverlayDemo} />
                         <Route path="/uikit/menu" component={MenuDemo} />

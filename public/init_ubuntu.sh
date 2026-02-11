@@ -12,7 +12,8 @@ INSTALL_BIN="$INSTALL_DIR/SourceCode"
 SERVICE_FILE="/etc/systemd/system/$APP_NAME.service"
 DATA_DIR="/var/lib/$APP_NAME"
 LOG_DIR="/var/log/$APP_NAME"
-SWAP_SIZE="2G" # Dung lượng RAM ảo muốn thêm
+# ĐÃ ĐỔI DUNG LƯỢNG SWAP LÊN 4GB TẠI ĐÂY
+SWAP_SIZE="4G" 
 
 echo "--- BẮT ĐẦU QUÁ TRÌNH THIẾT LẬP HỆ THỐNG ---"
 
@@ -20,22 +21,23 @@ echo "--- BẮT ĐẦU QUÁ TRÌNH THIẾT LẬP HỆ THỐNG ---"
 echo "--- Thiết lập múi giờ Asia/Ho_Chi_Minh ---"
 sudo timedatectl set-timezone Asia/Ho_Chi_Minh
 
-# 2. Tạo RAM ảo (Swap)
+# 2. Tạo RAM ảo (Swap) 4GB
 echo "--- Kiểm tra và tạo RAM ảo (Swap) $SWAP_SIZE ---"
+# Kiểm tra xem swap đã tồn tại trong fstab chưa để tránh tạo trùng
 if grep -q "swap" /etc/fstab; then
-    echo "Swap đã được cấu hình trước đó. Bỏ qua bước này."
+    echo "Swap đã được cấu hình trước đó. Bỏ qua bước tạo mới."
 else
-    # Tạo file swap
+    # Tạo file swap dung lượng 4G
     sudo fallocate -l $SWAP_SIZE /swapfile
-    # Phân quyền chỉ root đọc ghi
+    # Phân quyền chỉ root đọc ghi (bảo mật)
     sudo chmod 600 /swapfile
     # Thiết lập vùng swap
     sudo mkswap /swapfile
-    # Kích hoạt swap
+    # Kích hoạt swap ngay lập tức
     sudo swapon /swapfile
-    # Lưu cấu hình vĩnh viễn
+    # Lưu cấu hình vĩnh viễn vào fstab
     echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
-    # Tinh chỉnh Swappiness (ưu tiên dùng RAM thật trước)
+    # Tinh chỉnh Swappiness (giảm tần suất dùng swap để ưu tiên RAM thật)
     sudo sysctl vm.swappiness=10
     echo 'vm.swappiness=10' | sudo tee -a /etc/sysctl.conf
     echo "Đã tạo thành công Swap $SWAP_SIZE"
@@ -50,17 +52,17 @@ sudo apt install -y openssh-server curl git ca-certificates ufw
 echo "--- Cấu hình SSH và Password root ---"
 sudo sed -i 's/^#*PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config
 sudo sed -i 's/^#*PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
-# Lưu ý: Mật khẩu để dạng clear text trong script rất nguy hiểm
+# Đặt mật khẩu root
 echo "root:dai17041998" | sudo chpasswd
 sudo systemctl enable --now ssh
 
 # 5. Cấu hình Tường lửa (UFW) - MỞ TOÀN BỘ
 echo "--- Cấu hình tường lửa: MỞ TẤT CẢ CÁC CỔNG ---"
-# Đặt chính sách mặc định là CHO PHÉP (ALLOW) tất cả kết nối đến
+# Cho phép (ALLOW) tất cả kết nối đến
 sudo ufw default allow incoming
 sudo ufw default allow outgoing
 sudo ufw --force enable
-echo "Đã mở toàn bộ firewall."
+echo "Đã mở toàn bộ firewall (cảnh báo: bảo mật thấp)."
 
 # 6. Tải và Cài đặt SourceCode
 echo "--- Tải SourceCode từ GitHub ---"
@@ -102,9 +104,9 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now "$APP_NAME.service"
 
 echo "----------------------------------------------------"
-echo "TẤT CẢ ĐÃ SẴN SÀNG!"
-echo "IP của bạn là: $(hostname -I | awk '{print $1}')"
-echo "RAM ảo (Swap): Đã thêm $SWAP_SIZE"
-echo "Firewall: Đã mở tất cả cổng (Allow All)"
-echo "SSH: root / dai17041998"
+echo "THIẾT LẬP HOÀN TẤT!"
+echo "IP Server: $(hostname -I | awk '{print $1}')"
+echo "RAM ảo (Swap): $SWAP_SIZE (Đã kích hoạt)"
+echo "Firewall: Open All (0.0.0.0/0)"
+echo "SSH Info: root / dai17041998"
 echo "----------------------------------------------------"

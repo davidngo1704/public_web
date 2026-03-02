@@ -57,15 +57,15 @@ const AppTopbar = (props: any) => {
         return obj;
     }
 
-    React.useEffect(() => {
-        (async () => {
-            let dataRes = await httpClient.getMethod("file/download-text?filepath=%2Fvar%2Flib%2FApiGateway%2FConfigs%2FSystemConfig%2FFrontend%2Fmenus.json");
+    // React.useEffect(() => {
+    //     (async () => {
+    //         let dataRes = await httpClient.getMethod("file/download-text?filepath=%2Fvar%2Flib%2FApiGateway%2FConfigs%2FSystemConfig%2FFrontend%2Fmenus.json");
 
-            var data = transformLinks(JSON.parse(dataRes));
+    //         var data = transformLinks(JSON.parse(dataRes));
 
-            setModel(data);
-        })();
-    }, []);
+    //         setModel(data);
+    //     })();
+    // }, []);
 
     return (
         <div className="layout-topbar p-shadow-4">

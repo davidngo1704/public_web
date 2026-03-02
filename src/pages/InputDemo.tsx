@@ -191,12 +191,10 @@ export const InputDemo = () => {
                         />
                     </div>
                     <div className="p-col-12 p-mb-12 p-lg-12 p-mb-lg-12">
-                        <InputText 
-                            type="text"
-                            placeholder="Nhập System Prompt" 
-                            value={systemPrompt}
-                            onChange={(e) => setsystemPrompt(e.target.value)}
-                        />
+
+                        <InputTextarea id="textarea" rows={10} cols={30} value={systemPrompt} onChange={(e) => setsystemPrompt(e.target.value)}></InputTextarea>
+                                                       
+
                     </div>
                 </div>
                 <div className="p-col-12">

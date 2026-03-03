@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto</title>
+    <link rel="stylesheet" href="styles/crypto.css">
+</head>
+
+<body>
+
+    <div class="header-marquee">
+        <div class="marquee-content" id="marquee-content">
+
+
+            <div class="marquee-item">
+                <span class="marquee-label">Thời gian:</span>
+                <span class="marquee-value" id="daint_time"></span>
+            </div>
+
+            <div class="marquee-item">
+                <span class="marquee-label">Tổng tiền:</span>
+                <span class="marquee-value" id="total-money"></span>
+            </div>
+
+            <div class="marquee-item">
+                <span class="marquee-label">Tổng lãi/lỗ:</span>
+                <span class="marquee-value" id="total-profit"></span>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="dashboard-container">
+
+        <div class="card">
+            <div class="card-header">
+                <span
+                    style="font-size: 1rem;color:#bdc952;font-weight: 600;text-shadow: 0 0 2px #bdc952;">BINANCE</span>
+
+                <span style="font-size: 1rem;color:#f8f7ab;font-weight: 600;text-shadow: 0 0 2px #f8f7ab;"
+                    id="money_goc_binance"></span>
+                <span style="font-size: 1rem;color:#fcfcfc;font-weight: 600;text-shadow: 0 0 2px #fcfcfc;"
+                    id="money_hien_tai_binance"></span>
+                <span style="font-size: 1rem;color:#fcfcfc;font-weight: 600;text-shadow: 0 0 2px #fcfcfc;"
+                    id="lai_lo_binance"></span>
+            </div>
+            <div class="card-content">
+
+                <div>
+                    <table style="
+                            border-collapse:collapse;
+                            width:31vw;
+                            max-width:31vw;
+                            min-width:31vw;
+                            table-layout:fixed;
+                            font-family:Arial,sans-serif;
+                            font-size:14px;
+                            background:#1f2933;
+                            color:#ffffff;
+                        ">
+                        <thead>
+                            <tr>
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Cặp<br>GD
+                                </th>
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Vị<br>thế
+                                </th>
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Giá<br>vào
+                                </th>
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Giá<br>hiện_tại
+                                </th>
+
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Thanh<br>lý
+                                </th>
+
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Khối<br>lượng
+                                </th>
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    PnL
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="binance_future_body_row">
+
+                        </tbody>
+                    </table>
+                    <br />
+
+                    <!-- <table style="
+                            border-collapse:collapse;
+                            width:31vw;
+                            max-width:31vw;
+                            min-width:31vw;
+                            table-layout:fixed;
+                            font-family:Arial,sans-serif;
+                            font-size:14px;
+                            background:#1f2933;
+                            color:#ffffff;
+                        ">
+                        <thead>
+                            <tr>
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Tài<br>Sản
+                                </th>
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Khối<br>lượng
+                                </th>
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Giá<br>vào
+                                </th>
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Giá hiện tại
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="binance_spot_body_row">
+                        </tbody>
+                    </table> -->
+
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-header">
+                <span style="font-size: 1rem;color:#512cd6;font-weight: 600;text-shadow: 0 0 2px #ceccd6;">OKX</span>
+                <span style="font-size: 1rem;color:#f8f7ab;font-weight: 600;text-shadow: 0 0 2px #f8f7ab;"
+                    id="money_goc_okx"></span>
+                <span style="font-size: 1rem;color:#fcfcfc;font-weight: 600;text-shadow: 0 0 2px #fcfcfc;"
+                    id="money_hien_tai_okx"></span>
+                <span style="font-size: 1rem;color:#fcfcfc;font-weight: 600;text-shadow: 0 0 2px #fcfcfc;"
+                    id="lai_lo_okx"></span>
+            </div>
+            <div class="card-content">
+
+
+                <div>
+                    <table style="
+                            border-collapse:collapse;
+                            width:31vw;
+                            max-width:31vw;
+                            min-width:31vw;
+                            table-layout:fixed;
+                            font-family:Arial,sans-serif;
+                            font-size:14px;
+                            background:#1f2933;
+                            color:#ffffff;
+                        ">
+                        <thead>
+                            <tr>
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Cặp<br>GD
+                                </th>
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Vị<br>thế
+                                </th>
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Giá<br>vào
+                                </th>
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Giá<br>hiện_tại
+                                </th>
+
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Thanh<br>lý
+                                </th>
+
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Khối<br>lượng
+                                </th>
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    PnL
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="okx_body_row">
+
+                        </tbody>
+                    </table>
+                    <br />
+
+
+
+
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span style="font-size: 1rem;color:#963274;font-weight: 600;text-shadow: 0 0 2px #963274;">BYBIT</span>
+                <span style="font-size: 1rem;color:#f8f7ab;font-weight: 600;text-shadow: 0 0 2px #f8f7ab;" id="money_goc_bybit"></span>
+                <span style="font-size: 1rem;color:#fcfcfc;font-weight: 600;text-shadow: 0 0 2px #fcfcfc;" id="money_hien_tai_bybit"></span>
+                <span style="font-size: 1rem;color:#fcfcfc;font-weight: 600;text-shadow: 0 0 2px #fcfcfc;" id="lai_lo_bybit"></span>
+            </div>
+            <div class="card-content">
+
+
+                <div>
+                    <table style="
+                                border-collapse:collapse;
+                                width:31vw;
+                                max-width:31vw;
+                                min-width:31vw;
+                                table-layout:fixed;
+                                font-family:Arial,sans-serif;
+                                font-size:14px;
+                                background:#1f2933;
+                                color:#ffffff;
+                            ">
+                        <thead>
+                            <tr>
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Cặp<br>GD
+                                </th>
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Vị<br>thế
+                                </th>
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Giá<br>vào
+                                </th>
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Giá<br>hiện_tại
+                                </th>
+
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Thanh<br>lý
+                                </th>
+
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Khối<br>lượng
+                                </th>
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    PnL
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="bybit_body_row">
+
+                        </tbody>
+                    </table>
+                    <br />
+
+
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span style="font-size: 1rem;color:#963274;font-weight: 600;text-shadow: 0 0 2px #963274;">BITGET</span>
+                <span style="font-size: 1rem;color:#f8f7ab;font-weight: 600;text-shadow: 0 0 2px #f8f7ab;" id="money_goc_bitget"></span>
+                <span style="font-size: 1rem;color:#fcfcfc;font-weight: 600;text-shadow: 0 0 2px #fcfcfc;" id="money_hien_tai_bitget"></span>
+                <span style="font-size: 1rem;color:#fcfcfc;font-weight: 600;text-shadow: 0 0 2px #fcfcfc;" id="lai_lo_bitget"></span>
+            </div>
+            <div class="card-content">
+
+
+                 <div>
+                    <table style="
+                                border-collapse:collapse;
+                                width:31vw;
+                                max-width:31vw;
+                                min-width:31vw;
+                                table-layout:fixed;
+                                font-family:Arial,sans-serif;
+                                font-size:14px;
+                                background:#1f2933;
+                                color:#ffffff;
+                            ">
+                        <thead>
+                            <tr>
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Cặp<br>GD
+                                </th>
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Vị<br>thế
+                                </th>
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Giá<br>vào
+                                </th>
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Giá<br>hiện_tại
+                                </th>
+
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Thanh<br>lý
+                                </th>
+
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Khối<br>lượng
+                                </th>
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    PnL
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="bitget_body_row">
+
+                        </tbody>
+                    </table>
+                    <br />
+
+
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span style="font-size: 1rem;color:#512cd6;font-weight: 600;text-shadow: 0 0 2px #512cd6;">BINGX</span>
+
+                <span style="font-size: 1rem;color:#f8f7ab;font-weight: 600;text-shadow: 0 0 2px #f8f7ab;"
+                    id="money_goc_bingx"></span>
+                <span style="font-size: 1rem;color:#fcfcfc;font-weight: 600;text-shadow: 0 0 2px #fcfcfc;"
+                    id="money_hien_tai_bingx"></span>
+                <span style="font-size: 1rem;color:#fcfcfc;font-weight: 600;text-shadow: 0 0 2px #fcfcfc;"
+                    id="lai_lo_bingx"></span>
+            </div>
+            <div class="card-content">
+
+
+                <div>
+                    <table style="
+                            border-collapse:collapse;
+                            width:31vw;
+                            max-width:31vw;
+                            min-width:31vw;
+                            table-layout:fixed;
+                            font-family:Arial,sans-serif;
+                            font-size:14px;
+                            background:#1f2933;
+                            color:#ffffff;
+                        ">
+                        <thead>
+                            <tr>
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Cặp<br>GD
+                                </th>
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Vị<br>thế
+                                </th>
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Giá<br>vào
+                                </th>
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Giá<br>hiện_tại
+                                </th>
+
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Thanh<br>lý
+                                </th>
+
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    Khối<br>lượng
+                                </th>
+                                <th
+                                    style="border:1px solid #374151;padding:6px;background:#374151;color:#fff;text-align:center;line-height:1.2">
+                                    PnL
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="bingx_future_body_row">
+
+                        </tbody>
+                    </table>
+                    <br />
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+        <div class="card">
+            <div class="card-header"></div>
+            <div class="card-content">
+
+            </div>
+        </div>
+
+    </div>
+
+    <script src="scripts/crypto/bingx.js"></script>
+    <script src="scripts/crypto/binance.js"></script>
+    <script src="scripts/crypto/okx.js"></script>
+    <script src="scripts/crypto/bybit.js"></script>
+    <script src="scripts/crypto/bitget.js"></script>
+    <script src="scripts/marquee.js"></script>
+    <script>
+        // if none of the exchanges returned future position data, send user to gia_coin.html
+        setTimeout(() => {
+            if (!window.HAS_FUTURE_DATA) {
+                window.location.href = "gia_coin.html";
+            }
+        }, 5000);
+    </script>
+    <script>
+        setInterval(() => {
+            location.reload(true);
+        }, 2 * 60 * 1000);
+    </script>
+</body>
+
+</html>

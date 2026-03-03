@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { classNames } from 'primereact/utils';
 import { Route } from 'react-router-dom'
 import AppTopbar from './AppTopbar';
-import AppInlineMenu from './AppInlineMenu';
 import AppMenu from './AppMenu';
 import AppConfig from './AppConfig';
 import AppRightMenu from './AppRightMenu';
@@ -42,84 +41,12 @@ import { Invoice } from './pages/Invoice';
 import { Help } from './pages/Help';
 import { TimelineDemo } from './pages/TimelineDemo';
 import PrimeReact from 'primereact/api';
+import httpClient from './utils/htttpClient';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
 import './App.scss';
 export const RTLContext = React.createContext(false);
-
-const hardcodedMenuModel = [
-    {
-        label: 'Dashboards',
-        icon: 'pi pi-fw pi-home',
-        items: [
-            { label: 'Dashboard V2', icon: 'pi pi-fw pi-home', to: '/' },
-            { label: 'Chat Dashboard', icon: 'pi pi-fw pi-comments', to: '/chat' },
-            { label: 'Phong Tro', icon: 'pi pi-fw pi-chart-line', to: '/phong_tro' }
-        ]
-    },
-    {
-        label: 'Start',
-        icon: 'pi pi-fw pi-book',
-        items: [
-            { label: 'Documentation', icon: 'pi pi-fw pi-file', to: '/start/documentation' }
-        ]
-    },
-    {
-        label: 'System',
-        icon: 'pi pi-fw pi-cog',
-        items: [
-            { label: 'Source', icon: 'pi pi-fw pi-sitemap', to: '/source' },
-            { label: 'Config', icon: 'pi pi-fw pi-sliders-h', to: '/config' }
-        ]
-    },
-    {
-        label: 'UIKit',
-        icon: 'pi pi-fw pi-box',
-        items: [
-            { label: 'Form Layout', icon: 'pi pi-fw pi-id-card', to: '/uikit/formlayout' },
-            { label: 'Float Label', icon: 'pi pi-fw pi-pencil', to: '/uikit/floatlabel' },
-            { label: 'Invalid State', icon: 'pi pi-fw pi-exclamation-triangle', to: '/uikit/invalidstate' },
-            { label: 'Button', icon: 'pi pi-fw pi-check-square', to: '/uikit/button' },
-            { label: 'Table', icon: 'pi pi-fw pi-table', to: '/uikit/table' },
-            { label: 'List', icon: 'pi pi-fw pi-list', to: '/uikit/list' },
-            { label: 'Panel', icon: 'pi pi-fw pi-window-maximize', to: '/uikit/panel' },
-            { label: 'Overlay', icon: 'pi pi-fw pi-clone', to: '/uikit/overlay' },
-            { label: 'Menu', icon: 'pi pi-fw pi-bars', to: '/uikit/menu' },
-            { label: 'Message', icon: 'pi pi-fw pi-envelope', to: '/uikit/message' },
-            { label: 'File', icon: 'pi pi-fw pi-file', to: '/uikit/file' },
-            { label: 'Chart', icon: 'pi pi-fw pi-chart-bar', to: '/uikit/chart' },
-            { label: 'Misc', icon: 'pi pi-fw pi-briefcase', to: '/uikit/misc' }
-        ]
-    },
-    {
-        label: 'Utilities',
-        icon: 'pi pi-fw pi-wrench',
-        items: [
-            { label: 'Display', icon: 'pi pi-fw pi-desktop', to: '/utilities/display' },
-            { label: 'Elevation', icon: 'pi pi-fw pi-layer-group', to: '/utilities/elevation' },
-            { label: 'Flexbox', icon: 'pi pi-fw pi-arrows-h', to: '/utilities/flexbox' },
-            { label: 'Icons', icon: 'pi pi-fw pi-star', to: '/utilities/icons' },
-            { label: 'Widgets', icon: 'pi pi-fw pi-th-large', to: '/utilities/widgets' },
-            { label: 'Grid', icon: 'pi pi-fw pi-th-large', to: '/utilities/grid' },
-            { label: 'Spacing', icon: 'pi pi-fw pi-arrows-alt', to: '/utilities/spacing' },
-            { label: 'Typography', icon: 'pi pi-fw pi-align-left', to: '/utilities/typography' },
-            { label: 'Text', icon: 'pi pi-fw pi-file-edit', to: '/utilities/text' }
-        ]
-    },
-    {
-        label: 'Pages',
-        icon: 'pi pi-fw pi-copy',
-        items: [
-            { label: 'CRUD', icon: 'pi pi-fw pi-database', to: '/pages/crud' },
-            { label: 'Calendar', icon: 'pi pi-fw pi-calendar', to: '/pages/calendar' },
-            { label: 'Help', icon: 'pi pi-fw pi-question-circle', to: '/pages/help' },
-            { label: 'Invoice', icon: 'pi pi-fw pi-file-pdf', to: '/pages/invoice' },
-            { label: 'Empty', icon: 'pi pi-fw pi-circle-off', to: '/pages/empty' },
-            { label: 'Timeline', icon: 'pi pi-fw pi-clock', to: '/pages/timeline' }
-        ]
-    }
-];
 
 const App = () => {
     // Load theme config from localStorage on initial mount
@@ -158,8 +85,15 @@ const App = () => {
             setDesktopMenuActive(true)
         }
     }, [menuMode]);
-    const [menu] = React.useState<any>(hardcodedMenuModel);
+    const [menu, setMenu] = useState<any>([]);
     useEffect(() => {
+
+        (async () => {
+            let dataRes = await httpClient.getMethod("file/download-text?filepath=D%3A%2F%2FApiGateway%5Cdata%5Cconfig%5Cmenu.json");
+
+            setMenu(JSON.parse(dataRes));
+        })();
+
         onColorModeChange(colorMode);
     }, []) // eslint-disable-line react-hooks/exhaustive-deps
 

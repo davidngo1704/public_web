@@ -32,12 +32,54 @@ interface PersistedNode {
 const STORE_NAME = "documents";
 
 export const TreeDemo = () => {
+    const [treeNodes, setTreeNodes] = useState<TreeNode[]>([]);
+    const [selectedTreeNodeKeys, setSelectedTreeNodeKeys] = useState<string | { [key: string]: boolean } | null>(null);
+    const [selectedNode, setSelectedNode] = useState<TreeNode | null>(null);
+    const [currentFileContent, setCurrentFileContent] = useState<any>('');
+    const [addDialog, setAddDialog] = useState(false);
+    const [editDialog, setEditDialog] = useState(false);
+    const [newNodeName, setNewNodeName] = useState('');
+    const [newNodeType, setNewNodeType] = useState<'folder' | 'file'>('folder');
+    const [editNodeName, setEditNodeName] = useState('');
+    const contextMenu = useRef<any>(null);
+    const pendingContextMenuEvent = useRef<any>(null);
+    const toast = useRef<any>(null);
+    const [contextMenuType, setContextMenuType] = useState<'folder' | 'file'>('folder');
+    const [itemDocuments, setItemDocuments] = useState<any[]>([]);
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
+    const uploadTargetKeyRef = useRef<string | null>(null);
+    const [terminalVisible, setTerminalVisible] = useState<boolean>(false);
+    const [terminalCollapsed, setTerminalCollapsed] = useState<boolean>(false);
+    const [prompt, setPrompt] = useState<string>("Jarvis $");
+    const [os, setOs] = useState<string>("");
+    const [resultDialog, setResultDialog] = useState(false);
+    const [resultContent, setResultContent] = useState<string>('');
+    const [isLoading, setIsLoading] = useState(false);
+    const keyRoot: any = localStorage.getItem('rootFolder');
+
+    const getTree = async () => {
+
+        let items = await httpClient.getMethod("file/scan?filepath=" + encodeURIComponent(keyRoot || ''));
+
+        setItemDocuments(items);
+
+        let dataTree = buildTreeFromItems(items as PersistedNode[]);
+
+        setTreeNodes(dataTree);
+    }
+
+    const getos = async () => {
+
+        let info = await httpClient.getMethod("os/info");
+
+        setOs(info);
+    }
 
     const commandHandler = async (text: any) => {
-        let response = await httpClient.postMethod('linux/execute', { command: text });
+        let response = await httpClient.postMethod(`${os}/execute`, { command: text });
 
         switch (text) {
-     
+
             case 'clear':
                 response = null;
                 break;
@@ -61,44 +103,9 @@ export const TreeDemo = () => {
         }
     }, [])
 
-
-    const [treeNodes, setTreeNodes] = useState<TreeNode[]>([]);
-    const [selectedTreeNodeKeys, setSelectedTreeNodeKeys] = useState<string | { [key: string]: boolean } | null>(null);
-    const [selectedNode, setSelectedNode] = useState<TreeNode | null>(null);
-    const [currentFileContent, setCurrentFileContent] = useState<any>('');
-    const [addDialog, setAddDialog] = useState(false);
-    const [editDialog, setEditDialog] = useState(false);
-    const [newNodeName, setNewNodeName] = useState('');
-    const [newNodeType, setNewNodeType] = useState<'folder' | 'file'>('folder');
-    const [editNodeName, setEditNodeName] = useState('');
-    const contextMenu = useRef<any>(null);
-    const pendingContextMenuEvent = useRef<any>(null);
-    const toast = useRef<any>(null);
-    const [contextMenuType, setContextMenuType] = useState<'folder' | 'file'>('folder');
-    const [itemDocuments, setItemDocuments] = useState<any[]>([]);
-    const fileInputRef = useRef<HTMLInputElement | null>(null);
-    const uploadTargetKeyRef = useRef<string | null>(null);
-    const [terminalVisible, setTerminalVisible] = useState<boolean>(false);
-    const [terminalCollapsed, setTerminalCollapsed] = useState<boolean>(false);
-    const [prompt, setPrompt] = useState<string>("Jarvis $");
-    const [resultDialog, setResultDialog] = useState(false);
-    const [resultContent, setResultContent] = useState<string>('');
-    const [isLoading, setIsLoading] = useState(false);
-    const keyRoot: any = localStorage.getItem('rootFolder');
-
-    const getTree = async () => {
-
-            let items = await httpClient.getMethod("file/scan?filepath=" + encodeURIComponent(keyRoot || ''));
-
-            setItemDocuments(items);
-
-            let dataTree = buildTreeFromItems(items as PersistedNode[]);
-
-            setTreeNodes(dataTree);
-    }
-
     useEffect(() => {
         getTree();
+        getos();
     }, []);
 
     const buildTreeFromItems = (items: PersistedNode[]): TreeNode[] => {
@@ -248,7 +255,7 @@ export const TreeDemo = () => {
             return true;
         });
     };
-    
+
     // Helper function to add node to tree structure
     const addNodeToTree = (nodes: TreeNode[], parentKey: string, node: TreeNode): TreeNode[] => {
         return nodes.map(n => {
@@ -404,7 +411,7 @@ export const TreeDemo = () => {
         setEditNodeName('');
 
         setEditDialog(false);
-        
+
         setTimeout(() => {
             getTree();
         }, 1000);
@@ -531,43 +538,71 @@ export const TreeDemo = () => {
             return;
         }
         const node = findNodeByKey(treeNodes, selectedKey);
-     
-        if(node) {
+
+        if (node) {
             setIsLoading(true);
             try {
-                if(node.key.endsWith('.sh')){
-                    let response = await httpClient.postMethod('linux/execute', { command: `bash ${node.key}` });
+                switch (os) {
+                    case 'window':
+                        {
+                            if (node.key.endsWith('.ps1')) {
+                                let response = await httpClient.postMethod(`${os}/execute_script`, { file: node.key });
 
-                    if (response) {
-                        setResultContent(response);
-                        setResultDialog(true);
-                    }
+                                if (response) {
+                                    setResultContent(response);
+                                    setResultDialog(true);
+                                }
+                            }
+                            else if (node.key.endsWith('.py')) {
+
+                                let response = await httpClient.postMethod(`${os}/execute_python`, { file: node.key });
+
+                                if (response) {
+                                    setResultContent(response);
+                                    setResultDialog(true);
+                                }
+                            }
+                            break;
+                        }
+                    default:
+                        {
+                            if (node.key.endsWith('.sh')) {
+                                let response = await httpClient.postMethod(`${os}/execute`, { command: `bash ${node.key}` });
+
+                                if (response) {
+                                    setResultContent(response);
+                                    setResultDialog(true);
+                                }
+                            }
+                            else if (node.key.endsWith('.py')) {
+
+                                const item = itemDocuments.find(m => m.key === selectedKey);
+
+                                let response = await httpClient.postMethod(`${os}/execute`, { command: `cd ${item.parentKey} && source .venv/bin/activate && python ${node.label}` });
+
+                                if (response) {
+                                    setResultContent(response);
+                                    setResultDialog(true);
+                                }
+                            }
+                            else if (node.key.endsWith('.js')) {
+                                const item = itemDocuments.find(m => m.key === selectedKey);
+
+                                let response = await httpClient.postMethod(`${os}/execute`, { command: `cd ${item.parentKey} && node ${node.key}` });
+
+                                if (response) {
+                                    setResultContent(response);
+                                    setResultDialog(true);
+                                }
+                            }
+                            else {
+                                toast.current?.show({ severity: 'warn', summary: 'Cảnh báo', detail: 'Chỉ có thể chạy file .sh', life: 3000 });
+                            }
+                        }
+                        break;
                 }
-                else if(node.key.endsWith('.py')){
 
-                    const item = itemDocuments.find(m => m.key === selectedKey);
 
-                    let response = await httpClient.postMethod('linux/execute', { command: `cd ${item.parentKey} && source .venv/bin/activate && python ${node.label}` });
-
-                    if (response) {
-                        setResultContent(response);
-                        setResultDialog(true);
-                    }
-                }
-                else if(node.key.endsWith('.js')){
-                    const item = itemDocuments.find(m => m.key === selectedKey);
-                    
-                    let response = await httpClient.postMethod('linux/execute', { command: `cd ${item.parentKey} && node ${node.key}` });
-
-                    if (response) {
-                        setResultContent(response);
-                        setResultDialog(true);
-                    }
-                }
-                else
-                {
-                    toast.current?.show({ severity: 'warn', summary: 'Cảnh báo', detail: 'Chỉ có thể chạy file .sh', life: 3000 });
-                }
             } catch (error: any) {
                 const errorMessage = error?.response?.data?.message || error?.message || 'Có lỗi xảy ra khi thực thi file';
                 toast.current?.show({ severity: 'error', summary: 'Lỗi', detail: errorMessage, life: 5000 });
@@ -577,7 +612,7 @@ export const TreeDemo = () => {
             }
         }
 
-     
+
     };
 
     // Save file content
@@ -765,14 +800,14 @@ export const TreeDemo = () => {
                     }
                 }
             }
-          
+
         ];
 
         return contextMenuType === 'file' ? actionItems : [...additionItems, ...actionItems];
     }, [contextMenuType, openAddDialog, openEditDialog, confirmDelete, handleUploadFileMenuClick]);
 
     // Custom node template with drag and drop support
- 
+
     // Update selected node when selection changes
     useEffect(() => {
         handleNodeClick();

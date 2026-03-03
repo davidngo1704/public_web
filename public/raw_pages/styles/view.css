@@ -1,0 +1,137 @@
+  :root {
+    --bg: #0f172a;
+    --panel: #020617;
+    --border: #334155;
+    --key: #38bdf8;
+    --text: #e5e7eb;
+    --muted: #94a3b8;
+    --badge: #1e293b;
+    --warn: #facc15;
+    --nav-h: 84px;
+    --controls-h: 56px;
+    --top-gap: 12px;
+  }
+
+  body {
+    margin: 0;
+    padding: 16px;
+    padding-top: calc(var(--nav-h) + var(--controls-h) + var(--top-gap) + 16px);
+    font-family: system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  h1 {
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+
+  .card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 10px;
+    margin: 6px 0;
+    background: var(--panel);
+  }
+
+  .row {
+    margin: 4px 0;
+    line-height: 1.5;
+  }
+
+  .key {
+    color: var(--key);
+    font-weight: 500;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 6px;
+    background: var(--badge);
+    font-size: 12px;
+    margin-left: 4px;
+  }
+
+  .muted {
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  .warn {
+    color: var(--warn);
+    font-size: 12px;
+    margin-left: 6px;
+  }
+
+  .collapsible {
+    cursor: pointer;
+    user-select: none;
+    font-size: 13px;
+    margin-bottom: 4px;
+    color: var(--muted);
+  }
+
+  .collapsed > .content {
+    display: none;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  th, td {
+    border: 1px solid var(--border);
+    padding: 4px 6px;
+    text-align: left;
+  }
+
+  th {
+    background: #020617;
+    color: var(--key);
+  }
+
+  .null {
+    opacity: 0.4;
+    font-style: italic;
+  }
+
+  #controls {
+    position: fixed;
+    top: calc(var(--nav-h) + var(--top-gap));
+    left: 16px;
+    right: 16px;
+    z-index: 1000;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 10px 12px;
+    background: rgba(2, 6, 23, 0.92);
+    backdrop-filter: blur(10px);
+  }
+
+  #jsonFileSelect {
+    flex: 1;
+    min-width: 260px;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--panel);
+    color: var(--text);
+    outline: none;
+  }
+
+  #currentFile {
+    max-width: 45%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 720px) {
+    #currentFile { max-width: 100%; }
+    #jsonFileSelect { min-width: 100%; }
+  }

@@ -1,0 +1,44 @@
+/**
+ * Menu Navigation CSS - Tái sử dụng cho tất cả các trang
+ * Sử dụng: Thêm <link rel="stylesheet" href="common/menu.css"> vào <head>
+ */
+
+/* NAVIGATION BAR */
+#menuNav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    min-height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    background: rgba(2, 6, 23, 0.75);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px rgba(56, 189, 248, 0.4);
+    z-index: 1001;
+    padding: 12px 20px;
+}
+
+#menuNav a {
+    color: #e5e7eb;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 999px;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    background: rgba(56, 189, 248, 0.1);
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+#menuNav a:hover {
+    background: rgba(56, 189, 248, 0.2);
+    border-color: rgba(56, 189, 248, 0.6);
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+    transform: translateY(-2px);
+}
+
+#menuNav a:active {
+    transform: translateY(0);
+}

@@ -6,8 +6,8 @@ import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
 import { InputText } from 'primereact/inputtext';
 import { ProgressBar } from 'primereact/progressbar';
-import ProductService from '../service/ProductService';
-import CustomerService from '../service/CustomerService';
+import ProductService from '../../service/ProductService';
+import CustomerService from '../../service/CustomerService';
 
 export const TableDemo = () => {
 

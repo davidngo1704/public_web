@@ -1,5 +1,5 @@
 import React from 'react';
-import AppCodeHighlight from '../AppCodeHighlight';
+import AppCodeHighlight from '../../AppCodeHighlight';
 
 export const Documentation = () => {
 

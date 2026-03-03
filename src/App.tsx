@@ -6,46 +6,47 @@ import AppMenu from './AppMenu';
 import AppConfig from './AppConfig';
 import AppRightMenu from './AppRightMenu';
 import { loadThemeConfig, saveThemeConfig } from './utils/themeStorage';
-import { Dashboard } from './pages/Dashboard';
-import { DashboardV2 } from './pages/DashboardV2';
-import { DashboardAnalytics } from './pages/DashboardAnalytics';
-import { ButtonDemo } from './pages/ButtonDemo';
-import { ChartDemo } from './pages/ChartDemo';
-import { MessagesDemo } from './pages/MessagesDemo';
-import { Documentation } from './pages/Documentation';
-import { FileDemo } from './pages/FileDemo';
-import { FormLayoutDemo } from './pages/FormLayoutDemo';
-import { InputDemo } from './pages/InputDemo';
-import { ListDemo } from './pages/ListDemo';
-import { MiscDemo } from './pages/MiscDemo';
-import { MenuDemo } from './pages/MenuDemo';
-import { OverlayDemo } from './pages/OverlayDemo';
-import { PanelDemo } from './pages/PanelDemo';
-import { TableDemo } from './pages/TableDemo';
-import { TreeDemo } from './pages/TreeDemo';
-import { FloatLabelDemo } from './pages/FloatLabelDemo';
-import { InvalidStateDemo } from './pages/InvalidStateDemo';
-import { DisplayDemo } from './pages/DisplayDemo';
-import { ElevationDemo } from './pages/ElevationDemo';
-import { FlexBoxDemo } from './pages/FlexboxDemo';
-import { GridDemo } from './pages/GridDemo';
-import { IconsDemo } from './pages/IconsDemo';
-import { SpacingDemo } from './pages/SpacingDemo';
-import { TextDemo } from './pages/TextDemo';
-import { TypographyDemo } from './pages/TypographyDemo';
-import { WidgetsDemo } from './pages/WidgetsDemo';
-import { Crud } from './pages/Crud';
-import { Calendar } from './pages/Calendar';
-import { EmptyPage } from './pages/EmptyPage';
-import { Invoice } from './pages/Invoice';
-import { Help } from './pages/Help';
-import { TimelineDemo } from './pages/TimelineDemo';
+import { Dashboard } from './pages/demo/Dashboard';
+import { DashboardV2 } from './pages/demo/DashboardV2';
+import { DashboardAnalytics } from './pages/demo/DashboardAnalytics';
+import { ButtonDemo } from './pages/demo/ButtonDemo';
+import { ChartDemo } from './pages/demo/ChartDemo';
+import { MessagesDemo } from './pages/demo/MessagesDemo';
+import { Documentation } from './pages/demo/Documentation';
+import { FileDemo } from './pages/demo/FileDemo';
+import { FormLayoutDemo } from './pages/demo/FormLayoutDemo';
+import { InputDemo } from './pages/demo/InputDemo';
+import { ListDemo } from './pages/demo/ListDemo';
+import { MiscDemo } from './pages/demo/MiscDemo';
+import { MenuDemo } from './pages/demo/MenuDemo';
+import { OverlayDemo } from './pages/demo/OverlayDemo';
+import { PanelDemo } from './pages/demo/PanelDemo';
+import { TableDemo } from './pages/demo/TableDemo';
+import { TreeDemo } from './pages/demo/TreeDemo';
+import { FloatLabelDemo } from './pages/demo/FloatLabelDemo';
+import { InvalidStateDemo } from './pages/demo/InvalidStateDemo';
+import { DisplayDemo } from './pages/demo/DisplayDemo';
+import { ElevationDemo } from './pages/demo/ElevationDemo';
+import { FlexBoxDemo } from './pages/demo/FlexboxDemo';
+import { GridDemo } from './pages/demo/GridDemo';
+import { IconsDemo } from './pages/demo/IconsDemo';
+import { SpacingDemo } from './pages/demo/SpacingDemo';
+import { TextDemo } from './pages/demo/TextDemo';
+import { TypographyDemo } from './pages/demo/TypographyDemo';
+import { WidgetsDemo } from './pages/demo/WidgetsDemo';
+import { Crud } from './pages/demo/Crud';
+import { Calendar } from './pages/demo/Calendar';
+import { EmptyPage } from './pages/demo/EmptyPage';
+import { Invoice } from './pages/demo/Invoice';
+import { Help } from './pages/demo/Help';
+import { TimelineDemo } from './pages/demo/TimelineDemo';
 import PrimeReact from 'primereact/api';
 import httpClient from './utils/htttpClient';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
 import './App.scss';
+
 export const RTLContext = React.createContext(false);
 
 const App = () => {
@@ -85,7 +86,9 @@ const App = () => {
             setDesktopMenuActive(true)
         }
     }, [menuMode]);
+    
     const [menu, setMenu] = useState<any>([]);
+
     useEffect(() => {
 
         (async () => {
@@ -95,7 +98,7 @@ const App = () => {
         })();
 
         onColorModeChange(colorMode);
-    }, []) // eslint-disable-line react-hooks/exhaustive-deps
+    }, [])
 
     useEffect(() => {
         saveThemeConfig({

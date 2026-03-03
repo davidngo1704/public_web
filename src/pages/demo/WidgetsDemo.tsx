@@ -5,7 +5,7 @@ import { Button } from 'primereact/button';
 import { ProgressBar } from 'primereact/progressbar';
 import { Menu } from 'primereact/menu';
 import { Chart } from 'primereact/chart';
-import { RTLContext } from '../App';
+import { RTLContext } from '../../App';
 
 const overviewChartData1 = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September'],

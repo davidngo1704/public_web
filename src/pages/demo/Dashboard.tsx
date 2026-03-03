@@ -1,4 +1,4 @@
-import ChatComponent from '../components/ChatComponent';
+import ChatComponent from '../../components/ChatComponent';
 export const Dashboard = (props: any) => {
     return (
         <>

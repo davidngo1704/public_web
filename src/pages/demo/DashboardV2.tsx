@@ -2,9 +2,9 @@ import React, { useRef, useState, useEffect, useContext } from 'react';
 import { classNames } from 'primereact/utils';
 import { Chart } from 'primereact/chart';
 import { Toast } from 'primereact/toast';
-import { RTLContext } from '../App';
-import ChatComponent from '../components/ChatComponent';
-import { fetchPrices, SymbolCode } from '../utils/stockClient';
+import { RTLContext } from '../../App';
+import ChatComponent from '../../components/ChatComponent';
+import { fetchPrices, SymbolCode } from '../../utils/stockClient';
 
 export const DashboardV2 = (props: any) => {
 

@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { Route, withRouter, useLocation } from 'react-router-dom';
 import App from "./App";
-import Login from "./pages/Login";
-import Error from "./pages/Error";
-import NotFound from "./pages/NotFound";
-import Access from "./pages/Access";
-import Landing from './pages/Landing';
+import Login from "./pages/demo/Login";
+import Error from "./pages/demo/Error";
+import NotFound from "./pages/demo/NotFound";
+import Access from "./pages/demo/Access";
+import Landing from './pages/demo/Landing';
 
 const AppWrapper = (props: any) => {
 	let location = useLocation();

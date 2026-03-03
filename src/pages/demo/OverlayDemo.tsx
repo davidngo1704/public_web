@@ -9,7 +9,7 @@ import { OverlayPanel } from 'primereact/overlaypanel';
 import { InputText } from 'primereact/inputtext';
 import { confirmDialog } from 'primereact/confirmdialog';
 import { confirmPopup } from 'primereact/confirmpopup';
-import ProductService from '../service/ProductService';
+import ProductService from '../../service/ProductService';
 
 export const OverlayDemo = () => {
 

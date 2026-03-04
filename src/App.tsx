@@ -40,6 +40,10 @@ import { EmptyPage } from './pages/demo/EmptyPage';
 import { Invoice } from './pages/demo/Invoice';
 import { Help } from './pages/demo/Help';
 import { TimelineDemo } from './pages/demo/TimelineDemo';
+
+import { Coin } from './pages/crypto/coin';
+
+
 import PrimeReact from 'primereact/api';
 import httpClient from './utils/htttpClient';
 import 'primereact/resources/primereact.min.css';
@@ -86,7 +90,7 @@ const App = () => {
             setDesktopMenuActive(true)
         }
     }, [menuMode]);
-    
+
     const [menu, setMenu] = useState<any>([]);
 
     useEffect(() => {
@@ -373,12 +377,34 @@ const App = () => {
                 <div className="layout-main">
 
                     <div className="layout-content">
-                        <Route path="/" exact render={() => <DashboardV2 colorMode={colorMode} isNewThemeLoaded={newThemeLoaded} onNewThemeChange={(e: any) => setNewThemeLoaded(e)} />} />
+                        <Route 
+                            path="/" 
+                            exact 
+                            render={() => 
+                                <TreeDemo />
+                            } 
+                        />
+                        <Route path="/coin" component={Coin} />
+                  
+
+
+
+
+                        <Route 
+                            path="/dashboard" 
+                            exact 
+                            render={() => 
+                                <DashboardV2 
+                                    colorMode={colorMode} 
+                                    isNewThemeLoaded={newThemeLoaded} 
+                                    onNewThemeChange={(e: any) => setNewThemeLoaded(e)} 
+                                />
+                            } 
+                        />
                         <Route path="/chat" render={() => <Dashboard colorMode={colorMode} isNewThemeLoaded={newThemeLoaded} onNewThemeChange={(e: any) => setNewThemeLoaded(e)} />} />
                         <Route path="/start/documentation" component={Documentation} />
                         <Route path="/phong_tro" render={() => <DashboardAnalytics colorMode={colorMode} isNewThemeLoaded={newThemeLoaded} onNewThemeChange={(e: any) => setNewThemeLoaded(e)} />} />
                         <Route path="/uikit/formlayout" component={FormLayoutDemo} />
-                        <Route path="/source" component={TreeDemo} />
                         <Route path="/config" component={InputDemo} />
                         <Route path="/uikit/floatlabel" component={FloatLabelDemo} />
                         <Route path="/uikit/invalidstate" component={InvalidStateDemo} />

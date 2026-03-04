@@ -5,11 +5,17 @@ import React from "react";
 import { useState } from "react";
 import httpClient from "../../utils/htttpClient";
 
+import { useRef } from "react";
 
 export const DaintChart = () => {
     const [activeCoinIndex, setActiveCoinIndex] = useState(0);
     const [config, setConfig] = React.useState<any>({});
+
+  
+
     React.useEffect(() => {
+
+    
         (async () => {
 
             let configData = JSON.parse(await httpClient.getFileData(["data", "config", "web", "config.json"]));
@@ -17,6 +23,7 @@ export const DaintChart = () => {
             setConfig(configData);
             
         })();
+
     }, []);
     return (
         <>
@@ -35,13 +42,25 @@ export const DaintChart = () => {
                 }}
             >
                 <TabPanel header="XAUT-USDT">
-                    <iframe src={config.endpoint_nen_nhat_xau_usdt} width="100%" height="700px"></iframe>
+                    <iframe 
+                        src={config.endpoint_nen_nhat_xau_usdt} 
+                        width="100%" 
+                        height="600px"
+                    ></iframe>
                 </TabPanel>
                 <TabPanel header="BTC-USDT">
-                    <iframe src={config.endpoint_nen_nhat_xau_usdt} width="100%" height="700px"></iframe>
+                    <iframe 
+                        src={config.endpoint_nen_nhat_xau_usdt} 
+                        width="100%" 
+                        height="600px"
+                    ></iframe>
                 </TabPanel>
                 <TabPanel header="ETH-USDT">
-                    <iframe src={config.endpoint_nen_nhat_xau_usdt} width="100%" height="700px"></iframe>
+                    <iframe 
+                        src={config.endpoint_nen_nhat_xau_usdt} 
+                        width="100%" 
+                        height="600px"
+                    ></iframe>
                 </TabPanel>
 
             </TabView>

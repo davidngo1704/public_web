@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="utf-8" />
-  <title>Bitcoin Candlestick Chart</title>
+  <title>Candlestick Chart</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     body {
@@ -24,13 +24,19 @@
   </style>
 </head>
 <body>
-  <header>
-    <strong>XAU-USDT</strong>
-  </header>
   <canvas id="chart"></canvas>
-
   <script>
+
+    const params = new URLSearchParams(window.location.search);
+
+    const name = params.get("name");
+
+    const symbol = params.get("symbol");
+
+
+
     const canvas = document.getElementById("chart");
+    
     const ctx = canvas.getContext("2d");
 
     function resize() {
@@ -111,6 +117,11 @@
     }
 
     draw();
+
+
+
+
+
   </script>
 </body>
 </html>

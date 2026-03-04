@@ -80,16 +80,11 @@ function parseAllResponses(responses) {
 
     const future = parsedResults[0];
 
-    // if we have any positions, mark the flag
     if (future && future.length > 0) {
         window.HAS_FUTURE_DATA = true;
     }
 
-    //const spot = parsedResults[1];
-
     const balanceFuture = parsedResults[1];
-
-    console.log(balanceFuture);
 
     document.getElementById("money_goc_binance").innerHTML = "(Tiền: " + balanceFuture.balance?.toFixed(1) + "$)";
 

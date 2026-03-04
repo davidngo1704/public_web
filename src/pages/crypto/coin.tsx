@@ -1,3 +1,4 @@
+
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
@@ -11,16 +12,22 @@ export const Coin = () => {
     const [captiens, setCaptiens] = React.useState<any>();
     const [activeIndex, setActiveIndex] = useState(0);
     const [activeCoinIndex, setActiveCoinIndex] = useState(0);
-    
+    const [config, setConfig] = React.useState<any>({});
+
+
     React.useEffect(() => {
         (async () => {
             let dataRes = await httpClient.getFileData(["data", "crypto", "bingx", "danh_sach_coin.json"]);
 
             setCaptiens(JSON.parse(dataRes));
-            
 
+            let configData = JSON.parse(await httpClient.getFileData(["data", "config", "web", "config.json"]));
+
+            setConfig(configData);
+            
         })();
     }, []);
+
 
     return (
         <div className="card">
@@ -37,12 +44,9 @@ export const Coin = () => {
                                 switch (e.index) {
                                     case 0:
                                     {
-                                        
                                         break;
                                     }
-                                    
                                 }
-
                             })();
                             setActiveCoinIndex(e.index);
                         }}
@@ -74,7 +78,7 @@ export const Coin = () => {
                                     ></Button>
                                     <Button label="SHORT"
                                         onClick={async () => {
-
+                                            alert(JSON.stringify(input1))
                                         }}
                                     ></Button>
                                 </div>
@@ -95,6 +99,10 @@ export const Coin = () => {
 
                     </TabView>
 
+                </TabPanel>
+
+                <TabPanel header="Đồ thị XAU-USDT">
+                    <iframe src={config.endpoint_nen_nhat_xau_usdt} width="100%" height="700px"></iframe>
                 </TabPanel>
 
             </TabView>

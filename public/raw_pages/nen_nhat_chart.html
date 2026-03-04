@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <title>Bitcoin Candlestick Chart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      margin: 0;
+      background: #0b1220;
+      color: #e6edf3;
+      font-family: system-ui, sans-serif;
+    }
+    header {
+      padding: 12px 16px;
+      background: #060f1e;
+      border-bottom: 1px solid #14213d;
+    }
+    canvas {
+      display: block;
+      width: 100%;
+      height: calc(100vh - 60px);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <strong>XAU-USDT</strong>
+  </header>
+  <canvas id="chart"></canvas>
+
+  <script>
+    const canvas = document.getElementById("chart");
+    const ctx = canvas.getContext("2d");
+
+    function resize() {
+      canvas.width = canvas.clientWidth * devicePixelRatio;
+      canvas.height = canvas.clientHeight * devicePixelRatio;
+      ctx.scale(devicePixelRatio, devicePixelRatio);
+    }
+    resize();
+    window.addEventListener("resize", resize);
+
+    function generateFakeCandles(count = 60, startPrice = 42000) {
+      const candles = [];
+      let price = startPrice;
+
+      for (let i = 0; i < count; i++) {
+        const open = price;
+        const delta = (Math.random() - 0.5) * 2000;
+        const close = open + delta;
+        const high = Math.max(open, close) + Math.random() * 800;
+        const low = Math.min(open, close) - Math.random() * 800;
+
+        candles.push({ open, high, low, close });
+        price = close;
+      }
+      return candles;
+    }
+
+    const data = generateFakeCandles(80);
+
+    // ===== 2. SCALE =====
+    const prices = data.flatMap(c => [c.high, c.low]);
+    const maxPrice = Math.max(...prices);
+    const minPrice = Math.min(...prices);
+
+    const padding = 40;
+    const chartWidth = canvas.clientWidth;
+    const chartHeight = canvas.clientHeight;
+
+    function priceToY(price) {
+      return (
+        padding +
+        (maxPrice - price) /
+          (maxPrice - minPrice) *
+          (chartHeight - padding * 2)
+      );
+    }
+
+    // ===== 3. DRAW =====
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const candleWidth = 8;
+      const gap = 4;
+
+      data.forEach((candle, i) => {
+        const x =
+          padding + i * (candleWidth + gap);
+
+        const yOpen = priceToY(candle.open);
+        const yClose = priceToY(candle.close);
+        const yHigh = priceToY(candle.high);
+        const yLow = priceToY(candle.low);
+
+        const bullish = candle.close >= candle.open;
+        ctx.strokeStyle = bullish ? "#26a69a" : "#ef5350";
+        ctx.fillStyle = bullish ? "#26a69a" : "#ef5350";
+
+        // Wick
+        ctx.beginPath();
+        ctx.moveTo(x + candleWidth / 2, yHigh);
+        ctx.lineTo(x + candleWidth / 2, yLow);
+        ctx.stroke();
+
+        // Body
+        const bodyY = Math.min(yOpen, yClose);
+        const bodyHeight = Math.abs(yClose - yOpen) || 1;
+        ctx.fillRect(x, bodyY, candleWidth, bodyHeight);
+      });
+    }
+
+    draw();
+  </script>
+</body>
+</html>

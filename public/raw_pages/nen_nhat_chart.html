@@ -86,8 +86,7 @@
       const gap = 4;
 
       data.forEach((candle, i) => {
-        const x =
-          padding + i * (candleWidth + gap);
+        const x = padding + i * (candleWidth + gap);
 
         const yOpen = priceToY(candle.open);
         const yClose = priceToY(candle.close);

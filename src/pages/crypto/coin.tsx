@@ -1,30 +1,30 @@
 
+
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import { TabPanel, TabView } from "primereact/tabview"
 import React, { useState } from "react";
 import httpClient from "../../utils/htttpClient";
+import { DaintChart } from "./chart";
 
 export const Coin = () => {
+    
     const [dropdownItem, setDropdownItem] = useState<any>(null);
     const [input1, setInput1] = React.useState<any>(50);
     const [captiens, setCaptiens] = React.useState<any>();
     const [activeIndex, setActiveIndex] = useState(0);
     const [activeCoinIndex, setActiveCoinIndex] = useState(0);
-    const [config, setConfig] = React.useState<any>({});
+    
 
 
     React.useEffect(() => {
         (async () => {
-            let dataRes = await httpClient.getFileData(["data", "crypto", "bingx", "danh_sach_coin.json"]);
 
-            setCaptiens(JSON.parse(dataRes));
+            let dataRes = JSON.parse(await httpClient.getFileData(["data", "crypto", "bingx", "danh_sach_coin.json"]));
 
-            let configData = JSON.parse(await httpClient.getFileData(["data", "config", "web", "config.json"]));
+            setCaptiens(dataRes);
 
-            setConfig(configData);
-            
         })();
     }, []);
 
@@ -101,8 +101,8 @@ export const Coin = () => {
 
                 </TabPanel>
 
-                <TabPanel header="Đồ thị XAU-USDT">
-                    <iframe src={config.endpoint_nen_nhat_xau_usdt} width="100%" height="700px"></iframe>
+                <TabPanel header="Biểu đồ, phân tích kỹ thuật, giá cả">
+                    <DaintChart></DaintChart>
                 </TabPanel>
 
             </TabView>

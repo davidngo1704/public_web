@@ -45,10 +45,34 @@ async function uploadFile(url, filepath, filename, file) {
     }
 }
 
+function generateDownloadUrl(pathArray) {
+    // 1. Định nghĩa phần gốc của đường dẫn vật lý trên ổ đĩa
+    const rootPath = "D:/ApiGateway\\";
+    
+    // 2. Nối các phần tử trong mảng bằng dấu gạch chéo ngược "\"
+    const subPath = pathArray.join("\\");
+    
+    // 3. Kết hợp lại thành đường dẫn đầy đủ
+    const fullPath = rootPath + subPath;
+    
+    // 4. Mã hóa toàn bộ đường dẫn để đưa vào tham số URL
+    const encodedPath = encodeURIComponent(fullPath);
+    
+    // 5. Trả về chuỗi kết quả cuối cùng
+    return "file/download-text?filepath=" + encodedPath;
+}
 
 const httpClient = {
     getMethod: async (url) => {
         const fullUrl = getFullUrl(url);
+        const { status, data: { ok, data } } = await axios.get(fullUrl);
+        if (status === 200 && ok) {
+            return data;
+        }
+        return null;
+    },
+    getFileData: async (array) => {
+        const fullUrl = getFullUrl(generateDownloadUrl(array));
         const { status, data: { ok, data } } = await axios.get(fullUrl);
         if (status === 200 && ok) {
             return data;

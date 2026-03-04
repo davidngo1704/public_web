@@ -17,30 +17,7 @@ export const FormLayoutDemo = () => {
     return (
         <div className="p-grid">
             <div className="p-col-12 p-md-6">
-                <div className="card">
-                    <div className="p-formgroup-inline">
-                        <div className="p-field p-col-12 p-md-3">
-                            <label htmlFor="state">Cặp tiền</label>
-                            <Dropdown id="state" value={dropdownItem} onChange={(e) => setDropdownItem(e.value)} options={captiens} optionLabel="name" placeholder="Select One"></Dropdown>
-                        </div>
-                        <div className="p-field">
-                            <InputText id="firstname1" 
-                                value={input1} onChange={(e) => {setInput1(e.target.value);}} 
-                                type="text" placeholder="Số tiền" 
-                            />
-                        </div>
-                        <Button label="Mua"
-                            onClick={async () => {
-                          
-                            }}
-                        ></Button>
-                        <Button label="Bán"
-                            onClick={async () => {
-                         
-                            }}
-                        ></Button>
-                    </div>
-                </div>
+           
                 <div className="card p-fluid">
                     <h5>Vertical</h5>
                     <div className="p-field">

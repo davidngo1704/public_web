@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SignalR Chat Demo</title>
+
+<title>SignalR</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.7/signalr.min.js"></script>
 
@@ -71,6 +72,7 @@ const connection = new signalR.HubConnectionBuilder()
 connection.on("ReceiveMessage", function(user, message){
 
     const msg = document.createElement("div");
+
     msg.textContent = user + ": " + message;
 
     document.getElementById("messages").appendChild(msg);
@@ -79,7 +81,7 @@ connection.on("ReceiveMessage", function(user, message){
 
 async function start(){
 
-    try{
+    try {
         await connection.start();
         console.log("Connected");
     }
@@ -96,10 +98,10 @@ start();
 function sendMessage() {
 
     const user = document.getElementById("user").value;
+
     const message = document.getElementById("message").value;
 
-    connection.invoke("SendMessage", user, message)
-        .catch(err => console.error(err));
+    connection.invoke("SendMessage", user, message).catch(err => console.error(err));
 
 }
 

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SignalR Chat Demo</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.7/signalr.min.js"></script>
+
+<style>
+body{
+    font-family: Arial;
+    background:#111;
+    color:white;
+}
+
+.container{
+    width:500px;
+    margin:auto;
+    margin-top:40px;
+}
+
+#messages{
+    border:1px solid #444;
+    height:300px;
+    overflow:auto;
+    padding:10px;
+    margin-bottom:10px;
+}
+
+input{
+    padding:10px;
+    margin:5px;
+    border:none;
+}
+
+button{
+    padding:10px 15px;
+    background:#00b894;
+    color:white;
+    border:none;
+    cursor:pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>SignalR Chat Demo</h2>
+
+<div id="messages"></div>
+
+<input id="user" placeholder="username" />
+
+<input id="message" placeholder="message" />
+
+<button onclick="sendMessage()">Send</button>
+
+</div>
+
+<script>
+
+const connection = new signalR.HubConnectionBuilder()
+    .withUrl("https://localhost:44359/chatHub")
+    .withAutomaticReconnect()
+    .build();
+
+
+connection.on("ReceiveMessage", function(user, message){
+
+    const msg = document.createElement("div");
+    msg.textContent = user + ": " + message;
+
+    document.getElementById("messages").appendChild(msg);
+});
+
+
+async function start(){
+
+    try{
+        await connection.start();
+        console.log("Connected");
+    }
+    catch(err){
+        console.log(err);
+        setTimeout(start, 2000);
+    }
+
+}
+
+start();
+
+
+function sendMessage() {
+
+    const user = document.getElementById("user").value;
+    const message = document.getElementById("message").value;
+
+    connection.invoke("SendMessage", user, message)
+        .catch(err => console.error(err));
+
+}
+
+</script>
+
+</body>
+</html>

@@ -3,44 +3,54 @@
 <head>
 <meta charset="UTF-8">
 
-<title>SignalR</title>
+<title>Binance Realtime OHLCV</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.7/signalr.min.js"></script>
 
 <style>
+
 body{
     font-family: Arial;
-    background:#111;
-    color:white;
+    background:#0f172a;
+    color:#e5e7eb;
 }
 
 .container{
-    width:500px;
+    width:700px;
     margin:auto;
     margin-top:40px;
 }
 
+h2{
+    text-align:center;
+}
+
 #messages{
-    border:1px solid #444;
-    height:300px;
+    border:1px solid #334155;
+    height:400px;
     overflow:auto;
     padding:10px;
-    margin-bottom:10px;
+    background:#020617;
+    font-family: monospace;
 }
 
-input{
-    padding:10px;
-    margin:5px;
-    border:none;
+.row{
+    padding:6px;
+    border-bottom:1px solid #1e293b;
 }
 
-button{
-    padding:10px 15px;
-    background:#00b894;
-    color:white;
-    border:none;
-    cursor:pointer;
+.symbol{
+    color:#38bdf8;
 }
+
+.price{
+    color:#22c55e;
+}
+
+.volume{
+    color:#f59e0b;
+}
+
 </style>
 
 </head>
@@ -49,19 +59,15 @@ button{
 
 <div class="container">
 
-<h2>SignalR Chat Demo</h2>
+<h2>Binance Realtime OHLCV</h2>
 
 <div id="messages"></div>
-
-<input id="user" placeholder="username" />
-
-<input id="message" placeholder="message" />
-
-<button onclick="sendMessage()">Send</button>
 
 </div>
 
 <script>
+
+const messages = document.getElementById("messages");
 
 const connection = new signalR.HubConnectionBuilder()
     .withUrl("https://localhost:44359/chatHub")
@@ -69,41 +75,43 @@ const connection = new signalR.HubConnectionBuilder()
     .build();
 
 
-connection.on("ReceiveMessage", function(user, message){
+connection.on("ReceiveKline", function(data){
 
-    const msg = document.createElement("div");
+    const row = document.createElement("div");
+    row.className = "row";
 
-    msg.textContent = user + ": " + message;
+    const time = new Date(data.openTime).toLocaleTimeString();
 
-    document.getElementById("messages").appendChild(msg);
+    row.innerHTML =
+        `<span class="symbol">${data.symbol}</span>
+         | O: <span class="price">${data.open}</span>
+         H: <span class="price">${data.high}</span>
+         L: <span class="price">${data.low}</span>
+         C: <span class="price">${data.close}</span>
+         | V: <span class="volume">${data.volume}</span>
+         | ${time}
+         | closed: ${data.isClosed}`;
+
+    messages.appendChild(row);
+
+    messages.scrollTop = messages.scrollHeight;
 });
 
 
 async function start(){
 
-    try {
+    try{
         await connection.start();
-        console.log("Connected");
+        console.log("SignalR Connected");
     }
     catch(err){
-        console.log(err);
+        console.error(err);
         setTimeout(start, 2000);
     }
 
 }
 
 start();
-
-
-function sendMessage() {
-
-    const user = document.getElementById("user").value;
-
-    const message = document.getElementById("message").value;
-
-    connection.invoke("SendMessage", user, message).catch(err => console.error(err));
-
-}
 
 </script>
 

@@ -22,6 +22,7 @@
 <canvas id="chart"></canvas>
 
 <script>
+
 const canvas = document.getElementById("chart");
 const ctx = canvas.getContext("2d");
 const DPR = window.devicePixelRatio || 1;
@@ -35,6 +36,7 @@ function resize() {
   canvas.height = rect.height * DPR;
   ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
 }
+
 window.addEventListener("resize", () => {
   resize();
   draw();
@@ -43,7 +45,7 @@ window.addEventListener("resize", () => {
 resize();
 
 /* ===== DATA ===== */
-function generateFakeCandles(count = 80, start = 42000) {
+function generateFakeCandles(count = 100, start = 42000) {
   let price = start;
   return Array.from({ length: count }, () => {
     const open = price;
@@ -66,6 +68,8 @@ function priceToY(price) {
 }
 
 /* ===== PRICE SCALE ===== */
+
+
 function drawPriceScale() {
   const h = canvas.height / DPR;
   const w = canvas.width / DPR;
@@ -110,6 +114,7 @@ function draw() {
     const yL = priceToY(c.low);
 
     const up = c.close >= c.open;
+    
     ctx.strokeStyle = up ? "#26a69a" : "#ef5350";
     ctx.fillStyle = up ? "#26a69a" : "#ef5350";
 

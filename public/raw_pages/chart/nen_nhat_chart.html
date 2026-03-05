@@ -1,9 +1,10 @@
 <!doctype html>
 <html lang="vi">
 <head>
-<meta charset="utf-8" />
-<title>Candlestick + Fake RSI</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="utf-8"/>
+<title>Candlestick + MA + Volume + RSI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
 <style>
 html,body{
   margin:0;
@@ -11,6 +12,7 @@ html,body{
   height:100%;
   background:#0b1220;
 }
+
 canvas{
   display:block;
   width:100%;
@@ -18,6 +20,7 @@ canvas{
 }
 </style>
 </head>
+
 <body>
 
 <canvas id="chart"></canvas>
@@ -46,34 +49,75 @@ window.addEventListener("resize",()=>{
 resize();
 
 /* =========================
-   DATA
+DATA
 ========================= */
 
 function generateFakeCandles(count=85,start=42000){
+
   let price=start;
 
   return Array.from({length:count},()=>{
+
     const open=price;
     const close=open+(Math.random()-0.5)*2000;
+
     const high=Math.max(open,close)+Math.random()*800;
     const low=Math.min(open,close)-Math.random()*800;
 
+    const volume = Math.random()*1000 + 200;
+
     price=close;
 
-    return{open,high,low,close};
+    return {open,high,low,close,volume};
   });
 }
 
-const data=generateFakeCandles();
+const data = generateFakeCandles();
 
-/* ===== FAKE RSI ===== */
+/* =========================
+MOVING AVERAGE
+========================= */
+
+function calculateMA(period){
+
+  const result=[];
+
+  for(let i=0;i<data.length;i++){
+
+    if(i < period-1){
+      result.push(null);
+      continue;
+    }
+
+    let sum=0;
+
+    for(let j=0;j<period;j++){
+      sum += data[i-j].close;
+    }
+
+    result.push(sum/period);
+  }
+
+  return result;
+}
+
+const MA7  = calculateMA(7);
+const MA25 = calculateMA(25);
+const MA99 = calculateMA(99);
+
+/* =========================
+RSI
+========================= */
 
 function generateFakeRSI(count){
+
   let rsi=50;
 
   return Array.from({length:count},()=>{
-    rsi+= (Math.random()-0.5)*10;
+
+    rsi+=(Math.random()-0.5)*10;
     rsi=Math.max(5,Math.min(95,rsi));
+
     return rsi;
   });
 }
@@ -81,26 +125,27 @@ function generateFakeRSI(count){
 const rsiData = generateFakeRSI(data.length);
 
 /* =========================
-   LAYOUT
+LAYOUT
 ========================= */
 
 function getPriceAreaHeight(){
   return canvas.height/DPR*0.7;
 }
 
-function getRSIAreaTop(){
+function getIndicatorTop(){
   return canvas.height/DPR*0.7;
 }
 
-function getRSIAreaHeight(){
+function getIndicatorHeight(){
   return canvas.height/DPR*0.3;
 }
 
 /* =========================
-   PRICE SCALE
+PRICE SCALE
 ========================= */
 
 const prices = data.flatMap(d=>[d.high,d.low]);
+
 const maxPrice = Math.max(...prices);
 const minPrice = Math.min(...prices);
 
@@ -114,19 +159,153 @@ function priceToY(price){
 }
 
 /* =========================
-   RSI SCALE
+RSI SCALE
 ========================= */
 
 function rsiToY(v){
 
-  const top = getRSIAreaTop();
-  const h = getRSIAreaHeight();
+  const top = getIndicatorTop();
+  const h = getIndicatorHeight();
 
   return top + (100-v)/100 * (h-20) + 10;
 }
 
 /* =========================
-   DRAW PRICE SCALE
+VOLUME SCALE
+========================= */
+
+const volumes = data.map(d=>d.volume);
+const maxVolume = Math.max(...volumes);
+
+function volumeToHeight(v){
+
+  const h = getIndicatorHeight()*0.4;
+
+  return (v/maxVolume) * h;
+}
+
+/* =========================
+DRAW MA
+========================= */
+
+function drawMA(ma,color){
+
+  const candleWidth=8;
+  const gap=4;
+  const w = canvas.width/DPR;
+  const chartWidth=w-rightPadding;
+
+  ctx.beginPath();
+
+  ma.forEach((price,i)=>{
+
+    if(price===null) return;
+
+    const x = padding + i*(candleWidth+gap)+candleWidth/2;
+
+    if(x>chartWidth) return;
+
+    const y = priceToY(price);
+
+    if(i===0 || ma[i-1]===null){
+      ctx.moveTo(x,y);
+    }else{
+      ctx.lineTo(x,y);
+    }
+
+  });
+
+  ctx.strokeStyle=color;
+  ctx.lineWidth=2;
+  ctx.stroke();
+}
+
+/* =========================
+DRAW VOLUME
+========================= */
+
+function drawVolume(){
+
+  const candleWidth=8;
+  const gap=4;
+
+  const w = canvas.width/DPR;
+  const chartWidth=w-rightPadding;
+
+  const top = getIndicatorTop();
+  const base = top + getIndicatorHeight()*0.45;
+
+  data.forEach((c,i)=>{
+
+    const x=padding+i*(candleWidth+gap);
+
+    if(x>chartWidth) return;
+
+    const h = volumeToHeight(c.volume);
+
+    const up = c.close>=c.open;
+
+    ctx.fillStyle = up ? "#26a69a" : "#ef5350";
+
+    ctx.fillRect(
+      x,
+      base-h,
+      candleWidth,
+      h
+    );
+
+  });
+
+}
+
+/* =========================
+DRAW RSI
+========================= */
+
+function drawRSI(){
+
+  const candleWidth=8;
+  const gap=4;
+
+  const w = canvas.width/DPR;
+  const chartWidth=w-rightPadding;
+
+  const top=getIndicatorTop();
+  const h=getIndicatorHeight();
+
+  [30,70].forEach(level=>{
+
+    const y=rsiToY(level);
+
+    ctx.strokeStyle="rgba(255,255,255,0.2)";
+    ctx.beginPath();
+    ctx.moveTo(padding,y);
+    ctx.lineTo(chartWidth,y);
+    ctx.stroke();
+  });
+
+  ctx.beginPath();
+
+  rsiData.forEach((v,i)=>{
+
+    const x = padding + i*(candleWidth+gap)+candleWidth/2;
+
+    if(x>chartWidth) return;
+
+    const y=rsiToY(v);
+
+    if(i===0) ctx.moveTo(x,y);
+    else ctx.lineTo(x,y);
+
+  });
+
+  ctx.strokeStyle="#fdd835";
+  ctx.lineWidth=2;
+  ctx.stroke();
+}
+
+/* =========================
+DRAW PRICE SCALE
 ========================= */
 
 function drawPriceScale(){
@@ -156,59 +335,7 @@ function drawPriceScale(){
 }
 
 /* =========================
-   DRAW RSI
-========================= */
-
-function drawRSI(){
-
-  const w = canvas.width/DPR;
-  const candleWidth=8;
-  const gap=4;
-
-  const chartWidth=w-rightPadding;
-
-  const top=getRSIAreaTop();
-  const h=getRSIAreaHeight();
-
-  ctx.strokeStyle="rgba(255,255,255,0.1)";
-  ctx.strokeRect(padding,top,chartWidth-padding,h);
-
-  /* 30 / 70 lines */
-
-  [30,70].forEach(level=>{
-
-    const y=rsiToY(level);
-
-    ctx.strokeStyle="rgba(255,255,255,0.2)";
-    ctx.beginPath();
-    ctx.moveTo(padding,y);
-    ctx.lineTo(chartWidth,y);
-    ctx.stroke();
-  });
-
-  /* RSI line */
-
-  ctx.beginPath();
-
-  rsiData.forEach((v,i)=>{
-
-    const x = padding + i*(candleWidth+gap)+candleWidth/2;
-    if(x>chartWidth) return;
-
-    const y=rsiToY(v);
-
-    if(i===0) ctx.moveTo(x,y);
-    else ctx.lineTo(x,y);
-  });
-
-  ctx.strokeStyle="#fdd835";
-  ctx.lineWidth=2;
-  ctx.stroke();
-
-}
-
-/* =========================
-   DRAW
+DRAW
 ========================= */
 
 function draw(){
@@ -225,6 +352,7 @@ function draw(){
   data.forEach((c,i)=>{
 
     const x=padding+i*(candleWidth+gap);
+
     if(x+candleWidth>chartWidth) return;
 
     const yO=priceToY(c.open);
@@ -251,12 +379,19 @@ function draw(){
 
   });
 
-  drawPriceScale();
+  drawMA(MA7,"#fdd835");
+  drawMA(MA25,"#ff4dd2");
+  drawMA(MA99,"#a78bfa");
+
+  drawVolume();
   drawRSI();
+
+  drawPriceScale();
 }
 
 draw();
 
 </script>
+
 </body>
 </html>

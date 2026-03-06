@@ -47,10 +47,20 @@ async function uploadFile(url, filepath, filename, file) {
 
 function generateDownloadUrl(pathArray) {
     // 1. Định nghĩa phần gốc của đường dẫn vật lý trên ổ đĩa
-    const rootPath = "D:/ApiGateway\\";
+
+    const savedRootFolder = localStorage.getItem('rootFolder');
+
+    const rootPath = savedRootFolder || "D:/ApiGateway\\";
+
+    let subPath = pathArray.join("\\");
+
+    if (rootPath.startsWith("D:/") || rootPath.startsWith("D:\\")) {
+        subPath = pathArray.join("\\");
+    } else {
+        subPath = pathArray.join("/");
+    }
     
     // 2. Nối các phần tử trong mảng bằng dấu gạch chéo ngược "\"
-    const subPath = pathArray.join("\\");
     
     // 3. Kết hợp lại thành đường dẫn đầy đủ
     const fullPath = rootPath + subPath;

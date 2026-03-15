@@ -6,6 +6,7 @@ import Error from "./pages/demo/Error";
 import NotFound from "./pages/demo/NotFound";
 import Access from "./pages/demo/Access";
 import Landing from './pages/demo/Landing';
+import { TreeDemo } from './pages/demo/TreeDemoV2';
 
 const AppWrapper = (props: any) => {
 	let location = useLocation();
@@ -25,6 +26,8 @@ const AppWrapper = (props: any) => {
 			return <Route path="/access" component={Access} />
 		case "/landing":
 			return <Route path="/landing" component={Landing} />
+		case "/file":
+			return <Route path="/file" component={TreeDemo} />
 		default:
 			return <App />;
 	}

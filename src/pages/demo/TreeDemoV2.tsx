@@ -38,9 +38,11 @@ const STORE_NAME = "documents";
 
 export const TreeDemo = () => {
     const query = useQuery();
-    const id = query.get("ip"); // lấy ?id=123
-    console.log("ID from query string:", id);
+    const ip = query.get("ip"); // lấy ?id=123
+    useEffect(() => {
+        console.log("ID from query string:", ip);
 
+    }, [ip]);
     const [treeNodes, setTreeNodes] = useState<TreeNode[]>([]);
     const [selectedTreeNodeKeys, setSelectedTreeNodeKeys] = useState<string | { [key: string]: boolean } | null>(null);
     const [selectedNode, setSelectedNode] = useState<TreeNode | null>(null);
@@ -68,7 +70,7 @@ export const TreeDemo = () => {
 
     const getTree = async () => {
 
-        let items = await httpClient.getMethod("file/scan?filepath=" + encodeURIComponent(keyRoot || ''));
+        let items = await httpClient.getMethod(`http://${ip}:1704/file/scan?filepath=` + encodeURIComponent(keyRoot || ''));
 
         setItemDocuments(items);
 

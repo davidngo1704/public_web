@@ -567,7 +567,10 @@ export const TreeDemo = () => {
                     default:
                         {
                             if (node.key.endsWith('.sh')) {
-                                let response = await httpClient.postMethod(`${os}/execute`, { command: `bash ${node.key}` });
+
+                                const item = itemDocuments.find(m => m.key === selectedKey);
+
+                                let response = await httpClient.postMethod(`${os}/execute`, { command: `cd ${item.parentKey} && bash ${node.label}` });
 
                                 if (response) {
                                     setResultContent(response);

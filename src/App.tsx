@@ -43,7 +43,6 @@ import { TimelineDemo } from './pages/demo/TimelineDemo';
 
 import { Coin } from './pages/crypto/coin';
 
-
 import PrimeReact from 'primereact/api';
 import httpClient from './utils/htttpClient';
 import 'primereact/resources/primereact.min.css';
@@ -96,9 +95,11 @@ const App = () => {
     useEffect(() => {
 
         (async () => {
-            let dataRes = await httpClient.getMethod("file/download-text?filepath=D%3A%2F%2FApiGateway%5Cdata%5Cconfig%5Cmenu.json");
+            
+            let configData = JSON.parse(await httpClient.getFileData(["data", "config", "menu.json"]));
+            
+            setMenu(configData);
 
-            setMenu(JSON.parse(dataRes));
         })();
 
         onColorModeChange(colorMode);

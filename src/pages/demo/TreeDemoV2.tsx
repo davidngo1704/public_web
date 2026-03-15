@@ -81,13 +81,13 @@ export const TreeDemo = () => {
 
     const getos = async () => {
 
-        let info = await httpClient.getMethod("os/info");
+        let info = await httpClient.getMethod(`http://${ip}:1704/os/info`);
 
         setOs(info);
     }
 
     const commandHandler = async (text: any) => {
-        let response = await httpClient.postMethod(`${os}/execute`, { command: text });
+        let response = await httpClient.postMethod(`http://${ip}:1704/${os}/execute`, { command: text });
 
         switch (text) {
 
@@ -320,7 +320,7 @@ export const TreeDemo = () => {
         (async () => {
             var param = encodeURIComponent(item.key || '');
 
-            let content = await httpClient.getMethod(`file/download-text?filepath=${param}`);
+            let content = await httpClient.getMethod(`http://${ip}:1704/file/download-text?filepath=${param}`);
 
             setCurrentFileContent(content);
         })();
@@ -369,7 +369,7 @@ export const TreeDemo = () => {
             parentKey: selectedKey,
         };
 
-        httpClient.postMethod(`file/add`, newNodeData);
+        httpClient.postMethod(`http://${ip}:1704/file/add`, newNodeData);
 
         setTreeNodes(prevNodes => {
             return updateTreeNodes(prevNodes, selectedKey, (node) => {
@@ -417,7 +417,7 @@ export const TreeDemo = () => {
 
         item.label = editNodeName;
 
-        httpClient.postMethod(`file/update`, item);
+        httpClient.postMethod(`http://${ip}:1704/file/update`, item);
 
         setEditNodeName('');
 
@@ -463,7 +463,7 @@ export const TreeDemo = () => {
 
         let item = itemDocuments.find(m => m.key === selectedKey);
 
-        httpClient.postMethod(`file/delete`, item);
+        httpClient.postMethod(`http://${ip}:1704/file/delete`, item);
 
         setSelectedTreeNodeKeys(null);
         setSelectedNode(null);
@@ -557,7 +557,7 @@ export const TreeDemo = () => {
                     case 'window':
                         {
                             if (node.key.endsWith('.ps1')) {
-                                let response = await httpClient.postMethod(`${os}/execute_script`, { file: node.key });
+                                let response = await httpClient.postMethod(`http://${ip}:1704/${os}/execute_script`, { file: node.key });
 
                                 if (response) {
                                     setResultContent(response);
@@ -566,7 +566,7 @@ export const TreeDemo = () => {
                             }
                             else if (node.key.endsWith('.py')) {
 
-                                let response = await httpClient.postMethod(`${os}/execute_python`, { file: node.key });
+                                let response = await httpClient.postMethod(`http://${ip}:1704/${os}/execute_python`, { file: node.key });
 
                                 if (response) {
                                     setResultContent(response);
@@ -578,7 +578,7 @@ export const TreeDemo = () => {
                     default:
                         {
                             if (node.key.endsWith('.sh')) {
-                                let response = await httpClient.postMethod(`${os}/execute`, { command: `bash ${node.key}` });
+                                let response = await httpClient.postMethod(`http://${ip}:1704/${os}/execute`, { command: `bash ${node.key}` });
 
                                 if (response) {
                                     setResultContent(response);
@@ -589,7 +589,7 @@ export const TreeDemo = () => {
 
                                 const item = itemDocuments.find(m => m.key === selectedKey);
 
-                                let response = await httpClient.postMethod(`${os}/execute`, { command: `cd ${item.parentKey} && source .venv/bin/activate && python ${node.label}` });
+                                let response = await httpClient.postMethod(`http://${ip}:1704/${os}/execute`, { command: `cd ${item.parentKey} && source .venv/bin/activate && python ${node.label}` });
 
                                 if (response) {
                                     setResultContent(response);
@@ -599,7 +599,7 @@ export const TreeDemo = () => {
                             else if (node.key.endsWith('.js')) {
                                 const item = itemDocuments.find(m => m.key === selectedKey);
 
-                                let response = await httpClient.postMethod(`${os}/execute`, { command: `cd ${item.parentKey} && node ${node.key}` });
+                                let response = await httpClient.postMethod(`http://${ip}:1704/${os}/execute`, { command: `cd ${item.parentKey} && node ${node.key}` });
 
                                 if (response) {
                                     setResultContent(response);
@@ -633,7 +633,7 @@ export const TreeDemo = () => {
 
             const item = itemDocuments.find(m => m.key === selectedKey);
 
-            httpClient.uploadFile("file/upload", item.parentKey, item.label, currentFileContent);
+            httpClient.uploadFile(`http://${ip}:1704/file/upload`, item.parentKey, item.label, currentFileContent);
 
             setTimeout(() => {
                 getTree();
@@ -690,7 +690,7 @@ export const TreeDemo = () => {
         }
 
         try {
-            await httpClient.uploadFile("file/upload", parentKey, file.name, file);
+            await httpClient.uploadFile(`http://${ip}:1704/file/upload`, parentKey, file.name, file);
 
             const newNodeData = {
                 key: parentKey + '-' + file.name,
@@ -757,7 +757,7 @@ export const TreeDemo = () => {
 
                         const item = itemDocuments.find(m => m.key === selectedKey);
 
-                        let response = await httpClient.getMethod("file/size?param=" + encodeURIComponent(item.key || ''));
+                        let response = await httpClient.getMethod(`http://${ip}:1704/file/size?param=` + encodeURIComponent(item.key || ''));
 
                         toast.current?.show({ severity: 'success', summary: 'Thành công', detail: response.content, life: 3000 });
                     }
@@ -798,7 +798,7 @@ export const TreeDemo = () => {
 
                         const item = itemDocuments.find(m => m.key === selectedKey);
 
-                        let response = await httpClient.getFile("file/download?filepath=" + encodeURIComponent(item.key || ''));
+                        let response = await httpClient.getFile(`http://${ip}:1704/file/download?filepath=` + encodeURIComponent(item.key || ''));
                         const blob = new Blob([response], { type: 'application/octet-stream' });
                         const url = window.URL.createObjectURL(blob);
                         const a = document.createElement('a');

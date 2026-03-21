@@ -17,10 +17,6 @@ SWAP_SIZE="4G"
 
 echo "--- BẮT ĐẦU QUÁ TRÌNH THIẾT LẬP HỆ THỐNG ---"
 
-# 1. Cấu hình Múi giờ Việt Nam
-echo "--- Thiết lập múi giờ Asia/Ho_Chi_Minh ---"
-sudo timedatectl set-timezone Asia/Ho_Chi_Minh
-
 # 2. Tạo RAM ảo (Swap) 4GB
 echo "--- Kiểm tra và tạo RAM ảo (Swap) $SWAP_SIZE ---"
 # Kiểm tra xem swap đã tồn tại trong fstab chưa để tránh tạo trùng

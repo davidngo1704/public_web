@@ -50,6 +50,10 @@ import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
 import './App.scss';
 
+import { getObjectById } from "./utils/firebase_service"
+
+import { addItem, getItem } from "./indexedDB";
+
 export const RTLContext = React.createContext(false);
 
 const App = () => {
@@ -95,11 +99,26 @@ const App = () => {
     useEffect(() => {
 
         (async () => {
+            // let configData = JSON.parse(await httpClient.getFileData(["data", "configs", "menu.json"]));
             
-            let configData = JSON.parse(await httpClient.getFileData(["data", "config", "menu.json"]));
+            let menu = await getItem("menu", "daint_db", "daint_store");
             
-            setMenu(configData);
+            if(!menu) {
 
+                let data: any = await getObjectById("configs", "menu");
+
+                let configData = JSON.parse(data.value);
+
+                await addItem({
+                    id: "menu",
+                    value: configData
+                }, "daint_db", "daint_store");
+                
+                setMenu(configData);
+            }
+            else {
+                setMenu(menu.value);
+            }
         })();
 
         onColorModeChange(colorMode);

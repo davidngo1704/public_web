@@ -1,23 +1,22 @@
-import { collection, addDoc, getDocs } from "firebase/firestore";
-import { doc, updateDoc, deleteDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs, getDoc, doc, updateDoc, deleteDoc } from "firebase/firestore";
 import { db } from "./firebase";
 
-const addObject = async (collection, data) => {
+export const addObject = async (collection_name, data) => {
   try {
-    await addDoc(collection(db, collection), data);
+    await addDoc(collection(db, collection_name), data);
     console.log("Thêm thành công!");
   } catch (e) {
     console.error("Lỗi thêm dữ liệu: ", e);
   }
 };
 
-const getObjectById = async (collection, id) => {
+export const getObjectById = async (collection_name, id) => {
   try {
-    const docRef = doc(db, collection, id);   // tham chiếu đến document theo ID
+    const docRef = doc(db, collection_name, id);   // tham chiếu đến document theo ID
     const docSnap = await getDoc(docRef);  // lấy dữ liệu
 
     if (docSnap.exists()) {
-      console.log("Dữ liệu:", docSnap.data());
+      return docSnap.data();
     } else {
       console.log("Không tìm thấy document!");
     }
@@ -26,20 +25,22 @@ const getObjectById = async (collection, id) => {
   }
 };
 
-const getObject = async (collection) => {
-  const querySnapshot = await getDocs(collection(db, collection));
+export const getObjects = async (collection_name) => {
+  const querySnapshot = await getDocs(collection(db, collection_name));
+  let result = [];
   querySnapshot.forEach((doc) => {
-    console.log(`${doc.id} =>`, doc.data());
+    result = [...result, doc.data()];
   });
+  return result;
 };
 
-const updateObject = async (collection, data, id) => {
-  const userRef = doc(db, collection, id);
+export const updateObject = async (collection_name, data, id) => {
+  const userRef = doc(db, collection_name, id);
   await updateDoc(userRef, data);
   console.log("Cập nhật thành công!");
 };
 
-const deleteObject = async (collection, id) => {
-  await deleteDoc(doc(db, collection, id));
+export const deleteObject = async (collection_name, id) => {
+  await deleteDoc(doc(db, collection_name, id));
   console.log("Xóa thành công!");
 };

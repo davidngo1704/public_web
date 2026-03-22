@@ -374,7 +374,7 @@ const getOrdersOptions = () => {
 }
 export const DashboardAnalytics = (props: any) => {
 
-let ordersOptions = getOrdersOptions();
+    let ordersOptions = getOrdersOptions();
     const marker = (item: any) => {
         return (
             <span className="custom-marker p-shadow-2 p-p-2" style={{ backgroundColor: item.color }}>
@@ -393,44 +393,44 @@ let ordersOptions = getOrdersOptions();
     const chart1 = useRef<any>(null);
 
 
-        const menu5 = useRef<any>(null);
-        const menu6 = useRef<any>(null);
-        const menu7 = useRef<any>(null);
-    
-        const menu9 = useRef<any>(null);
-    
-        const op = useRef<any>(null);
+    const menu5 = useRef<any>(null);
+    const menu6 = useRef<any>(null);
+    const menu7 = useRef<any>(null);
+
+    const menu9 = useRef<any>(null);
+
+    const op = useRef<any>(null);
 
     const [products, setProducts] = useState<any>(null);
     const [selectedProduct, setSelectedProduct] = useState(null);
-const ordersChart = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September'],
-    datasets: [{
-        label: 'New Orders',
-        data: [31, 83, 69, 29, 62, 25, 59, 26, 46],
-        borderColor: [
-            '#4DD0E1',
-        ],
-        backgroundColor: [
-            'rgba(77, 208, 225, 0.8)',
-        ],
-        borderWidth: 2,
-        fill: true,
-        tension: .4
-    }, {
-        label: 'Completed Orders',
-        data: [67, 98, 27, 88, 38, 3, 22, 60, 56],
-        borderColor: [
-            '#3F51B5',
-        ],
-        backgroundColor: [
-            'rgba(63, 81, 181, 0.8)',
-        ],
-        borderWidth: 2,
-        fill: true,
-        tension: .4
-    }]
-};
+    const ordersChart = {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September'],
+        datasets: [{
+            label: 'New Orders',
+            data: [31, 83, 69, 29, 62, 25, 59, 26, 46],
+            borderColor: [
+                '#4DD0E1',
+            ],
+            backgroundColor: [
+                'rgba(77, 208, 225, 0.8)',
+            ],
+            borderWidth: 2,
+            fill: true,
+            tension: .4
+        }, {
+            label: 'Completed Orders',
+            data: [67, 98, 27, 88, 38, 3, 22, 60, 56],
+            borderColor: [
+                '#3F51B5',
+            ],
+            backgroundColor: [
+                'rgba(63, 81, 181, 0.8)',
+            ],
+            borderWidth: 2,
+            fill: true,
+            tension: .4
+        }]
+    };
     const isRTL = useContext(RTLContext)
     const bar = useRef<any>(null);
     const doughnut = useRef<any>(null);
@@ -474,22 +474,17 @@ const ordersChart = {
         return { diff, totalValue, status };
     }
 
-
-
-   
-
     useEffect(() => {
         if (props.isNewThemeLoaded) {
             ordersOptions = getOrdersOptions();
             props.onNewThemeChange(false);
         }
     }, [props.isNewThemeLoaded, props.onNewThemeChange]); // eslint-disable-line react-hooks/exhaustive-deps
-    
 
     useEffect(() => {
         const productService = new ProductService();
-                productService.getProducts().then(data => setProducts(data));
-        
+        productService.getProducts().then(data => setProducts(data));
+
         productService.getProducts().then(data => setProducts(data));
         chartMonthlyData = getChartData(props.colorMode);
         chartMonthlyOptions = getChartOptions();
@@ -546,7 +541,6 @@ const ordersChart = {
         return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     };
 
-
     const actionTemplate = (rowData: any, column: any) => {
         return (
             <>
@@ -555,8 +549,6 @@ const ordersChart = {
             </>
         )
     }
-
-
 
     const bodyTemplate = (data: any, props: any) => {
         return (
@@ -885,7 +877,7 @@ const ordersChart = {
         );
     };
 
-const timelineEvents = [
+    const timelineEvents = [
         { status: 'Ordered', date: '15/10/2020 10:30', icon: "pi pi-shopping-cart", color: '#E91E63', description: "Richard Jones (C8012) has ordered a blue t-shirt for $79." },
         { status: 'Processing', date: '15/10/2020 14:00', icon: "pi pi-cog", color: '#FB8C00', description: "Order #99207 has processed succesfully." },
         { status: 'Shipped', date: '15/10/2020 16:15', icon: "pi pi-compass", color: '#673AB7', description: "Order #99207 has shipped with shipping code 2222302090." },
@@ -1232,176 +1224,176 @@ const timelineEvents = [
             <Toast ref={toast} />
 
 
-                  <div className="p-col-12 p-lg-6">
-                                <div className="card height-100">
-                                    <div className="card-header">
-                                        <h5>Contact</h5>
-                                        <div>
-                                            <Button type="button" icon="pi pi-ellipsis-h" className="p-button-rounded p-button-text p-button-plain" onClick={(event) => menu5.current.toggle(event)}></Button>
-                                            <Menu ref={menu5} popup model={[{ label: 'New', icon: 'pi pi-fw pi-plus' }, { label: 'Edit', icon: 'pi pi-fw pi-pencil' }, { label: 'Delete', icon: 'pi pi-fw pi-trash' }]}></Menu>
-                                        </div>
-                                    </div>
-            
-                                    <ul className="widget-list">
-                                        <li className="p-d-flex p-ai-center p-py-3">
-                                            <div className="person-item p-d-flex p-ai-center">
-                                                <img src="assets/demo/images/avatar/xuxuefeng.png" alt="" />
-                                                <div className={classNames({ 'p-ml-2': !isRTL, 'p-mr-2': isRTL })}>
-                                                    <div>Xuxue Feng</div>
-                                                    <small className="muted-text">feng@ultima.org</small>
-                                                </div>
-                                            </div>
-                                            <span className={classNames('person-tag indigo-bgcolor p-p-1 fs-small', { 'p-ml-auto': !isRTL, 'p-mr-auto': isRTL })}>Accounting</span>
-                                            <span className={classNames('person-tag orange-bgcolor p-p-1 fs-small', { 'p-ml-2': !isRTL, 'p-mr-2': isRTL })}>Sales</span>
-                                        </li>
-            
-                                        <li className="p-d-flex p-ai-center p-py-3">
-                                            <div className="person-item p-d-flex p-ai-center">
-                                                <img src="assets/demo/images/avatar/elwinsharvill.png" alt="" />
-                                                <div className={classNames({ 'p-ml-2': !isRTL, 'p-mr-2': isRTL })}>
-                                                    <div>Elwin Sharvill</div>
-                                                    <small className="muted-text">sharvill@ultima.org</small>
-                                                </div>
-                                            </div>
-                                            <span className={classNames('person-tag teal-bgcolor p-p-1 fs-small', { 'p-ml-auto': !isRTL, 'p-mr-auto': isRTL })}>Finance</span>
-                                            <span className={classNames('person-tag orange-bgcolor p-p-1 fs-small', { 'p-ml-2': !isRTL, 'p-mr-2': isRTL })}>Sales</span>
-                                        </li>
-            
-                                        <li className="p-d-flex p-ai-center p-py-3">
-                                            <div className="person-item p-d-flex p-ai-center">
-                                                <img src="assets/demo/images/avatar/avatar-1.png" alt="" />
-                                                <div className={classNames({ 'p-ml-2': !isRTL, 'p-mr-2': isRTL })}>
-                                                    <div>Anna Fali</div>
-                                                    <small className="muted-text">fali@ultima.org</small>
-                                                </div>
-                                            </div>
-                                            <span className={classNames('person-tag pink-bgcolor p-p-1 fs-small', { 'p-ml-auto': !isRTL, 'p-mr-auto': isRTL })}>Management</span>
-                                        </li>
-            
-                                        <li className="p-d-flex p-ai-center p-py-3">
-                                            <div className="person-item p-d-flex p-ai-center">
-                                                <img src="assets/demo/images/avatar/avatar-2.png" alt="" />
-                                                <div className={classNames({ 'p-ml-2': !isRTL, 'p-mr-2': isRTL })}>
-                                                    <div>Jon Stone</div>
-                                                    <small className="muted-text">stone@ultima.org</small>
-                                                </div>
-                                            </div>
-                                            <span className={classNames('person-tag pink-bgcolor p-p-1 fs-small', { 'p-ml-auto': !isRTL, 'p-mr-auto': isRTL })}>Management</span>
-                                            <span className={classNames('person-tag teal-bgcolor p-p-1 fs-small', { 'p-ml-2': !isRTL, 'p-mr-2': isRTL })}>Finance</span>
-                                        </li>
-            
-                                        <li className="p-d-flex p-ai-center p-py-3">
-                                            <div className="person-item p-d-flex p-ai-center">
-                                                <img src="assets/demo/images/avatar/avatar-3.png" alt="" />
-                                                <div className={classNames({ 'p-ml-2': !isRTL, 'p-mr-2': isRTL })}>
-                                                    <div>Stephen Shaw</div>
-                                                    <small className="muted-text">shaw@ultima.org</small>
-                                                </div>
-                                            </div>
-                                            <span className={classNames('person-tag teal-bgcolor p-p-1 fs-small', { 'p-ml-auto': !isRTL, 'p-mr-auto': isRTL })}>Finance</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-
-           <div className="p-col-12 p-lg-6">
-                    <div className="card height-100">
-                        <div className="card-header">
-                            <h5>Order Graph</h5>
-                            <div>
-                                <Button type="button" icon="pi pi-ellipsis-h" className="p-button-rounded p-button-text p-button-plain" onClick={(event) => menu6.current.toggle(event)}></Button>
-                                <Menu ref={menu6} popup model={[{ label: 'Update', icon: 'pi pi-fw pi-refresh' }, { label: 'Edit', icon: 'pi pi-fw pi-pencil' }]}></Menu>
-                            </div>
+            <div className="p-col-12 p-lg-6">
+                <div className="card height-100">
+                    <div className="card-header">
+                        <h5>Contact</h5>
+                        <div>
+                            <Button type="button" icon="pi pi-ellipsis-h" className="p-button-rounded p-button-text p-button-plain" onClick={(event) => menu5.current.toggle(event)}></Button>
+                            <Menu ref={menu5} popup model={[{ label: 'New', icon: 'pi pi-fw pi-plus' }, { label: 'Edit', icon: 'pi pi-fw pi-pencil' }, { label: 'Delete', icon: 'pi pi-fw pi-trash' }]}></Menu>
                         </div>
-                        <Chart type="line" data={ordersChart} options={ordersOptions}></Chart>
                     </div>
-                </div>
 
-                <div className="p-col-12 p-lg-6">
-                    <div className="card height-100 widget-timeline">
-                        <div className="card-header">
-                            <h5>Timeline</h5>
-                            <div>
-                                <Button type="button" icon="pi pi-ellipsis-h" className="p-button-rounded p-button-text p-button-plain" onClick={(event) => menu7.current.toggle(event)}></Button>
-                                <Menu ref={menu7} popup model={[{ label: 'Update', icon: 'pi pi-fw pi-refresh' }, { label: 'Edit', icon: 'pi pi-fw pi-pencil' }]}></Menu>
+                    <ul className="widget-list">
+                        <li className="p-d-flex p-ai-center p-py-3">
+                            <div className="person-item p-d-flex p-ai-center">
+                                <img src="assets/demo/images/avatar/xuxuefeng.png" alt="" />
+                                <div className={classNames({ 'p-ml-2': !isRTL, 'p-mr-2': isRTL })}>
+                                    <div>Xuxue Feng</div>
+                                    <small className="muted-text">feng@ultima.org</small>
+                                </div>
                             </div>
-                        </div>
+                            <span className={classNames('person-tag indigo-bgcolor p-p-1 fs-small', { 'p-ml-auto': !isRTL, 'p-mr-auto': isRTL })}>Accounting</span>
+                            <span className={classNames('person-tag orange-bgcolor p-p-1 fs-small', { 'p-ml-2': !isRTL, 'p-mr-2': isRTL })}>Sales</span>
+                        </li>
 
-                        <Timeline value={timelineEvents} align="left" className="customized-timeline" marker={marker} content={content} />
-                    </div>
-                </div>
-
-                <div className="p-col-12 p-md-12 p-lg-6">
-                    <div className="card height-100">
-                        <DataTable value={products} paginator rows={8} className="p-datatable-products"
-                            selection={selectedProduct} onSelectionChange={(e) => setSelectedProduct(e.value)}>
-                            <Column header="Image" body={imageTemplate} style={{ width: '5rem' }} />
-                            <Column field="name" body={bodyTemplate} header="Name" sortable />
-                            <Column field="category" body={bodyTemplate} header="Category" sortable />
-                            <Column field="price" body={priceBodyTemplate} header="Price" sortable />
-                            <Column header="View" body={actionTemplate} style={{ width: '4rem' }} />
-                        </DataTable>
-                    </div>
-                </div>
-
-
-                <div className="p-col-12 p-lg-3">
-                    <div className="card height-100">
-                        <div className="card-header">
-                            <h5>Activity</h5>
-                            <div>
-                                <Button type="button" icon="pi pi-ellipsis-h" className="p-button-rounded p-button-text p-button-plain" onClick={(event) => menu9.current.toggle(event)}></Button>
-                                <Menu ref={menu9} popup model={[{ label: 'Update', icon: 'pi pi-fw pi-refresh' }, { label: 'Edit', icon: 'pi pi-fw pi-pencil' }]}></Menu>
+                        <li className="p-d-flex p-ai-center p-py-3">
+                            <div className="person-item p-d-flex p-ai-center">
+                                <img src="assets/demo/images/avatar/elwinsharvill.png" alt="" />
+                                <div className={classNames({ 'p-ml-2': !isRTL, 'p-mr-2': isRTL })}>
+                                    <div>Elwin Sharvill</div>
+                                    <small className="muted-text">sharvill@ultima.org</small>
+                                </div>
                             </div>
-                        </div>
+                            <span className={classNames('person-tag teal-bgcolor p-p-1 fs-small', { 'p-ml-auto': !isRTL, 'p-mr-auto': isRTL })}>Finance</span>
+                            <span className={classNames('person-tag orange-bgcolor p-p-1 fs-small', { 'p-ml-2': !isRTL, 'p-mr-2': isRTL })}>Sales</span>
+                        </li>
 
-                        <ul className="widget-activity">
-                            <li>
-                                <div className="activity-item p-d-flex p-flex-column">
-                                    <div className="activity-title p-mb-1">Income</div>
-                                    <div className="activity-subtext p-mb-2">30 November, 16.20</div>
-                                    <ProgressBar value="50" showValue={false}></ProgressBar>
+                        <li className="p-d-flex p-ai-center p-py-3">
+                            <div className="person-item p-d-flex p-ai-center">
+                                <img src="assets/demo/images/avatar/avatar-1.png" alt="" />
+                                <div className={classNames({ 'p-ml-2': !isRTL, 'p-mr-2': isRTL })}>
+                                    <div>Anna Fali</div>
+                                    <small className="muted-text">fali@ultima.org</small>
                                 </div>
-                            </li>
-                            <li>
-                                <div className="activity-item p-d-flex p-flex-column">
-                                    <div className="activity-title p-mb-1">Tax</div>
-                                    <div className="activity-subtext p-mb-2">1 December, 15.27</div>
-                                    <ProgressBar value="15" showValue={false}></ProgressBar>
+                            </div>
+                            <span className={classNames('person-tag pink-bgcolor p-p-1 fs-small', { 'p-ml-auto': !isRTL, 'p-mr-auto': isRTL })}>Management</span>
+                        </li>
+
+                        <li className="p-d-flex p-ai-center p-py-3">
+                            <div className="person-item p-d-flex p-ai-center">
+                                <img src="assets/demo/images/avatar/avatar-2.png" alt="" />
+                                <div className={classNames({ 'p-ml-2': !isRTL, 'p-mr-2': isRTL })}>
+                                    <div>Jon Stone</div>
+                                    <small className="muted-text">stone@ultima.org</small>
                                 </div>
-                            </li>
-                            <li>
-                                <div className="activity-item p-d-flex p-flex-column">
-                                    <div className="activity-title p-mb-1">Invoices</div>
-                                    <div className="activity-subtext p-mb-2">1 December, 15.28</div>
-                                    <ProgressBar value="78" showValue={false}></ProgressBar>
+                            </div>
+                            <span className={classNames('person-tag pink-bgcolor p-p-1 fs-small', { 'p-ml-auto': !isRTL, 'p-mr-auto': isRTL })}>Management</span>
+                            <span className={classNames('person-tag teal-bgcolor p-p-1 fs-small', { 'p-ml-2': !isRTL, 'p-mr-2': isRTL })}>Finance</span>
+                        </li>
+
+                        <li className="p-d-flex p-ai-center p-py-3">
+                            <div className="person-item p-d-flex p-ai-center">
+                                <img src="assets/demo/images/avatar/avatar-3.png" alt="" />
+                                <div className={classNames({ 'p-ml-2': !isRTL, 'p-mr-2': isRTL })}>
+                                    <div>Stephen Shaw</div>
+                                    <small className="muted-text">shaw@ultima.org</small>
                                 </div>
-                            </li>
-                            <li>
-                                <div className="activity-item p-d-flex p-flex-column">
-                                    <div className="activity-title p-mb-1">Expanses</div>
-                                    <div className="activity-subtext p-mb-2">3 December, 09.15</div>
-                                    <ProgressBar value="66" showValue={false}></ProgressBar>
-                                </div>
-                            </li>
-                            <li>
-                                <div className="activity-item p-d-flex p-flex-column">
-                                    <div className="activity-title p-mb-1">Bonus</div>
-                                    <div className="activity-subtext p-mb-2">1 December, 23.55</div>
-                                    <ProgressBar value="85" showValue={false}></ProgressBar>
-                                </div>
-                            </li>
-                            <li>
-                                <div className="activity-item p-d-flex p-flex-column">
-                                    <div className="activity-title p-mb-1">Revenue</div>
-                                    <div className="activity-subtext p-mb-2">30 November, 16.20</div>
-                                    <ProgressBar value="54" showValue={false}></ProgressBar>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+                            </div>
+                            <span className={classNames('person-tag teal-bgcolor p-p-1 fs-small', { 'p-ml-auto': !isRTL, 'p-mr-auto': isRTL })}>Finance</span>
+                        </li>
+                    </ul>
                 </div>
+            </div>
+
+
+            <div className="p-col-12 p-lg-6">
+                <div className="card height-100">
+                    <div className="card-header">
+                        <h5>Order Graph</h5>
+                        <div>
+                            <Button type="button" icon="pi pi-ellipsis-h" className="p-button-rounded p-button-text p-button-plain" onClick={(event) => menu6.current.toggle(event)}></Button>
+                            <Menu ref={menu6} popup model={[{ label: 'Update', icon: 'pi pi-fw pi-refresh' }, { label: 'Edit', icon: 'pi pi-fw pi-pencil' }]}></Menu>
+                        </div>
+                    </div>
+                    <Chart type="line" data={ordersChart} options={ordersOptions}></Chart>
+                </div>
+            </div>
+
+            <div className="p-col-12 p-lg-6">
+                <div className="card height-100 widget-timeline">
+                    <div className="card-header">
+                        <h5>Timeline</h5>
+                        <div>
+                            <Button type="button" icon="pi pi-ellipsis-h" className="p-button-rounded p-button-text p-button-plain" onClick={(event) => menu7.current.toggle(event)}></Button>
+                            <Menu ref={menu7} popup model={[{ label: 'Update', icon: 'pi pi-fw pi-refresh' }, { label: 'Edit', icon: 'pi pi-fw pi-pencil' }]}></Menu>
+                        </div>
+                    </div>
+
+                    <Timeline value={timelineEvents} align="left" className="customized-timeline" marker={marker} content={content} />
+                </div>
+            </div>
+
+            <div className="p-col-12 p-md-12 p-lg-6">
+                <div className="card height-100">
+                    <DataTable value={products} paginator rows={8} className="p-datatable-products"
+                        selection={selectedProduct} onSelectionChange={(e) => setSelectedProduct(e.value)}>
+                        <Column header="Image" body={imageTemplate} style={{ width: '5rem' }} />
+                        <Column field="name" body={bodyTemplate} header="Name" sortable />
+                        <Column field="category" body={bodyTemplate} header="Category" sortable />
+                        <Column field="price" body={priceBodyTemplate} header="Price" sortable />
+                        <Column header="View" body={actionTemplate} style={{ width: '4rem' }} />
+                    </DataTable>
+                </div>
+            </div>
+
+
+            <div className="p-col-12 p-lg-3">
+                <div className="card height-100">
+                    <div className="card-header">
+                        <h5>Activity</h5>
+                        <div>
+                            <Button type="button" icon="pi pi-ellipsis-h" className="p-button-rounded p-button-text p-button-plain" onClick={(event) => menu9.current.toggle(event)}></Button>
+                            <Menu ref={menu9} popup model={[{ label: 'Update', icon: 'pi pi-fw pi-refresh' }, { label: 'Edit', icon: 'pi pi-fw pi-pencil' }]}></Menu>
+                        </div>
+                    </div>
+
+                    <ul className="widget-activity">
+                        <li>
+                            <div className="activity-item p-d-flex p-flex-column">
+                                <div className="activity-title p-mb-1">Income</div>
+                                <div className="activity-subtext p-mb-2">30 November, 16.20</div>
+                                <ProgressBar value="50" showValue={false}></ProgressBar>
+                            </div>
+                        </li>
+                        <li>
+                            <div className="activity-item p-d-flex p-flex-column">
+                                <div className="activity-title p-mb-1">Tax</div>
+                                <div className="activity-subtext p-mb-2">1 December, 15.27</div>
+                                <ProgressBar value="15" showValue={false}></ProgressBar>
+                            </div>
+                        </li>
+                        <li>
+                            <div className="activity-item p-d-flex p-flex-column">
+                                <div className="activity-title p-mb-1">Invoices</div>
+                                <div className="activity-subtext p-mb-2">1 December, 15.28</div>
+                                <ProgressBar value="78" showValue={false}></ProgressBar>
+                            </div>
+                        </li>
+                        <li>
+                            <div className="activity-item p-d-flex p-flex-column">
+                                <div className="activity-title p-mb-1">Expanses</div>
+                                <div className="activity-subtext p-mb-2">3 December, 09.15</div>
+                                <ProgressBar value="66" showValue={false}></ProgressBar>
+                            </div>
+                        </li>
+                        <li>
+                            <div className="activity-item p-d-flex p-flex-column">
+                                <div className="activity-title p-mb-1">Bonus</div>
+                                <div className="activity-subtext p-mb-2">1 December, 23.55</div>
+                                <ProgressBar value="85" showValue={false}></ProgressBar>
+                            </div>
+                        </li>
+                        <li>
+                            <div className="activity-item p-d-flex p-flex-column">
+                                <div className="activity-title p-mb-1">Revenue</div>
+                                <div className="activity-subtext p-mb-2">30 November, 16.20</div>
+                                <ProgressBar value="54" showValue={false}></ProgressBar>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
 
         </div>

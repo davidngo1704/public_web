@@ -386,10 +386,6 @@ const App = () => {
                             } 
                         />
                         <Route path="/coin" component={Coin} />
-                  
-
-
-
 
                         <Route 
                             path="/dashboard" 

@@ -7,15 +7,16 @@ import { TabPanel, TabView } from "primereact/tabview"
 import React, { useState } from "react";
 import httpClient from "../../utils/htttpClient";
 import { DaintChart } from "./chart";
+import { TongQuatBlockchain } from "./tong_quat_blockchain"
 
 export const Coin = () => {
-    
+
     const [dropdownItem, setDropdownItem] = useState<any>(null);
     const [input1, setInput1] = React.useState<any>(50);
     const [captiens, setCaptiens] = React.useState<any>();
     const [activeIndex, setActiveIndex] = useState(0);
     const [activeCoinIndex, setActiveCoinIndex] = useState(0);
-    
+
 
 
     React.useEffect(() => {
@@ -38,30 +39,33 @@ export const Coin = () => {
                     header="Sàn Crypto Tập Trung"
                 >
                     <TabView
-                        activeIndex={activeCoinIndex} 
+                        activeIndex={activeCoinIndex}
                         onTabChange={(e) => {
                             (async () => {
                                 switch (e.index) {
                                     case 0:
-                                    {
-                                        break;
-                                    }
+                                        {
+                                            break;
+                                        }
                                 }
                             })();
                             setActiveCoinIndex(e.index);
                         }}
                     >
+                        <TabPanel header="Tổng quát">
+                            <TongQuatBlockchain ></TongQuatBlockchain>
+                        </TabPanel>
                         <TabPanel header="Bingx">
                             <div className="card">
                                 <div className="p-formgroup-inline">
                                     <div className="p-field p-col-12 p-md-3">
                                         <label htmlFor="state">Cặp tiền</label>
                                         <Dropdown
-                                            id="state" 
-                                            value={dropdownItem} 
-                                            onChange={(e) => setDropdownItem(e.value)} 
-                                            options={captiens} 
-                                            optionLabel="name" 
+                                            id="state"
+                                            value={dropdownItem}
+                                            onChange={(e) => setDropdownItem(e.value)}
+                                            options={captiens}
+                                            optionLabel="name"
                                             placeholder="Select One"
                                         ></Dropdown>
                                     </div>
@@ -93,10 +97,12 @@ export const Coin = () => {
                         <TabPanel header="Bybit">
 
                         </TabPanel>
-                        <TabPanel header="Bitget">
+                        <TabPanel header="Kucoin">
 
                         </TabPanel>
+                        <TabPanel header="Gate.io">
 
+                        </TabPanel>
                     </TabView>
 
                 </TabPanel>

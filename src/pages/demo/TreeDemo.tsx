@@ -72,7 +72,7 @@ export const TreeDemo = () => {
 
         let info = await httpClient.getMethod("os/info");
 
-        setOs(info);
+        setOs(info ?? "linux");
     }
 
     const commandHandler = async (text: any) => {

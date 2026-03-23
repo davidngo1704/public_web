@@ -15,13 +15,13 @@ export const DaintChart = () => {
     React.useEffect(() => {
 
 
-        (async () => {
+        // (async () => {
 
-            let configData = JSON.parse(await httpClient.getFileData(["data", "config", "web", "config.json"]));
+        //     let configData = JSON.parse(await httpClient.getFileData(["data", "config", "web", "config.json"]));
 
-            setConfig(configData);
+        //     setConfig(configData);
 
-        })();
+        // })();
 
 
     }, []);
@@ -43,42 +43,7 @@ export const DaintChart = () => {
             >
                 <TabPanel header="XAUT-USDT">
                     <iframe
-                        src={config.endpoint_nen_nhat_xau_usdt}
-                        width="100%"
-                        height="600px"
-                    ></iframe>
-                </TabPanel>
-                <TabPanel header="BTC-USDT">
-                    <iframe
-                        src={config.endpoint_nen_nhat_xau_usdt}
-                        width="100%"
-                        height="600px"
-                    ></iframe>
-                </TabPanel>
-                <TabPanel header="ETH-USDT">
-                    <iframe
-                        src={config.endpoint_nen_nhat_xau_usdt}
-                        width="100%"
-                        height="600px"
-                    ></iframe>
-                </TabPanel>
-                <TabPanel header="LINK-USDT">
-                    <iframe
-                        src={config.endpoint_nen_nhat_xau_usdt}
-                        width="100%"
-                        height="600px"
-                    ></iframe>
-                </TabPanel>
-                <TabPanel header="SOL-USDT">
-                    <iframe
-                        src={config.endpoint_nen_nhat_xau_usdt}
-                        width="100%"
-                        height="600px"
-                    ></iframe>
-                </TabPanel>
-                <TabPanel header="ONDO-USDT">
-                    <iframe
-                        src={config.endpoint_nen_nhat_xau_usdt}
+                        src={"http://192.168.1.9/web/nen_nhat_chart.html?symbol=FLOWUSDT&time=1h"}
                         width="100%"
                         height="600px"
                     ></iframe>

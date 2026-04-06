@@ -10,6 +10,8 @@ const Login = () => {
 	const goDashboard = () => {
 		history.push('/');
 	}
+	const [email, setEmail] = React.useState('');
+	const [password, setPassword] = React.useState('');
 
 	return (
 		<div className="pages-body login-page p-d-flex p-flex-column">
@@ -41,7 +43,7 @@ const Login = () => {
 								<i className="pi pi-envelope"></i>
 							</span>
 							<span className="p-float-label">
-								<InputText type="text" id="inputgroup1" />
+								<InputText type="text" id="inputgroup1" value={email} onChange={(e) => setEmail(e.target.value)} />
 								<label htmlFor="inputgroup1">Email</label>
 							</span>
 						</div>
@@ -51,14 +53,20 @@ const Login = () => {
 								<i className="pi pi-lock"></i>
 							</span>
 							<span className="p-float-label">
-								<InputText type="password" id="inputgroup2" />
+								<InputText type="password" id="inputgroup2" value={password} onChange={(e) => setPassword(e.target.value)} />
 								<label htmlFor="inputgroup2">Password</label>
 							</span>
 						</div>
 
 					</div>
 
-					<Button className="login-button p-mb-6 p-px-3" label="LOGIN"></Button>
+					<Button className="login-button p-mb-6 p-px-3" label="LOGIN"
+						onClick={() => {
+							localStorage.setItem('email', email);
+							localStorage.setItem('password', password);
+							goDashboard();
+						}}
+					></Button>
 
 				</div>
 			</div>

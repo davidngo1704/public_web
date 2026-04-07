@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TAR_FILE="/var/lib/ApiGateway/source_code/DashboardWeb/build.tar"
+TAR_FILE="//var/lib/ApiGateway/web/public_web/build.tar"
 DEPLOY_DIR="/var/www/react-app"
 DEFAULT_CONF="/etc/nginx/sites-available/default"
 

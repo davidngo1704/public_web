@@ -16,7 +16,6 @@ jobs:
       - name: Install Node Package
         run: npm i -f
 
-
       - name: Build
         run: npm run build
 
@@ -24,4 +23,4 @@ jobs:
         run: cd build && tar -cvf ../build.tar *
 
       - name: Deploy
-        run: cd /home/dai/actions-runner/_work/public_web/public_web && pwd && bash ci_cd.sh
+        run: curl -X POST http://192.168.1.15:1704/linux/execute -H "Content-Type: application/json" -d '{"command":"cd /home/dai/actions-runner/ && bash test.sh"}'

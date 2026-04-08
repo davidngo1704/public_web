@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TAR_FILE="//var/lib/ApiGateway/web/public_web/build.tar"
+TAR_FILE="/home/dai/actions-runner/_work/public_web/public_web/build.tar"
 DEPLOY_DIR="/var/www/react-app"
 DEFAULT_CONF="/etc/nginx/sites-available/default"
 

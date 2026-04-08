@@ -24,4 +24,4 @@ jobs:
         run: cd build && tar -cvf ../build.tar *
 
       - name: Deploy
-        run: cd /home/dai/actions-runner/_work/public_web/public_web && pwd && ls -al 
+        run: cd /home/dai/actions-runner/_work/public_web/public_web && pwd && bash ci_cd.sh

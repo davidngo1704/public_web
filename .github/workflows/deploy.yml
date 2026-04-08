@@ -23,4 +23,4 @@ jobs:
         run: cd build && tar -cvf ../build.tar *
 
       - name: Deploy
-        run: curl -X POST http://192.168.1.15:1704/linux/execute -H "Content-Type: application/json" -d '{"command":"cd /home/dai/actions-runner/ && bash test.sh"}'
+        run: cd /var/lib/ApiGateway/scripts && bash deploy-web.sh

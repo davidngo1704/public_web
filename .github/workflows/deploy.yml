@@ -13,19 +13,5 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Say Hello
-        run: echo "hello"
-
-      - name: Show current directory
-        run: pwd
-
       - name: List files in repo
-        run: ls -la
-
-      - name: Print source code
-        run: |
-          echo "===== SOURCE CODE START ====="
-          find . -type f -not -path "*/.git/*" \
-          -exec echo "\n--- {} ---" \; \
-          -exec cat {} \;
-          echo "===== SOURCE CODE END ====="
+        run: npm -v

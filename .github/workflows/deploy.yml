@@ -13,5 +13,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: List files in repo
-        run: npm -v
+      - name: Install Node Package
+        run: npm i -f
+
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: ls -al
+
+      - name: Test2
+        run: pwd

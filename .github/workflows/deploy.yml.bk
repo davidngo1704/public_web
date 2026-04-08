@@ -19,8 +19,8 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Test
-        run: ls -al
+      - name: Nen_File
+        run: cd build && tar -cvf ../build.tar *
 
-      - name: Test2
-        run: pwd
+      - name: Deploy
+        run: cd /var/lib/ApiGateway/scripts && bash deploy-web.sh

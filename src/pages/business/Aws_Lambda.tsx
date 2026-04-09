@@ -173,7 +173,6 @@ export const Aws_Lambda = () => {
                         <Column selectionMode="multiple" headerStyle={{ width: '3rem' }}></Column>
                         <Column field="id" header="Id" sortable ></Column>
                         <Column field="code" header="Code" sortable ></Column>
-                        <Column field="value" header="Value" sortable ></Column>
                         <Column body={actionBodyTemplate}></Column>
                     </DataTable>
 

@@ -28,9 +28,9 @@ export const PhongTro = (props: any) => {
 
     // số điện hiện tại nhập cho từng phòng
     const [electricityInputs, setElectricityInputs] = useState<Record<string, string>>({
-        Phong1: '',
-        Phong2: '',
-        Phong3: ''
+        phong_1: '',
+        phong_2: '',
+        phong_3: ''
     });
 
     // nội dung text kết quả cho từng phòng
@@ -54,12 +54,14 @@ export const PhongTro = (props: any) => {
 
             let currentRoomData = roomData;
 
+            console.log("Dữ liệu phòng hiện tại:", currentRoomData);
+
             // Nếu chưa có dữ liệu phòng thì gọi API
             if (!currentRoomData || currentRoomData.length === 0) {
                 let data = await httpClient.getRawMethod(ELECTRICITY_API_URL);
 
-                setRoomData(JSON.parse(data.value));
-                currentRoomData = data;
+                setRoomData(data.value);
+                currentRoomData = data.value;
             }
 
             const messages: Record<string, string> = {};
@@ -76,8 +78,11 @@ export const PhongTro = (props: any) => {
                 }
 
                 const lastMonthElectricityNumber = room.electricityNumber;
+
                 const usedElectricity = Math.max(0, currentElectricityNumber - lastMonthElectricityNumber);
+
                 const electricityCost = usedElectricity * room.electricityPrice;
+
                 const total = electricityCost + room.price;
 
                 const message =
@@ -106,8 +111,8 @@ export const PhongTro = (props: any) => {
             if (!currentRoomData || currentRoomData.length === 0) {
                 let data = await httpClient.getRawMethod(ELECTRICITY_API_URL);
 
-                setRoomData(JSON.parse(data.value));
-                currentRoomData = JSON.parse(data.value);
+                setRoomData(data.value);
+                currentRoomData = data.value;
             }
 
             // Kiểm tra xem đã nhập số điện cho tất cả các phòng chưa
@@ -167,21 +172,11 @@ export const PhongTro = (props: any) => {
             setRoomData(updatedData);
 
             // Hiển thị thông báo thành công
-            toast.current?.show({
-                severity: 'success',
-                summary: 'Thành công',
-                detail: 'Đã lưu dữ liệu số điện thành công',
-                life: 3000
-            });
+            alert("Dữ liệu đã được lưu thành công!");
 
         } catch (error) {
             console.error("Lỗi khi lưu dữ liệu:", error);
-            toast.current?.show({
-                severity: 'error',
-                summary: 'Lỗi',
-                detail: 'Không thể lưu dữ liệu. Vui lòng thử lại',
-                life: 3000
-            });
+            alert("Có lỗi xảy ra khi lưu dữ liệu. Vui lòng thử lại.");
         } finally {
             setIsSaving(false);
         }
@@ -196,8 +191,8 @@ export const PhongTro = (props: any) => {
                         <InputText
                             type="number"
                             placeholder="Số điện phòng 1"
-                            value={electricityInputs.Phong1}
-                            onChange={(e) => handleElectricityInputChange('Phong1', e.target.value)}
+                            value={electricityInputs.phong_1}
+                            onChange={(e) => handleElectricityInputChange('phong_1', e.target.value)}
                         />
                     </div>
 
@@ -205,8 +200,8 @@ export const PhongTro = (props: any) => {
                         <InputText
                             type="number"
                             placeholder="Số điện phòng 2"
-                            value={electricityInputs.Phong2}
-                            onChange={(e) => handleElectricityInputChange('Phong2', e.target.value)}
+                            value={electricityInputs.phong_2}
+                            onChange={(e) => handleElectricityInputChange('phong_2', e.target.value)}
                         />
                     </div>
 
@@ -214,8 +209,8 @@ export const PhongTro = (props: any) => {
                         <InputText
                             type="number"
                             placeholder="Số điện phòng 3"
-                            value={electricityInputs.Phong3}
-                            onChange={(e) => handleElectricityInputChange('Phong3', e.target.value)}
+                            value={electricityInputs.phong_3}
+                            onChange={(e) => handleElectricityInputChange('phong_3', e.target.value)}
                         />
                     </div>
                 </div>
@@ -231,7 +226,7 @@ export const PhongTro = (props: any) => {
 
                                         let data = await httpClient.getRawMethod(ELECTRICITY_API_URL);
 
-                                        setRoomData(JSON.parse(data.value));
+                                        setRoomData(data.value);
 
                                         alert("Đã tải dữ liệu phòng trọ thành công. Bạn có thể tiến hành tính toán ngay mà không cần chờ tải dữ liệu từ API nữa.");
                                     } catch (error) {
@@ -253,13 +248,13 @@ export const PhongTro = (props: any) => {
                             disabled={isCalculating || isSaving}
                         />
                         <h4 style={{ whiteSpace: 'pre-line', userSelect: 'text', cursor: 'text' }}>
-                            {roomMessages.Phong1}
+                            {roomMessages.phong_1}
                         </h4>
                         <h4 style={{ whiteSpace: 'pre-line', userSelect: 'text', cursor: 'text' }}>
-                            {roomMessages.Phong2}
+                            {roomMessages.phong_2}
                         </h4>
                         <h4 style={{ whiteSpace: 'pre-line', userSelect: 'text', cursor: 'text' }}>
-                            {roomMessages.Phong3}
+                            {roomMessages.phong_3}
                         </h4>
                     </div>
                 </div>

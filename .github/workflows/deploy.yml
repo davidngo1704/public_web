@@ -13,5 +13,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: test
-        run: npm -v
+      - name: Install Node Package
+        run: npm i -f
+
+      - name: Build
+        run: npm run build
+
+      - name: Nen_File
+        run: cd build && tar -cvf ../build.tar *
+
+      - name: Deploy
+        run: cd /var/lib/ApiGateway/scripts && bash deploy-web.sh

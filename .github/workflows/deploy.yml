@@ -14,13 +14,4 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Node Package
-        run: npm i -f
-
-      - name: Build
-        run: npm run build
-
-      - name: Nen_File
-        run: cd build && tar -cvf ../build.tar *
-
-      - name: Deploy
-        run: pwd && ls
+        run: docker ps

@@ -13,5 +13,5 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install Node Package
-        run: docker build -t public-web .
+      - name: Deploy application with Docker Compose
+        run: docker compose up -d --build

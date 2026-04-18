@@ -14,4 +14,4 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Node Package
-        run: docker ps
+        run: docker build -t public-web .

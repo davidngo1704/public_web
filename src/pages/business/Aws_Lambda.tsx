@@ -124,7 +124,7 @@ export const Aws_Lambda = () => {
     const leftToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <Button label="New" icon="pi pi-plus" className="p-button-success p-mr-2 p-mb-2" onClick={openNew} />
+                <Button label="Tạo mới" icon="pi pi-plus" className="p-button-success p-mr-2 p-mb-2" onClick={openNew} />
             </React.Fragment>
         )
     }

@@ -23,4 +23,4 @@ jobs:
         run: cd build && tar -cvf ../build.tar *
 
       - name: Deploy
-        run: cd /var/lib/ApiGateway/scripts && bash deploy-web.sh
+        run: pwd && ls

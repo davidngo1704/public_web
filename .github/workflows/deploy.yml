@@ -15,3 +15,6 @@ jobs:
 
       - name: Deploy application with Docker Compose
         run: docker compose up -d --build
+
+      - name: Send Telegram notification
+        run: bash send_telegram.sh

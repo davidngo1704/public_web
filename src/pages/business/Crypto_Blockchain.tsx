@@ -9,6 +9,7 @@ import { InputTextarea } from 'primereact/inputtextarea';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import httpClient from '../../utils/htttpClient';
+import { Card } from 'primereact/card';
 
 export const Crypto_Blockchain = () => {
 
@@ -60,7 +61,7 @@ export const Crypto_Blockchain = () => {
     const saveProduct = async () => {
         setSubmitted(true);
 
-        if(product.id == null) {
+        if (product.id == null) {
             let endpoint = "https://rtafvndlc6mc6g5apdwzdjduma0sjicv.lambda-url.ap-southeast-2.on.aws";
 
             await httpClient.postMethod(endpoint, {
@@ -158,15 +159,40 @@ export const Crypto_Blockchain = () => {
         </>
     );
 
+    const header = (
+        <img alt="Card" src="showcase/demo/images/usercard.png" 
+        onError={(e) => e.target.src = 'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} 
+        />
+    );
+    const footer = (
+        <span>
+            <Button label="LONG" icon="pi pi-check" />
+            <Button label="CLOSE" icon="pi pi-times" className="p-button-secondary p-ml-2" />
+            <Button label="SHORT" icon="pi pi-times" className="p-button-secondary p-ml-2" />
+            <Button label="SHOW INFO" icon="pi pi-check"
+                onClick={async () => {
+                    let data = await httpClient.getRawMethod("http://192.168.1.15:5000/Blockchain/GetPosition");
+                    let dataString = data.data[0].positionSide + "-" + data.data[0].symbol + "-> (" + data.data[0].realisedProfit + ")";
+                    alert(dataString);
+                }}
+            />
+        </span>
+    );
     return (
         <div className="p-grid crud-demo">
+            <div>
+                <Card title="WLD" subTitle="Subtitle" style={{ width: '25em' }} footer={footer} header={header}>
+                <p className="p-m-0" style={{ lineHeight: '1.5' }}>WLD, ARB, ETH</p>
+                </Card>
+            </div>
+
             <div className="p-col-12">
                 <div className="card">
                     <Toast ref={toast} />
                     <Toolbar className="p-mb-4 p-toolbar" left={leftToolbarTemplate} ></Toolbar>
 
                     <DataTable ref={dt} value={products} selection={selectedProducts} onSelectionChange={(e) => setSelectedProducts(e.value)}
-                        dataKey="id" paginator  className="datatable-responsive"
+                        dataKey="id" paginator className="datatable-responsive"
                         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
                         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products"
                         emptyMessage="No products found.">
@@ -176,14 +202,14 @@ export const Crypto_Blockchain = () => {
                         <Column body={actionBodyTemplate}></Column>
                     </DataTable>
 
-                    <Dialog 
-                        visible={productDialog} 
-                        style={{ width: '450px' }} 
-                        header="Product Details" 
-                        modal 
+                    <Dialog
+                        visible={productDialog}
+                        style={{ width: '450px' }}
+                        header="Product Details"
+                        modal
                         className="p-fluid" footer={productDialogFooter} onHide={hideDialog}>
 
-                      
+
                         <div className="p-field">
                             <label htmlFor="code">Code</label>
                             <InputText id="code" value={product.code} onChange={(e) => onInputChange(e, 'code')} required autoFocus className={classNames({ 'p-invalid': submitted && !product.code })} />
@@ -191,16 +217,16 @@ export const Crypto_Blockchain = () => {
                         </div>
                         <div className="p-field">
                             <label htmlFor="value">Value</label>
-                            <InputTextarea 
-                            rows={3} cols={30}
-                                id="value" 
-                                value={product.value} 
+                            <InputTextarea
+                                rows={3} cols={30}
+                                id="value"
+                                value={product.value}
                                 onChange={(e) => onInputChange(e, 'value')} required autoFocus className={classNames({ 'p-invalid': submitted && !product.value })} />
                             {submitted && !product.value && <small className="p-invalid">Value is required.</small>}
                         </div>
 
-                   
-                 
+
+
                     </Dialog>
 
                     <Dialog visible={deleteProductDialog} style={{ width: '450px' }} header="Confirm" modal footer={deleteProductDialogFooter} onHide={hideDeleteProductDialog}>

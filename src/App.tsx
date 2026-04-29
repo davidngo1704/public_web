@@ -100,24 +100,11 @@ const App = () => {
     useEffect(() => {
 
         (async () => {
-            let menu = await getItem("menu", "daint_db", "daint_store");
-            
-            if(!menu) {
-
-                let data = await httpClient.getRawMethod("https://rtafvndlc6mc6g5apdwzdjduma0sjicv.lambda-url.ap-southeast-2.on.aws?id=112bd451-36e6-4737-bffc-8e83d974c8c1");
+            let data = await httpClient.getRawMethod("https://rtafvndlc6mc6g5apdwzdjduma0sjicv.lambda-url.ap-southeast-2.on.aws?id=112bd451-36e6-4737-bffc-8e83d974c8c1");
              
-                let configData = JSON.parse(data.value);
+            let configData = JSON.parse(data.value);
 
-                await addItem({
-                    id: "menu",
-                    value: configData
-                }, "daint_db", "daint_store");
-                
-                setMenu(configData);
-            }
-            else {
-                setMenu(menu.value);
-            }
+            setMenu(configData);
         })();
 
         onColorModeChange(colorMode);

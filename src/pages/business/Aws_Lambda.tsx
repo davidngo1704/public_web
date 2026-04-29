@@ -124,8 +124,7 @@ export const Aws_Lambda = () => {
     const leftToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <Button label="New" icon="pi pi-plus" className="p-button-success p-mr-2 p-mb-2" onClick={openNew} />
-                <Button label="Delete" icon="pi pi-trash" className="p-button-danger p-mb-2" onClick={confirmDeleteSelected} disabled={!selectedProducts || !selectedProducts.length} />
+                <Button label="Tạo mới" icon="pi pi-plus" className="p-button-success p-mr-2 p-mb-2" onClick={openNew} />
             </React.Fragment>
         )
     }

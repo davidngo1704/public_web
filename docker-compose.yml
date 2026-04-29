@@ -1,0 +1,10 @@
+services:
+  public-web:
+    container_name: public-web
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: public-web:latest
+    ports:
+      - "80:80"
+    restart: unless-stopped

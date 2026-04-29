@@ -47,7 +47,7 @@ import { TimelineDemo } from './pages/demo/TimelineDemo';
 import { Aws_Lambda } from './pages/business/Aws_Lambda';
 
 import PrimeReact from 'primereact/api';
-
+import { Crypto_Blockchain } from './pages/business/Crypto_Blockchain';
 
 import { getObjectById } from "./utils/firebase_service"
 
@@ -403,6 +403,25 @@ const App = () => {
                                 <TreeDemo />
                             } 
                         />
+                        <Route 
+                            path="/crypto_blockchain" 
+                            exact 
+                            render={() => 
+                                <Crypto_Blockchain />
+                            } 
+                        />
+
+
+
+
+
+
+
+
+
+
+
+
 
                         <Route 
                             path="/dashboard" 

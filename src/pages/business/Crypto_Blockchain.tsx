@@ -161,7 +161,7 @@ export const Crypto_Blockchain = () => {
 
     const header = (
         <img alt="Card" src="showcase/demo/images/usercard.png" 
-        onError={(e) => e.target.src = 'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} 
+      
         />
     );
     const footer = (

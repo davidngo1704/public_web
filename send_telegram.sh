@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BOT_TOKEN="8389607202:AAEcnLvqWG-FTyGkw2xUYXJQwI7LiJzigWM"
+BOT_TOKEN="8387651261:AAE95Th3xYfQBeUrIsGJw1LfKN8hUcuvdqU"
 CHAT_ID="5394829604"
 MESSAGE="Đã deploy xong Web Frontend ReactJS"
 

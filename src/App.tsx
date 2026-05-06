@@ -108,11 +108,6 @@ const App = () => {
              
                 let configData = JSON.parse(data.value);
 
-                await addItem({
-                    id: "menu",
-                    value: configData
-                }, "daint_db", "daint_store");
-                
                 setMenu(configData);
             }
             else {

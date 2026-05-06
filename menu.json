@@ -9,6 +9,11 @@
                 "to": "/"
             },
             {
+                "label": "Crypto_Blockchain",
+                "icon": "pi pi-fw pi-sitemap",
+                "to": "/crypto_blockchain"
+            },
+            {
                 "label": "Config",
                 "icon": "pi pi-fw pi-sliders-h",
                 "to": "/config"

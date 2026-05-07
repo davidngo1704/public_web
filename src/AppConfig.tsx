@@ -93,15 +93,27 @@ const AppConfig = (props: any) => {
 
                 <div className="layout-config-panel p-d-flex p-flex-column">
                     <div className="p-px-3 p-pt-3">
-                        <h5>Theme Customization</h5>
-                        <span>Ultima offers different themes for layout, topbar, menu etc.</span>
+                        <h5>Cấu hình hệ thống</h5>
                     </div>
 
                     <hr className="p-mb-0" />
 
                     <div className="layout-config-options p-p-3">
 
-                        <h6>Layout/Theme Scale</h6>
+                      <h6>Chế độ hệ thống</h6>
+                        <div className="p-d-flex">
+                            <div className="p-d-flex p-ai-center">
+                                <RadioButton id="light" name="darkMenu" value="LAN" checked={props.systemType === 'LAN'} onChange={(e) => props.onSystemTypeChange(e.value)} />
+                                <label htmlFor="light" className={classNames({ 'p-ml-2': !isRTL, 'p-mr-2': isRTL })}>Nội bộ</label>
+                            </div>
+                            <div className={classNames('p-d-flex p-ai-center', { 'p-ml-4': !isRTL, 'p-mr-4': isRTL })}>
+                                <RadioButton id="dark" name="darkMenu" value="WAN" checked={props.systemType === 'WAN'} onChange={(e) => props.onSystemTypeChange(e.value)}  />
+                                <label htmlFor="dark" className={classNames({ 'p-ml-2': !isRTL, 'p-mr-2': isRTL })}>Công khai</label>
+                            </div>
+                        </div>
+
+
+                        <h6>Cỡ chữ</h6>
                         <div className="p-d-flex p-ai-center">
                             <Button type="button" icon="pi pi-minus" onClick={() => decrementScale()} className="p-button-rounded p-button-text" disabled={scale === scales[0]}></Button>
                             {
@@ -112,19 +124,19 @@ const AppConfig = (props: any) => {
                             <Button type="button" icon="pi pi-plus" onClick={() => incrementScale()} className="p-button-rounded p-button-text" disabled={scale === scales[scales.length - 1]}></Button>
                         </div>
 
-                        <h6>Layout Mode</h6>
+                        <h6>Sáng tối</h6>
                         <div className="p-d-flex">
                             <div className="p-d-flex p-ai-center">
                                 <RadioButton id="light" name="darkMenu" value="light" checked={props.colorMode === 'light'} onChange={(e) => props.onColorModeChange(e.value)} />
-                                <label htmlFor="light" className={classNames({ 'p-ml-2': !isRTL, 'p-mr-2': isRTL })}>Light</label>
+                                <label htmlFor="light" className={classNames({ 'p-ml-2': !isRTL, 'p-mr-2': isRTL })}>Sáng</label>
                             </div>
                             <div className={classNames('p-d-flex p-ai-center', { 'p-ml-4': !isRTL, 'p-mr-4': isRTL })}>
                                 <RadioButton id="dark" name="darkMenu" value="dark" checked={props.colorMode === 'dark'} onChange={(e) => props.onColorModeChange(e.value)}  />
-                                <label htmlFor="dark" className={classNames({ 'p-ml-2': !isRTL, 'p-mr-2': isRTL })}>Dark</label>
+                                <label htmlFor="dark" className={classNames({ 'p-ml-2': !isRTL, 'p-mr-2': isRTL })}>Tối</label>
                             </div>
                         </div>
 
-                        <h6>Menu Mode</h6>
+                        <h6>Chế độ menu</h6>
                         <div className="p-d-flex">
                             <div className="p-d-flex p-flex-column">
                                 <div className="p-d-flex p-ai-center">
@@ -148,7 +160,7 @@ const AppConfig = (props: any) => {
                             </div>
                         </div>
 
-                        <h6>Inline Menu Position</h6>
+                        <h6>Vị trí menu nội tuyến</h6>
                         <div className="p-d-flex">
                             <div className="p-d-flex p-ai-center">
                                 <RadioButton id="top" name="inlineMenuPosition" value="top" checked={props.inlineMenuPosition === 'top'} onChange={(e) => props.onInlineMenuPositionChange(e.value)} />

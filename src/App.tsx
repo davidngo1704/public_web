@@ -48,6 +48,7 @@ import { Aws_Lambda } from './pages/business/Aws_Lambda';
 
 import PrimeReact from 'primereact/api';
 import { Crypto_Blockchain } from './pages/business/Crypto_Blockchain';
+import { FormDemo } from './pages/business/FormDemo';
 
 import { getObjectById } from "./utils/firebase_service"
 
@@ -69,6 +70,7 @@ const App = () => {
     const [colorMode, setColorMode] = useState(initialConfig.colorMode);
     const [rightMenuActive, setRightMenuActive] = useState(false);
     const [menuActive, setMenuActive] = useState(false);
+    const [systemType, setSystemType] = useState('LAN');
     const [inputStyle, setInputStyle] = useState(initialConfig.inputStyle);
     const [isRTL, setRTL] = useState<boolean>(initialConfig.isRTL);
     const [ripple, setRipple] = useState(initialConfig.ripple);
@@ -100,15 +102,23 @@ const App = () => {
     useEffect(() => {
 
         (async () => {
-            let data = await httpClient.getRawMethod("https://rtafvndlc6mc6g5apdwzdjduma0sjicv.lambda-url.ap-southeast-2.on.aws?id=112bd451-36e6-4737-bffc-8e83d974c8c1");
+
+            if(systemType === 'LAN') {
+                
+            }
+            else if(systemType === 'WAN') {
+             let data = await httpClient.getRawMethod("https://rtafvndlc6mc6g5apdwzdjduma0sjicv.lambda-url.ap-southeast-2.on.aws?id=112bd451-36e6-4737-bffc-8e83d974c8c1");
              
             let configData = JSON.parse(data.value);
 
             setMenu(configData);
+            }
+
+            
         })();
 
         onColorModeChange(colorMode);
-    }, [])
+    }, [systemType])
 
     useEffect(() => {
         saveThemeConfig({
@@ -397,6 +407,13 @@ const App = () => {
                                 <Crypto_Blockchain />
                             } 
                         />
+                        <Route 
+                            path="/form_demo" 
+                            exact 
+                            render={() => 
+                                <FormDemo />
+                            } 
+                        />
 
 
 
@@ -461,7 +478,9 @@ const App = () => {
 
                 </div>
 
-                <AppConfig inputStyle={inputStyle} onInputStyleChange={onInputStyleChange}
+                <AppConfig 
+                    systemType={systemType} onSystemTypeChange={setSystemType}
+                    inputStyle={inputStyle} onInputStyleChange={onInputStyleChange}
                     rippleEffect={ripple} onRippleEffect={onRipple}
                     menuMode={menuMode} onMenuModeChange={onMenuModeChange}
                     inlineMenuPosition={inlineMenuPosition} onInlineMenuPositionChange={onInlineMenuPositionChange}

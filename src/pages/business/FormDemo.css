@@ -1,0 +1,20 @@
+.form-main .card {
+    width: 100%;
+}
+.form-main .card form {
+    margin-top: 2rem;
+}
+.form-main .card .p-field {
+    margin-bottom: 1.5rem;
+}
+@media screen and (max-width: 960px) {
+    .form-main .card {
+        width: 80%;
+    }
+}
+@media screen and (max-width: 640px) {
+    .form-main .card {
+        width: 100%;
+        min-width: 0;
+    }
+}

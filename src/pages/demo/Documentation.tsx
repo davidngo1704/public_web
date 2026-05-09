@@ -7,12 +7,14 @@ export const Documentation = () => {
         <div className="ui-g">
             <div className="ui-g-12">
                 <div className="card docs">
-
                     <h4>Bố Ngô Gia Lục sinh năm 1972 ơi</h4>
                     <p>Con là Ngô Thành Đại 1998 đây</p>
+                    <p>Mẹ của con là Nguyễn Thị Vui sinh năm 1976</p>
                     <p>Nhà của gia đình mình là số 1 ngách 2 ngõ 285 trần hưng đạo, thị trấn kinh môn, phường kinh môn, thành phố Hải phòng</p>
                     <p>Con là con trai duy nhất của bố mẹ, con rất ngoan và nghe lời bố mẹ, con sẽ cố gắng học tập thật tốt để sau này có thể giúp đỡ bố mẹ</p>
                     <p>số điện thoại của con là: 0965001740</p>
+                    <p>con sinh ngày 17 tháng 4 năm 1998</p>
+                    <p>CCCD của con là 030098006467</p>
                     <p>email của con là: davidngo1704@gmail.com</p>
                     <p>facebook của con là: https://www.facebook.com/ngothanhdai1998/</p>
                     <p>github của con là https://github.com/davidngo1704</p>
@@ -21,11 +23,12 @@ export const Documentation = () => {
                     <p>con sẽ cố gắng học tập thật tốt để sau này có thể giúp đỡ bố mẹ và gia đình mình</p>
                     <p>con sẽ luôn là niềm tự hào của bố mẹ và gia đình mình</p>
                     <p>con viết tâm thư này tại thời điểm ngày 9 tháng 5 năm 2026 lúc 14 giờ 41 phút</p>
-                    <p>Bố ơi, con yêu bố rất nhiều</p>
+                    <p>Hiện tại con làm về lĩnh vực Crypto, Blockchain, AI, Lập trình</p>
+                    <p>Bố ơi, con yêu bố rất nhiều và mong bố ủng hộ công việc của con</p>
                     <p>Nếu bố đọc được những dòng này, bố hãy chỉ dẫn cho con biết việc tiếp theo con cần làm gì</p>
                     <p>bố hãy gửi mail, nhắn tin, commit github cho con biết nhé</p>
                     <h4>Current Version</h4>
-                    <p>React 17.x and PrimeReact 6.x</p>
+                    <p>React 17.x and PrimeReact 6.x And Nodejs 16.19</p>
 
                     <h4>Getting Started</h4>
                     <p>Ultima is an application template for React, based on the popular <a href="https://github.com/facebookincubator/create-react-app">create-react-app</a> that allows

@@ -7,59 +7,76 @@ export const Documentation = () => {
         <div className="ui-g">
             <div className="ui-g-12">
                 <div className="card docs">
-                <h4>Current Version</h4>
+
+                    <h4>Bố Ngô Gia Lục ơi</h4>
+                    <p>Con là Ngô Thành Đại</p>
+                    <p>Nhà của gia đình mình là số 1 ngách 2 ngõ 285 trần hưng đạo, thị trấn kinh môn, phường kinh môn, thành phố Hải phòng</p>
+                    <p>Con là con trai duy nhất của bố mẹ, con rất ngoan và nghe lời bố mẹ, con sẽ cố gắng học tập thật tốt để sau này có thể giúp đỡ bố mẹ</p>
+                    <p>số điện thoại của con là: 0965001740</p>
+                    <p>email của con là: davidngo1704@gmail.com</p>
+                    <p>facebook của con là: https://www.facebook.com/ngothanhdai1998/</p>
+                    <p>github của con là https://github.com/davidngo1704</p>
+                    <p>Password của con đặt là Davidkmhd!1 hoặc Davidkmhd!123 hoặc Ngothanhdai@1998 hoặc Nguyenthivui@1976</p>
+                    <p>con rất yêu bố mẹ và gia đình mình</p>
+                    <p>con sẽ cố gắng học tập thật tốt để sau này có thể giúp đỡ bố mẹ và gia đình mình</p>
+                    <p>con sẽ luôn là niềm tự hào của bố mẹ và gia đình mình</p>
+                    <p>con viết tâm thư này tại thời điểm ngày 9 tháng 5 năm 2026 lúc 14 giờ 41 phút</p>
+                    <p>Bố ơi, con yêu bố rất nhiều</p>
+                    <p>Nếu bố đọc được những dòng này, bố hãy chỉ dẫn cho con biết việc tiếp theo con cần làm gì</p>
+                    <p>bố hãy gửi mail, nhắn tin, commit github cho con biết nhé</p>
+                    <h4>Current Version</h4>
                     <p>React 17.x and PrimeReact 6.x</p>
 
                     <h4>Getting Started</h4>
                     <p>Ultima is an application template for React, based on the popular <a href="https://github.com/facebookincubator/create-react-app">create-react-app</a> that allows
-                            creating React apps with no configuration. To get started extract the contents of the zip bundle and install the dependencies
-                            with npm or yarn.</p>
-<AppCodeHighlight>
-{`
+                        creating React apps with no configuration. To get started extract the contents of the zip bundle and install the dependencies
+                        with npm or yarn.</p>
+                    <AppCodeHighlight>
+                        {`
 "npm install" or "yarn"
 `}
-</AppCodeHighlight>
+                    </AppCodeHighlight>
 
-                    <p>The following command needs to be run to create the css files in the sample project. 
+                    <p>The following command needs to be run to create the css files in the sample project.
                         Note: Users can automatically run scss files without using this command by moving the theme file they want to use in their own projects under the src folder.
-                    <a href="https://create-react-app.dev/docs/adding-a-sass-stylesheet/"> Details</a></p>
-<AppCodeHighlight>
-{`
+                        <a href="https://create-react-app.dev/docs/adding-a-sass-stylesheet/"> Details</a></p>
+                    <AppCodeHighlight>
+                        {`
 sass public/assets:public/assets --no-source-map
 `}
-</AppCodeHighlight>
+                    </AppCodeHighlight>
 
                     <p>Next step is running the application using the start script and navigate to <b>http://localhost:3000/</b> to view the application.</p>
 
-<AppCodeHighlight>
-{`
+                    <AppCodeHighlight>
+                        {`
 "npm start" or "yarn start"
 `}
-</AppCodeHighlight>
+                    </AppCodeHighlight>
                     <p>That is it, you may now start with the development of your application using the Ultima template.</p>
 
                     <h4>React Scripts</h4>
                     <p>Following commands are derived from create-app-app.</p>
-<AppCodeHighlight>
-{`
+                    <AppCodeHighlight>
+                        {`
 "npm start" or "yarn start": Starts the development server
 "npm test" or "yarn test": Runs the tests.
 "npm run build" or "yarn run build": Creates a production build.
 `}
-</AppCodeHighlight>
+                    </AppCodeHighlight>
 
                     <h4>Structure</h4>
                     <p>Ultima consists of 3 main parts; the application layout, layout resources and theme resources for PrimeReact components. <b>App.tsx</b> inside src folder is the main component containing the template for the base layout
-                            whereas required resources for the layout are placed inside the <b>public/assets/layout</b> folder and similarly theme resources are inside <b>public/assets/theme</b> folder.
-                        </p>
+                        whereas required resources for the layout are placed inside the <b>public/assets/layout</b> folder and similarly theme resources are inside <b>public/assets/theme</b> folder.
+                    </p>
 
                     <h4>Template</h4>
                     <p>Main layout is the JSX of the App.tsx, it is divided into a couple of child components such as topbar, profile, menu and footer. Here is render method of the
-                    App.tsx component that implements the logic such as menu state, layout modes and so on.
-                        </p>
+                        App.tsx component that implements the logic such as menu state, layout modes and so on.
+                    </p>
 
-<AppCodeHighlight>
-{`
+                    <AppCodeHighlight>
+                        {`
 <div className={layoutContainerClassName} onClick={onDocumentClick}>
     <AppTopbar horizontal={isHorizontal()}
         activeTopbarItem={activeTopbarItem}
@@ -105,16 +122,16 @@ sass public/assets:public/assets --no-source-map
     {mobileMenuActive && <div className="layout-mask modal-in"></div>}
 </div>
 `}
-</AppCodeHighlight>
+                    </AppCodeHighlight>
 
                     <h4>Menu</h4>
                     <p>Menu is a separate component defined in <i>AppMenu.tsx</i> file based on PrimeReact MenuModel API. In order to define the menuitems,
-                    navigate to data section of <i>App.tsx</i> file and define your own model as a nested structure using the menu property.
-                    Here is the menu component from the demo application. Notice that menu object is bound to the model property of AppMenu component as shown above.</p>
+                        navigate to data section of <i>App.tsx</i> file and define your own model as a nested structure using the menu property.
+                        Here is the menu component from the demo application. Notice that menu object is bound to the model property of AppMenu component as shown above.</p>
 
-<div style={{ overflow: 'auto', height: '400px' }}>
-<AppCodeHighlight lang="js">
-{`
+                    <div style={{ overflow: 'auto', height: '400px' }}>
+                        <AppCodeHighlight lang="js">
+                            {`
 const menu = [
     {
         label: 'Favorites', icon: 'pi pi-fw pi-home',
@@ -232,24 +249,24 @@ const menu = [
     }
 ];
 `}
-</AppCodeHighlight>
-</div>
+                        </AppCodeHighlight>
+                    </div>
                     <p>Dependencies of Layout are listed below and needs to be added to package.tsxon. Only required
                         dependency is PrimeReact where optional dependencies exist to enable certain components in PrimeReact.</p>
 
-<AppCodeHighlight lang="js">
-{`
+                    <AppCodeHighlight lang="js">
+                        {`
 "primereact": "...",                //required: PrimeReact components
 "primeicons": "...",                //required: Icons
 "primeflex": "..."                  //required: Grid system
 `}
-</AppCodeHighlight>
+                    </AppCodeHighlight>
                     <h5>Topbar</h5>
-                    <img src="assets/layout/images/doc/topbar-doc.jpg" alt="topbar" className="p-mb-3" style={{maxWidth: '60%'}}/>
+                    <img src="assets/layout/images/doc/topbar-doc.jpg" alt="topbar" className="p-mb-3" style={{ maxWidth: '60%' }} />
                     <p>It is a separate component defined in AppTopbar.tsx file. This menu can be fully customized according to the application's needs.
-                    There are special classes in the topbar to provide some interactions such as hover, expand/collapse state etc. The pseudo code is as follows.</p>
-<AppCodeHighlight lang="js">
-{`
+                        There are special classes in the topbar to provide some interactions such as hover, expand/collapse state etc. The pseudo code is as follows.</p>
+                    <AppCodeHighlight lang="js">
+                        {`
 <elementTag className="layout-topbar p-shadow-4">
     <elementTag className="layout-topbar-left">
         <elementTag className="layout-topbar-logo ">
@@ -306,16 +323,16 @@ const menu = [
         <elementTag>
     </elementTag>    
 </elementTag>
-`}    
-</AppCodeHighlight>
+`}
+                    </AppCodeHighlight>
                     <small className="muted-text">(* Note: The &lt;elementTag&gt; tag can be an html element or a component tag. It can be changed according to need.)</small>
                     <h5>Right Menu</h5>
-                    <img src="assets/layout/images/doc/rightmenu-doc.jpg" alt="rightmenu" className="p-mb-3" style={{maxWidth: '60%', height: '300px'}}/>
+                    <img src="assets/layout/images/doc/rightmenu-doc.jpg" alt="rightmenu" className="p-mb-3" style={{ maxWidth: '60%', height: '300px' }} />
                     <p>It is a separate component defined in AppRightMenu.tsx file based on PrimeReact <a href="https://primefaces.org/primereact/showcase/#/sidebar">Sidebar</a> component.
-                    All properties of the sidebar component are available. The menu can be fully customized according to the application's needs.
-                    There are special methods and classes in the right menu to provide some interactions. The pseudo code is as follows.</p>
-<AppCodeHighlight lang="js">
-{`
+                        All properties of the sidebar component are available. The menu can be fully customized according to the application's needs.
+                        There are special methods and classes in the right menu to provide some interactions. The pseudo code is as follows.</p>
+                    <AppCodeHighlight lang="js">
+                        {`
 // in AppTopbar.tsx or elsewhere
 <elementTag onClick={props.onRightMenuButtonClick}>
     // custom implementation
@@ -326,14 +343,14 @@ const menu = [
     // custom implementation
 </Sidebar>
 `}
-</AppCodeHighlight>
+                    </AppCodeHighlight>
                     <small className="muted-text">(* Note: The &lt;elementTag&gt; tag can be an html element or a component tag. It can be changed according to need.)</small>
                     <h5>Inline Menu</h5>
-                    <img src="assets/layout/images/doc/inlinemenu-doc.jpg" alt="rightmenu" className="p-mb-3" style={{maxWidth: '60%', height: '450px'}}/>
+                    <img src="assets/layout/images/doc/inlinemenu-doc.jpg" alt="rightmenu" className="p-mb-3" style={{ maxWidth: '60%', height: '450px' }} />
                     <p>It is a separate component defined in AppInlineMenu.tsx file. This menu can be fully customized according to the application's needs and it is created according to its location within the element with the layout-menu-container class.
                         There are special classes in the inline menu to provide some interactions. The pseudo code is as follows.</p>
-<AppCodeHighlight lang="js">
-{`
+                    <AppCodeHighlight lang="js">
+                        {`
 const inlineMenuClassName = classNames('layout-inline-menu', {
     'layout-inline-menu-active': props.inlineMenuActive[props.menuKey]
 }, props.className);
@@ -353,10 +370,10 @@ const inlineMenuClassName = classNames('layout-inline-menu', {
 
 </elementTag>
 `}
-</AppCodeHighlight>
+                    </AppCodeHighlight>
                     <small className="muted-text">(* Note: The &lt;elementTag&gt; tag can be an html element or a component tag. It can be changed according to need.)</small>
-<AppCodeHighlight lang="js">
-{`
+                    <AppCodeHighlight lang="js">
+                        {`
 // in App.tsx
 <elementTag className="layout-menu-container">
     <ApInlineMenu></AppInlineMenu> // It is created at the top of the menu
@@ -364,14 +381,14 @@ const inlineMenuClassName = classNames('layout-inline-menu', {
     <AppInlineMenu></AppInlineMenu> // It is created at the bottom of the menu
 </elementTag>
 `}
-</AppCodeHighlight>
+                    </AppCodeHighlight>
                     <small className="muted-text">(* Note: The &lt;elementTag&gt; tag can be an html element or a component tag. It can be changed according to need.)</small>
                     <h5>Breadcrumb</h5>
-                    <img src="assets/layout/images/doc/breadcrumb-doc.jpg" alt="breadcrumb" className="p-mb-3" style={{maxWidth: '60%'}}/>
+                    <img src="assets/layout/images/doc/breadcrumb-doc.jpg" alt="breadcrumb" className="p-mb-3" style={{ maxWidth: '60%' }} />
                     <p>It is a separate component defined in AppBreadcrumb.tsx file based on PrimeReact <a href="https://primefaces.org/primereact/showcase/#/breadcrumb">Breadcrumb</a> component.
                         All properties of the breadcrumb component are available. The pseudo code is as follows.</p>
-<AppCodeHighlight lang="js">
-{`
+                    <AppCodeHighlight lang="js">
+                        {`
 <elementTag className="layout-breadcrumb-container">
     <BreadCrumb model={model} home={home} className="layout-breadcrumb" />
 
@@ -380,17 +397,17 @@ const inlineMenuClassName = classNames('layout-inline-menu', {
     </elementTag>
 </elementTag>
 `}
-</AppCodeHighlight>
+                    </AppCodeHighlight>
                     <small className="muted-text">(* Note: The &lt;elementTag&gt; tag can be an html element or a component tag. It can be changed according to need.)</small>
                     <h5>Footer</h5>
                     <p>It is a separate component defined in AppFooter.tsx file. The pseudo code is as follows.</p>
-<AppCodeHighlight lang="js">
-{`
+                    <AppCodeHighlight lang="js">
+                        {`
 <elementTag className="layout-footer">
     // custom implementation
 </elementTag>
 `}
-</AppCodeHighlight>
+                    </AppCodeHighlight>
                     <small className="muted-text">(* Note: The &lt;elementTag&gt; tag can be an html element or a component tag. It can be changed according to need.)</small>
 
                     <h4>Theme</h4>
@@ -443,10 +460,10 @@ const inlineMenuClassName = classNames('layout-inline-menu', {
                     </ul>
 
                     <p>Here are the variables required to create a theme, you may need to change the last line according to the
-                    relative path of the sass folder in your application.</p>
+                        relative path of the sass folder in your application.</p>
 
-<AppCodeHighlight lang="css">
-{`
+                    <AppCodeHighlight lang="css">
+                        {`
 $primaryColor:#2196F3;
 $primaryLightestColor: #E3F2FD;
 $primaryMenuTextColor: $primaryColor;
@@ -456,28 +473,28 @@ $accentTextColor:#212121;
 
 @import '../../sass/theme/theme_light';
 `}
-</AppCodeHighlight>
+                    </AppCodeHighlight>
 
-                        <p>An example sass command to compile the css would be;</p>
+                    <p>An example sass command to compile the css would be;</p>
 
-<AppCodeHighlight>
-{`
+                    <AppCodeHighlight>
+                        {`
 sass public/assets/theme-myown/theme.scss public/assets/theme-myown/theme.css
 `}
-</AppCodeHighlight>
+                    </AppCodeHighlight>
 
-                        <p>Watch mode is handy to avoid compiling everytime when a change is made, instead use the following command
-                            so that sass generates the file whenever you make a customization. This builds all css files whenever a change is made to any scss file.</p>
-<AppCodeHighlight>
-{`
+                    <p>Watch mode is handy to avoid compiling everytime when a change is made, instead use the following command
+                        so that sass generates the file whenever you make a customization. This builds all css files whenever a change is made to any scss file.</p>
+                    <AppCodeHighlight>
+                        {`
 sass --watch public/assets:public/assets --no-source-map
 `}
-</AppCodeHighlight>
-<p>For both cases, several .scss files such as _layout.scss, _theme.scss or _variables.scss has to be present relative to your scss files, these are available inside the assets/sass folder in the distribution.</p>
-<p>In case you'd like to customize the structure not just the colors, the _variables.scss is where the structural variables (e.g. font size, paddings) for the layout are defined.</p>
-<h6>sass/variables/layout/_layout_common.scss</h6>
-<AppCodeHighlight lang="css">
-{`
+                    </AppCodeHighlight>
+                    <p>For both cases, several .scss files such as _layout.scss, _theme.scss or _variables.scss has to be present relative to your scss files, these are available inside the assets/sass folder in the distribution.</p>
+                    <p>In case you'd like to customize the structure not just the colors, the _variables.scss is where the structural variables (e.g. font size, paddings) for the layout are defined.</p>
+                    <h6>sass/variables/layout/_layout_common.scss</h6>
+                    <AppCodeHighlight lang="css">
+                        {`
 //general
 $fontSize:14px !default;
 $fontFamily: 'Roboto' !default;
@@ -488,11 +505,11 @@ $letterSpacing:normal !default;
 $transitionDuration:.2s !default;
 $mobileBreakpoint:991px !default;
 `}
-</AppCodeHighlight>
+                    </AppCodeHighlight>
                     <h6>sass/variables/theme/_theme_light.scss</h6>
-<div style={{overflow: 'auto', height: '400px', marginBottom: '10px'}}>
-<AppCodeHighlight lang="css">
-{`
+                    <div style={{ overflow: 'auto', height: '400px', marginBottom: '10px' }}>
+                        <AppCodeHighlight lang="css">
+                            {`
 $emphasis-high:rgba(0,0,0,.87);
 $emphasis-medium:rgba(0,0,0,.60);
 $emphasis-low:rgba(0,0,0,.38);
@@ -1284,11 +1301,11 @@ $splitterGutterHandleBg:rgba(0,0,0,.12);
     --font-family:#{$fontFamily};
 }
 `}
-</AppCodeHighlight>
-</div>
+                        </AppCodeHighlight>
+                    </div>
                     <h5>Menu Modes</h5>
                     <p>Menu has 4 modes static, overlay, horizontal and slim. Layout container element in application.html is used to define which mode to use by adding specific classes. List
-                    below indicates the style classes for each mode. In addition menu</p>
+                        below indicates the style classes for each mode. In addition menu</p>
                     <ul>
                         <li>Static: "layout-menu-static"</li>
                         <li>Overlay: "layout-menu-overlay"</li>
@@ -1297,13 +1314,13 @@ $splitterGutterHandleBg:rgba(0,0,0,.12);
                     </ul>
 
                     <p>For example to create a horizontal menu, the div element should be in following form;</p>
-<AppCodeHighlight>
-{`
+                    <AppCodeHighlight>
+                        {`
 <div className="layout-wrapper layout-menu-horizontal">
 `}
-</AppCodeHighlight>
+                    </AppCodeHighlight>
                     <p>It is also possible to leave the choice to the user by keeping the preference at a component and usign an expression to bind it so that user can switch between modes. Sample
-                    application has an example implementation of such use case. Refer to app.component.ts for an example.</p>
+                        application has an example implementation of such use case. Refer to app.component.ts for an example.</p>
 
                     <h5>Grid CSS</h5>
                     <p>Ultima uses PrimeReact Flex Grid CSS throughout the demos such as Dashboard, however any Grid library can be used with it since Ultima Layout itself does not depend on PrimeFlex CSS.</p>

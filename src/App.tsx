@@ -394,12 +394,13 @@ const App = () => {
 
                     <div className="layout-content">
                         <Route 
-                            path="/" 
+                            path="/file_tree" 
                             exact 
                             render={() => 
                                 <TreeDemo />
-                            } 
+                            }
                         />
+                        <Route path="/" component={Documentation} />
                         <Route 
                             path="/crypto_blockchain" 
                             exact 

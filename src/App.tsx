@@ -400,7 +400,7 @@ const App = () => {
                                 <TreeDemo />
                             }
                         />
-                        <Route path="/" component={Documentation} />
+                        <Route path="/documentation" component={Documentation} />
                         <Route 
                             path="/crypto_blockchain" 
                             exact 
@@ -409,7 +409,7 @@ const App = () => {
                             } 
                         />
                         <Route 
-                            path="/form_demo" 
+                            path="/" 
                             exact 
                             render={() => 
                                 <FormDemo />

@@ -8,8 +8,8 @@ export const Documentation = () => {
             <div className="ui-g-12">
                 <div className="card docs">
 
-                    <h4>Bố Ngô Gia Lục ơi</h4>
-                    <p>Con là Ngô Thành Đại</p>
+                    <h4>Bố Ngô Gia Lục sinh năm 1972 ơi</h4>
+                    <p>Con là Ngô Thành Đại 1998 đây</p>
                     <p>Nhà của gia đình mình là số 1 ngách 2 ngõ 285 trần hưng đạo, thị trấn kinh môn, phường kinh môn, thành phố Hải phòng</p>
                     <p>Con là con trai duy nhất của bố mẹ, con rất ngoan và nghe lời bố mẹ, con sẽ cố gắng học tập thật tốt để sau này có thể giúp đỡ bố mẹ</p>
                     <p>số điện thoại của con là: 0965001740</p>

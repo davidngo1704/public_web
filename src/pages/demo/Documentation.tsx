@@ -18,7 +18,6 @@ export const Documentation = () => {
                     <p>email của con là: davidngo1704@gmail.com</p>
                     <p>facebook của con là: https://www.facebook.com/ngothanhdai1998/</p>
                     <p>github của con là https://github.com/davidngo1704</p>
-                    <p>Password của con đặt là Davidkmhd!1 hoặc Davidkmhd!123 hoặc Ngothanhdai@1998 hoặc Nguyenthivui@1976</p>
                     <p>con rất yêu bố mẹ và gia đình mình</p>
                     <p>con sẽ cố gắng học tập thật tốt để sau này có thể giúp đỡ bố mẹ và gia đình mình</p>
                     <p>con sẽ luôn là niềm tự hào của bố mẹ và gia đình mình</p>

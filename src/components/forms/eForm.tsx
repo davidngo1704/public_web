@@ -12,16 +12,11 @@ import { classNames } from 'primereact/utils';
 import { FormProps } from '../../models/Forms';
 
 export function EForm(props: FormProps) {
+
   const formDef = props.formDef;
 
-
-  const [showMessage, setShowMessage] = useState(false);
-  const [formData, setFormData] = useState<any>({});
-
-  useEffect(() => {
-
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   const passwordHeader = <h6>Pick a password</h6>;
+
   const passwordFooter = (
     <React.Fragment>
       <Divider />
@@ -34,6 +29,7 @@ export function EForm(props: FormProps) {
       </ul>
     </React.Fragment>
   );
+
   const validate = (data: any) => {
     let errors: any = {};
 
@@ -61,15 +57,13 @@ export function EForm(props: FormProps) {
 
   const onSubmit = (data: any, form: any) => {
 
-    setFormData(data);
-
-    setShowMessage(true);
-
     form.restart();
   };
 
   const isFormFieldValid = (meta: any) => !!(meta.touched && meta.error);
+
   const getFormErrorMessage = (meta: any) => {
+
     return isFormFieldValid(meta) && <small className="p-error">{meta.error}</small>;
   };
 
@@ -89,6 +83,7 @@ export function EForm(props: FormProps) {
             accept: false
           }
         } validate={validate} render={({ handleSubmit }) => (
+          
           <form onSubmit={handleSubmit} className="p-fluid">
 
             <Field name="name" render={({ input, meta }) => (
@@ -115,7 +110,12 @@ export function EForm(props: FormProps) {
             <Field name="password" render={({ input, meta }) => (
               <div className="p-field">
                 <span className="p-float-label">
-                  <Password id="password" {...input} toggleMask className={classNames({ 'p-invalid': isFormFieldValid(meta) })} header={passwordHeader} footer={passwordFooter} />
+                  <Password id="password" 
+                    {...input} 
+                    toggleMask 
+                    className={classNames({ 'p-invalid': isFormFieldValid(meta) })} 
+                    header={passwordHeader} footer={passwordFooter} 
+                />
                   <label htmlFor="password" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Password*</label>
                 </span>
                 {getFormErrorMessage(meta)}
@@ -148,6 +148,7 @@ export function EForm(props: FormProps) {
             )} />
 
             <Button type="submit" label="Nộp" className="p-mt-2" />
+
           </form>
         )} />
     </div>

@@ -88,6 +88,7 @@ const App = () => {
     let topbarItemClick: boolean;
     let menuClick: boolean;
     let inlineMenuClick: boolean;
+    
     useEffect(() => {
         if (menuMode === 'overlay') {
             hideOverlayMenu()
@@ -103,17 +104,13 @@ const App = () => {
 
         (async () => {
 
-            if(systemType === 'LAN') {
-                
-            }
-            else if(systemType === 'WAN') {
-             let data = await httpClient.getRawMethod("https://rtafvndlc6mc6g5apdwzdjduma0sjicv.lambda-url.ap-southeast-2.on.aws?id=112bd451-36e6-4737-bffc-8e83d974c8c1");
-             
-            let configData = JSON.parse(data.value);
+            var data = await getObjectById("configs", "menu");
 
-            setMenu(configData);
-            }
+            console.log("Menu data from IndexedDB:", data);
 
+            if (data) {
+                setMenu(JSON.parse(data.value));
+            }
             
         })();
 
@@ -393,6 +390,17 @@ const App = () => {
                 <div className="layout-main">
 
                     <div className="layout-content">
+                        
+                        <Route path="/" exact
+                            render={() => 
+                            <DashboardAnalytics 
+                            colorMode={colorMode} 
+                            isNewThemeLoaded={newThemeLoaded} 
+                            onNewThemeChange={(e: any) => setNewThemeLoaded(e)} />} 
+                        />
+                        
+                        <Route path="/chat" render={() => <Dashboard colorMode={colorMode} isNewThemeLoaded={newThemeLoaded} onNewThemeChange={(e: any) => setNewThemeLoaded(e)} />} />
+                        
                         <Route 
                             path="/file_tree" 
                             exact 
@@ -400,7 +408,9 @@ const App = () => {
                                 <TreeDemo />
                             }
                         />
+
                         <Route path="/documentation" component={Documentation} />
+
                         <Route 
                             path="/crypto_blockchain" 
                             exact 
@@ -409,7 +419,7 @@ const App = () => {
                             } 
                         />
                         <Route 
-                            path="/" 
+                            path="/form_demo" 
                             exact 
                             render={() => 
                                 <FormDemo />
@@ -441,9 +451,7 @@ const App = () => {
                         />
                         <Route path="/phong_tro" component={PhongTro} />
 
-                        <Route path="/chat" render={() => <Dashboard colorMode={colorMode} isNewThemeLoaded={newThemeLoaded} onNewThemeChange={(e: any) => setNewThemeLoaded(e)} />} />
                         <Route path="/start/documentation" component={Documentation} />
-                        <Route path="/dashboard_analytics" render={() => <DashboardAnalytics colorMode={colorMode} isNewThemeLoaded={newThemeLoaded} onNewThemeChange={(e: any) => setNewThemeLoaded(e)} />} />
                         <Route path="/uikit/formlayout" component={FormLayoutDemo} />
                         <Route path="/config" component={InputDemo} />
                         <Route path="/aws_lambda" component={Aws_Lambda} />

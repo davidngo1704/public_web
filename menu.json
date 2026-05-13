@@ -4,11 +4,16 @@
         "icon": "pi pi-fw pi-cog",
         "items": [
             {
-                "label": "Source",
+                "label": "Trang Chủ",
                 "icon": "pi pi-fw pi-sitemap",
                 "to": "/"
             },
             {
+                "label": "Form",
+                "icon": "pi pi-fw pi-sitemap",
+                "to": "/form_demo"
+            },
+              {
                 "label": "Crypto_Blockchain",
                 "icon": "pi pi-fw pi-sitemap",
                 "to": "/crypto_blockchain"
@@ -19,9 +24,9 @@
                 "to": "/config"
             },
             {
-                "label": "AWS_Lambda",
+                "label": "thư mục",
                 "icon": "pi pi-fw pi-sliders-h",
-                "to": "/aws_lambda"
+                "to": "/file_tree"
             }
         ]
     },

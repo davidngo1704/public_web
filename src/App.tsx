@@ -103,7 +103,7 @@ const App = () => {
     useEffect(() => {
 
         (async () => {
-
+            var menuData = localStorage.getItem("daint_menu");
             // var data = await getObjectById("configs", "menu");
 
             // console.log("Menu data from IndexedDB:", data);

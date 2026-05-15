@@ -11,6 +11,8 @@ import { Divider } from 'primereact/divider';
 import { classNames } from 'primereact/utils';
 import { FormProps } from '../../models/Forms';
 
+import { InputTextControl } from './controls/InputTextControl';
+
 export function EForm(props: FormProps) {
 
   const formDef = props.formDef;
@@ -89,7 +91,17 @@ export function EForm(props: FormProps) {
             <Field name="name" render={({ input, meta }) => (
               <div className="p-field">
                 <span className="p-float-label">
-                  <InputText id="name" {...input} autoFocus className={classNames({ 'p-invalid': isFormFieldValid(meta) })} />
+
+                  <InputTextControl  {...input} />
+
+                  {/* <InputText 
+                    id="name" 
+                    {...input} 
+                    autoFocus 
+                    className={classNames({ 'p-invalid': isFormFieldValid(meta) })} 
+                  />
+                   */}
+                  
                   <label htmlFor="name" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Name*</label>
                 </span>
                 {getFormErrorMessage(meta)}

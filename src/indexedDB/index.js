@@ -16,7 +16,8 @@ export function openDB(dbName, storeName) {
     });
 }
 
-export async function addItem(data, dbName, storeName) {
+export async function 
+(data, dbName, storeName) {
     const db = await openDB(dbName, storeName);
     return new Promise((resolve, reject) => {
         const tx = db.transaction(storeName, "readwrite");

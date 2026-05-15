@@ -104,13 +104,13 @@ const App = () => {
 
         (async () => {
 
-            var data = await getObjectById("configs", "menu");
+            // var data = await getObjectById("configs", "menu");
 
-            console.log("Menu data from IndexedDB:", data);
+            // console.log("Menu data from IndexedDB:", data);
 
-            if (data) {
-                setMenu(JSON.parse(data.value));
-            }
+            // if (data) {
+            //     setMenu(JSON.parse(data.value));
+            // }
             
         })();
 

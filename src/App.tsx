@@ -52,7 +52,6 @@ import { FormDemo } from './pages/business/FormDemo';
 
 import { getObjectById } from "./utils/firebase_service"
 
-import { addItem, getItem } from "./indexedDB";
 import httpClient from './utils/htttpClient';
 import { PhongTro } from './pages/business/Phong_Tro';
 
@@ -104,13 +103,25 @@ const App = () => {
 
         (async () => {
             var menuData = localStorage.getItem("daint_menu");
-            // var data = await getObjectById("configs", "menu");
 
-            // console.log("Menu data from IndexedDB:", data);
+            if (menuData) {
+                setMenu(JSON.parse(menuData));
+            }
+            else {
+                var data = await getObjectById("configs", "menu");
 
-            // if (data) {
-            //     setMenu(JSON.parse(data.value));
-            // }
+                console.log("ko có sẵn menu");
+
+                if (data) {
+
+                    setMenu(JSON.parse(data.value));
+
+                    localStorage.setItem('daint_menu', data.value);
+
+                }
+            }
+
+       
             
         })();
 
@@ -398,6 +409,7 @@ const App = () => {
                             isNewThemeLoaded={newThemeLoaded} 
                             onNewThemeChange={(e: any) => setNewThemeLoaded(e)} />} 
                         />
+                        <Route path="/config" component={InputDemo} />
                         
                         <Route path="/chat" render={() => <Dashboard colorMode={colorMode} isNewThemeLoaded={newThemeLoaded} onNewThemeChange={(e: any) => setNewThemeLoaded(e)} />} />
                         
@@ -409,7 +421,6 @@ const App = () => {
                             }
                         />
 
-                        <Route path="/documentation" component={Documentation} />
 
                         <Route 
                             path="/crypto_blockchain" 
@@ -453,7 +464,6 @@ const App = () => {
 
                         <Route path="/start/documentation" component={Documentation} />
                         <Route path="/uikit/formlayout" component={FormLayoutDemo} />
-                        <Route path="/config" component={InputDemo} />
                         <Route path="/aws_lambda" component={Aws_Lambda} />
                         <Route path="/uikit/floatlabel" component={FloatLabelDemo} />
                         <Route path="/uikit/invalidstate" component={InvalidStateDemo} />
@@ -482,6 +492,7 @@ const App = () => {
                         <Route path="/pages/invoice" component={Invoice} />
                         <Route path="/pages/empty" component={EmptyPage} />
                         <Route path="/pages/timeline" component={TimelineDemo} />
+                        <Route path="/documentation" component={Documentation} />
 
                     </div>
 

@@ -1,0 +1,6 @@
+- Infomation Technology
+- Công Nghệ Thông Tin
+- Upon Mr thêm chữ là Ngo Thanh Dai
+- Ông là Ngô Thành Đại
+- Sinh ngày 17 - 04 - 1998
+- Date of Birth 17 April 1998

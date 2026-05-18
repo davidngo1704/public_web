@@ -134,6 +134,7 @@ export const InputDemo = () => {
     };
 
     const [apiGatewayEndpoint, setApiGatewayEndpoint] = useState<string>('');
+    const [PublicGatewayEndpoint, setPublicGatewayEndpoint] = useState<string>('');
     const [rootFolder, setRootFolder] = useState<string>('/var/lib/ApiGateway');
     const [systemPrompt, setsystemPrompt] = useState<string>('');
 
@@ -156,6 +157,11 @@ export const InputDemo = () => {
         if (savedsystemPrompt) {
             setsystemPrompt(savedsystemPrompt);
         }
+
+        const savedPublicEndpoint = localStorage.getItem('PublicGatewayEndpoint');
+        if (savedPublicEndpoint) {
+            setPublicGatewayEndpoint(savedPublicEndpoint);
+        }
     }, []);
 
     const cauHinhEndpoint: any = () => {
@@ -164,6 +170,7 @@ export const InputDemo = () => {
                 localStorage.setItem('apiGatewayEndpoint', apiGatewayEndpoint);
                 localStorage.setItem('rootFolder', rootFolder);
                 localStorage.setItem('systemPrompt', systemPrompt);
+                localStorage.setItem('PublicGatewayEndpoint', PublicGatewayEndpoint);
                 alert('thành công!');
             } else {
                 alert('Vui lòng nhập endpoint API Gateway!');
@@ -174,6 +181,7 @@ export const InputDemo = () => {
             <>
                 <h5>Tạo API Gateway</h5>
                 <div className="p-grid p-formgrid">
+
                     <div className="p-col-12 p-mb-12 p-lg-12 p-mb-lg-12">
                         <InputText 
                             type="text" 
@@ -182,6 +190,7 @@ export const InputDemo = () => {
                             onChange={(e) => setApiGatewayEndpoint(e.target.value)}
                         />
                     </div>
+
                     <div className="p-col-12 p-mb-12 p-lg-12 p-mb-lg-12">
                         <InputText 
                             type="text"
@@ -190,13 +199,25 @@ export const InputDemo = () => {
                             onChange={(e) => setRootFolder(e.target.value)}
                         />
                     </div>
+
                     <div className="p-col-12 p-mb-12 p-lg-12 p-mb-lg-12">
 
                         <InputTextarea id="textarea" rows={10} cols={30} value={systemPrompt} onChange={(e) => setsystemPrompt(e.target.value)}></InputTextarea>
                                                        
 
                     </div>
+
+                    <div className="p-col-12 p-mb-12 p-lg-12 p-mb-lg-12">
+                        <InputText 
+                            type="text" 
+                            placeholder="Nhập Public API Gateway" 
+                            value={PublicGatewayEndpoint}
+                            onChange={(e) => setPublicGatewayEndpoint(e.target.value)}
+                        />
+                    </div>
+
                 </div>
+
                 <div className="p-col-12">
                     <div className="card">
                         <Button 
@@ -403,6 +424,7 @@ export const InputDemo = () => {
                                 <InputText placeholder="Confirm" />
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>

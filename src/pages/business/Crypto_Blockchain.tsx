@@ -33,10 +33,9 @@ export const Crypto_Blockchain = () => {
     useEffect(() => {
         (async () => {
 
-            let endpoint = "http://192.168.1.10:5000/Blockchain/BingxGetPosition";
+            const savedPublicEndpoint = localStorage.getItem('PublicGatewayEndpoint');
 
-
-
+            let endpoint = savedPublicEndpoint + "Blockchain/BingxGetPosition";
 
             let data = await httpClient.getRawMethod(endpoint);
 

@@ -28,13 +28,19 @@ export const Crypto_Blockchain = () => {
     const [submitted, setSubmitted] = useState<boolean>(false);
     const toast = useRef<any>(null);
     const dt = useRef<any>(null);
+    const[showInfo, setShowInfo] = useState<string>("Chưa có dữ liệu");
 
     useEffect(() => {
         (async () => {
-            let data = await httpClient.getRawMethod("https://rtafvndlc6mc6g5apdwzdjduma0sjicv.lambda-url.ap-southeast-2.on.aws/");
 
-            setProducts(data);
+            let endpoint = "http://192.168.1.10:5000/Blockchain/BingxGetPosition";
 
+
+
+
+            let data = await httpClient.getRawMethod(endpoint);
+
+            setShowInfo(JSON.stringify(data));
         })();
     }, []);
 
@@ -170,10 +176,9 @@ export const Crypto_Blockchain = () => {
             <Button label="CLOSE" icon="pi pi-times" className="p-button-secondary p-ml-2" />
             <Button label="SHORT" icon="pi pi-times" className="p-button-secondary p-ml-2" />
             <Button label="SHOW INFO" icon="pi pi-check"
-                onClick={async () => {
-                    let data = await httpClient.getRawMethod("http://192.168.1.15:5000/Blockchain/GetPosition");
-                    let dataString = data.data[0].positionSide + "-" + data.data[0].symbol + "-> (" + data.data[0].realisedProfit + ")";
-                    alert(dataString);
+                onClick={() => {
+
+                    alert(showInfo);
                 }}
             />
         </span>

@@ -171,9 +171,52 @@ export const Crypto_Blockchain = () => {
     );
     const footer = (
         <span>
-            <Button label="LONG" icon="pi pi-check" />
-            <Button label="CLOSE" icon="pi pi-times" className="p-button-secondary p-ml-2" />
-            <Button label="SHORT" icon="pi pi-times" className="p-button-secondary p-ml-2" />
+            <Button label="LONG" icon="pi pi-check" 
+                onClick={() => {
+
+                    (async () => {
+
+                        const savedPublicEndpoint = localStorage.getItem('PublicGatewayEndpoint');
+
+                        let endpoint = savedPublicEndpoint + "Blockchain/BingxLong";
+
+                        let data = await httpClient.getRawMethod(endpoint);
+
+                        console.log(data);
+                    })();
+                }}
+            />
+            <Button label="CLOSE" icon="pi pi-times" className="p-button-secondary p-ml-2"
+                onClick={() => {
+
+                    (async () => {
+
+                        const savedPublicEndpoint = localStorage.getItem('PublicGatewayEndpoint');
+
+                        let endpoint = savedPublicEndpoint + "Blockchain/BingxClosePosition";
+
+                        let data = await httpClient.getRawMethod(endpoint);
+
+                        console.log(data);
+                    })();
+                }}
+            />
+            <Button label="SHORT" icon="pi pi-times" className="p-button-secondary p-ml-2" 
+                onClick={() => {
+
+                    (async () => {
+
+                        const savedPublicEndpoint = localStorage.getItem('PublicGatewayEndpoint');
+
+                        let endpoint = savedPublicEndpoint + "Blockchain/BingxShort";
+
+                        let data = await httpClient.getRawMethod(endpoint);
+
+                        console.log(data);
+                    })();
+                }}
+            
+            />
             <Button label="SHOW INFO" icon="pi pi-check"
                 onClick={() => {
 

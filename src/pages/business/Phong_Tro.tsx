@@ -1,13 +1,35 @@
-import { useRef, useState } from 'react';
+
+import React, { useRef, useState } from 'react';
 
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
-import httpClient from '../../utils/htttpClient';
+import { getObjectById } from '../../utils/firebase_service';
 
 
 export const PhongTro = (props: any) => {
 
-    
+    const [du_lieu_phong_tro_1, setDuLieuPhongTro_1] = useState<RoomApiData>();
+    const [du_lieu_phong_tro_2, setDuLieuPhongTro_2] = useState<RoomApiData>();
+    const [du_lieu_phong_tro_3, setDuLieuPhongTro_3] = useState<RoomApiData>();
+
+    React.useEffect(() => {
+        (async () => {
+            var data = await getObjectById("data_common", "du_lieu_phong_tro");
+
+            let phongTro1 = JSON.parse(data?.phong_1) || {};
+            let phongTro2 = JSON.parse(data?.phong_2) || {};
+            let phongTro3 = JSON.parse(data?.phong_3) || {};
+
+            setDuLieuPhongTro_1(phongTro1);
+            setDuLieuPhongTro_2(phongTro2);
+            setDuLieuPhongTro_3(phongTro3);
+
+            console.log("Dữ liệu phòng trọ:", phongTro1, phongTro2, phongTro3);
+
+            alert("Đã tải dữ liệu phòng trọ thành công.");
+        })();
+    }, []);
+
     type RoomApiData = {
         code: string;
         electricityPrice: number;
@@ -17,12 +39,10 @@ export const PhongTro = (props: any) => {
         electricityNumber: number;
         name: string;
         history: {
-            electricityNumber1: number;
             electricityNumber: number;
         }
     };
 
-    const ELECTRICITY_API_URL = "https://rtafvndlc6mc6g5apdwzdjduma0sjicv.lambda-url.ap-southeast-2.on.aws/?id=89ce40e7-73e5-4f35-a3e4-22cf836e19ea";
 
     const [roomData, setRoomData] = useState<RoomApiData[]>([]);
 
@@ -52,49 +72,56 @@ export const PhongTro = (props: any) => {
         try {
             setIsCalculating(true);
 
-            let currentRoomData = roomData;
+            const phong_1 = Number(electricityInputs["phong_1"]);
 
-            console.log("Dữ liệu phòng hiện tại:", currentRoomData);
+            const phong_2 = Number(electricityInputs["phong_2"]);
 
-            // Nếu chưa có dữ liệu phòng thì gọi API
-            if (!currentRoomData || currentRoomData.length === 0) {
-                let data = await httpClient.getRawMethod(ELECTRICITY_API_URL);
+            const phong_3 = Number(electricityInputs["phong_3"]);
 
-                setRoomData(data.value);
-                currentRoomData = data.value;
-            }
+            const lastMonthElectricityNumber_phong_1 = Number(du_lieu_phong_tro_1?.electricityNumber);
+            const lastMonthElectricityNumber_phong_2 = Number(du_lieu_phong_tro_2?.electricityNumber);
+            const lastMonthElectricityNumber_phong_3 = Number(du_lieu_phong_tro_3?.electricityNumber);
 
-            const messages: Record<string, string> = {};
+            const usedElectricity_phong_1 = Math.max(0, phong_1 - lastMonthElectricityNumber_phong_1);
+            const usedElectricity_phong_2 = Math.max(0, phong_2 - lastMonthElectricityNumber_phong_2);
+            const usedElectricity_phong_3 = Math.max(0, phong_3 - lastMonthElectricityNumber_phong_3);
 
-            currentRoomData.forEach((room: RoomApiData) => {
-                const currentInput = electricityInputs[room.code];
-                if (!currentInput) {
-                    return;
-                }
+            const electricityCost_phong_1 = usedElectricity_phong_1 * Number(du_lieu_phong_tro_1?.electricityPrice);
+            const electricityCost_phong_2 = usedElectricity_phong_2 * Number(du_lieu_phong_tro_2?.electricityPrice);
+            const electricityCost_phong_3 = usedElectricity_phong_3 * Number(du_lieu_phong_tro_3?.electricityPrice);
 
-                const currentElectricityNumber = Number(currentInput);
-                if (isNaN(currentElectricityNumber)) {
-                    return;
-                }
+            const total_phong_1 = electricityCost_phong_1 + Number(du_lieu_phong_tro_1?.price);
+            const total_phong_2 = electricityCost_phong_2 + Number(du_lieu_phong_tro_2?.price);
+            const total_phong_3 = electricityCost_phong_3 + Number(du_lieu_phong_tro_3?.price);
 
-                const lastMonthElectricityNumber = room.electricityNumber;
-
-                const usedElectricity = Math.max(0, currentElectricityNumber - lastMonthElectricityNumber);
-
-                const electricityCost = usedElectricity * room.electricityPrice;
-
-                const total = electricityCost + room.price;
-
-                const message =
-                    `Phòng của ${room.name} (tháng ${room.month}) tổng tiền trọ hết ${formatVND(total)} đồng.\n` +
+            const message_phong_1 =
+                    `Phòng của ${du_lieu_phong_tro_1?.name} (tháng ${du_lieu_phong_tro_1?.month}) tổng tiền trọ hết ${formatVND(total_phong_1)} đồng.\n` +
                     `Trong đó:\n` +
-                    `- Tiền nhà là ${formatVND(room.price)} đồng.\n` +
-                    `- Tiền điện ${formatVND(electricityCost)} dùng ${usedElectricity} số điện (tháng này: ${currentElectricityNumber} số) (tháng trước chốt: ${lastMonthElectricityNumber} số).`;
+                    `- Tiền nhà là ${formatVND(Number(du_lieu_phong_tro_1?.price))} đồng.\n` +
+                    `- Tiền điện ${formatVND(electricityCost_phong_1)} dùng ${usedElectricity_phong_1} số điện (tháng này: ${phong_1} số) (tháng trước chốt: ${lastMonthElectricityNumber_phong_1} số).`;
+ 
 
-                messages[room.code] = message;
-            });
+            const message_phong_2 =
+                    `Phòng của ${du_lieu_phong_tro_2?.name} (tháng ${du_lieu_phong_tro_2?.month}) tổng tiền trọ hết ${formatVND(total_phong_2)} đồng.\n` +
+                    `Trong đó:\n` +
+                    `- Tiền nhà là ${formatVND(Number(du_lieu_phong_tro_2?.price))} đồng.\n` +
+                    `- Tiền điện ${formatVND(electricityCost_phong_2)} dùng ${usedElectricity_phong_2} số điện (tháng này: ${phong_2} số) (tháng trước chốt: ${lastMonthElectricityNumber_phong_2} số).`;
+ 
 
-            setRoomMessages(messages);
+            const message_phong_3 =
+                    `Phòng của ${du_lieu_phong_tro_3?.name} (tháng ${du_lieu_phong_tro_3?.month}) tổng tiền trọ hết ${formatVND(total_phong_3)} đồng.\n` +
+                    `Trong đó:\n` +
+                    `- Tiền nhà là ${formatVND(Number(du_lieu_phong_tro_3?.price))} đồng.\n` +
+                    `- Tiền điện ${formatVND(electricityCost_phong_3)} dùng ${usedElectricity_phong_3} số điện (tháng này: ${phong_3} số) (tháng trước chốt: ${lastMonthElectricityNumber_phong_3} số).`;
+ 
+                    
+            let roomMessagesTemp: Record<string, string> = {};
+
+            roomMessagesTemp["phong_1"] = message_phong_1;
+            roomMessagesTemp["phong_2"] = message_phong_2;
+            roomMessagesTemp["phong_3"] = message_phong_3;
+
+            setRoomMessages(roomMessagesTemp);
         } finally {
             setIsCalculating(false);
         }
@@ -107,14 +134,7 @@ export const PhongTro = (props: any) => {
 
             let currentRoomData = roomData;
 
-            // Nếu chưa có dữ liệu phòng thì gọi API
-            if (!currentRoomData || currentRoomData.length === 0) {
-                let data = await httpClient.getRawMethod(ELECTRICITY_API_URL);
-
-                setRoomData(data.value);
-                currentRoomData = data.value;
-            }
-
+        
             // Kiểm tra xem đã nhập số điện cho tất cả các phòng chưa
             const hasAllInputs = currentRoomData.every((room: RoomApiData) => {
                 const input = electricityInputs[room.code];
@@ -165,9 +185,7 @@ export const PhongTro = (props: any) => {
                 value: updatedData
             };
 
-            // Gọi API PUT để lưu dữ liệu
-            await httpClient.putMethod(ELECTRICITY_API_URL, requestBody);
-
+        
             // Cập nhật state với dữ liệu mới
             setRoomData(updatedData);
 
@@ -216,25 +234,7 @@ export const PhongTro = (props: any) => {
                 </div>
                 <div className="p-col-12">
                     <div className="card">
-                        <Button
-                            label={"Khởi động"}
-                            className="p-mr-2 p-mb-2"
-                            onClick={() => {
-                                // tải sẵn dữ liệu phòng trọ để sau này tính tiền nhanh hơn
-                                (async () => {
-                                    try {
-
-                                        let data = await httpClient.getRawMethod(ELECTRICITY_API_URL);
-
-                                        setRoomData(data.value);
-
-                                        alert("Đã tải dữ liệu phòng trọ thành công. Bạn có thể tiến hành tính toán ngay mà không cần chờ tải dữ liệu từ API nữa.");
-                                    } catch (error) {
-                                        console.error("Không thể tải dữ liệu phòng trọ", error);
-                                    }
-                                })();
-                            }}
-                        />
+                   
                         <Button
                             label={isCalculating ? "Đang xử lý..." : "Tính toán"}
                             className="p-mr-2 p-mb-2"

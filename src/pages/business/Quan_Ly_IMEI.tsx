@@ -7,25 +7,15 @@ import { Button } from 'primereact/button';
 import { FileUpload } from 'primereact/fileupload';
 import { Rating } from 'primereact/rating';
 import { Toolbar } from 'primereact/toolbar';
-import { InputTextarea } from 'primereact/inputtextarea';
-import { RadioButton } from 'primereact/radiobutton';
-import { InputNumber } from 'primereact/inputnumber';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
-import ProductService from '../../service/ProductService';
-
+import {addObject } from '../../utils/firebase_service';
 export const Quan_Ly_IMEI = () => {
 
     let emptyProduct = {
-        id: null,
-        name: '',
-        image: null,
-        description: '',
-        category: null,
-        price: 0,
-        quantity: 0,
-        rating: 0,
-        inventoryStatus: 'INSTOCK'
+        "username": null,
+        "phone": null,
+        "imei": null
     };
 
     const [products, setProducts] = useState<any>(null);
@@ -40,8 +30,8 @@ export const Quan_Ly_IMEI = () => {
     const dt = useRef<any>(null);
 
     useEffect(() => {
-        const productService = new ProductService();
-        productService.getProducts().then(data => setProducts(data));
+        // const productService = new ProductService();
+        // productService.getProducts().then(data => setProducts(data));
     }, []);
 
     const formatCurrency = (value: any) => {
@@ -70,26 +60,17 @@ export const Quan_Ly_IMEI = () => {
     const saveProduct = () => {
         setSubmitted(true);
 
-        if (product.name.trim()) {
-            let _products: any[] = [...products];
-            let _product: any = { ...product };
-            if (product.id) {
-                const index = findIndexById(product.id);
+        let _product: any = { 
+            ...product 
+        };
 
-                _products[index] = _product;
-                toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
-            }
-            else {
-                _product.id = createId();
-                _product.image = 'product-placeholder.svg';
-                _products.push(_product);
-                toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000 });
-            }
+        console.log(_product);
 
-            setProducts(_products);
-            setProductDialog(false);
-            setProduct(emptyProduct);
-        }
+        addObject('quan_ly_imei', _product);
+
+        setProductDialog(false);
+
+        setProduct(emptyProduct);
     }
 
     const editProduct = (product: any) => {
@@ -261,10 +242,13 @@ export const Quan_Ly_IMEI = () => {
 
     const header = (
         <div className="table-header">
-            <h5 className="p-m-0">Manage Products</h5>
+            <h5 className="p-m-0">Tìm SĐT</h5>
             <span className="p-input-icon-left">
                 <i className="pi pi-search" />
                 <InputText type="search" onInput={(e) => setGlobalFilter(e.currentTarget.value)} placeholder="Search..." />
+                <Button label="Tìm" className="p-button-success p-mr-2 p-mb-2" onClick={() => {
+
+                }} />
             </span>
         </div>
     );
@@ -311,51 +295,65 @@ export const Quan_Ly_IMEI = () => {
                         <Column body={actionBodyTemplate}></Column>
                     </DataTable>
 
-                    <Dialog visible={productDialog} style={{ width: '450px' }} header="Product Details" modal className="p-fluid" footer={productDialogFooter} onHide={hideDialog}>
-                        {product.image && <img src={`assets/demo/images/product/${product.image}`} alt={product.image} className="product-image" />}
+
+
+
+
+                    <Dialog 
+                        visible={productDialog} 
+                        style={{ width: '450px' }} 
+                        header="Product Details"
+                        modal 
+                        className="p-fluid" 
+                        footer={productDialogFooter} 
+                        onHide={hideDialog}
+                    >
                         <div className="p-field">
-                            <label htmlFor="name">Name</label>
-                            <InputText id="name" value={product.name} onChange={(e) => onInputChange(e, 'name')} required autoFocus className={classNames({ 'p-invalid': submitted && !product.name })} />
-                            {submitted && !product.name && <small className="p-invalid">Name is required.</small>}
-                        </div>
-                        <div className="p-field">
-                            <label htmlFor="description">Description</label>
-                            <InputTextarea id="description" value={product.description} onChange={(e) => onInputChange(e, 'description')} required rows={3} cols={20} />
+                            <label htmlFor="username">Khách hàng</label>
+                            <InputText 
+                                id="username" 
+                                value={product.username} 
+                                onChange={(e) => onInputChange(e, 'username')} 
+                                required 
+                                autoFocus 
+                                className={classNames({ 'p-invalid': submitted && !product.username })} />
+                            {submitted && !product.username && <small className="p-invalid">Username is required.</small>}
                         </div>
 
                         <div className="p-field">
-                            <label className="p-mb-3">Category</label>
-                            <div className="p-formgrid p-grid">
-                                <div className="p-field-radiobutton p-col-6">
-                                    <RadioButton inputId="category1" name="category" value="Accessories" onChange={onCategoryChange} checked={product.category === 'Accessories'} />
-                                    <label htmlFor="category1">Accessories</label>
-                                </div>
-                                <div className="p-field-radiobutton p-col-6">
-                                    <RadioButton inputId="category2" name="category" value="Clothing" onChange={onCategoryChange} checked={product.category === 'Clothing'} />
-                                    <label htmlFor="category2">Clothing</label>
-                                </div>
-                                <div className="p-field-radiobutton p-col-6">
-                                    <RadioButton inputId="category3" name="category" value="Electronics" onChange={onCategoryChange} checked={product.category === 'Electronics'} />
-                                    <label htmlFor="category3">Electronics</label>
-                                </div>
-                                <div className="p-field-radiobutton p-col-6">
-                                    <RadioButton inputId="category4" name="category" value="Fitness" onChange={onCategoryChange} checked={product.category === 'Fitness'} />
-                                    <label htmlFor="category4">Fitness</label>
-                                </div>
-                            </div>
+                            <label htmlFor="phone">Số điện thoại</label>
+                            <InputText 
+                                id="phone" 
+                                value={product.phone} 
+                                onChange={(e) => onInputChange(e, 'phone')} 
+                                required 
+                                autoFocus 
+                                className={classNames({ 'p-invalid': submitted && !product.phone })} />
+                            {submitted && !product.phone && <small className="p-invalid">Phone is required.</small>}
+                        </div>
+                             <div className="p-field">
+                            <label htmlFor="imei">IMEI</label>
+                            <InputText 
+                                id="imei" 
+                                value={product.imei} 
+                                onChange={(e) => onInputChange(e, 'imei')} 
+                                required 
+                                autoFocus 
+                                className={classNames({ 'p-invalid': submitted && !product.imei })} />
+                            {submitted && !product.imei && <small className="p-invalid">IMEI is required.</small>}
                         </div>
 
-                        <div className="p-formgrid p-grid">
-                            <div className="p-field p-col">
-                                <label htmlFor="price">Price</label>
-                                <InputNumber id="price" value={product.price} onValueChange={(e) => onInputNumberChange(e, 'price')} mode="currency" currency="USD" locale="en-US" />
-                            </div>
-                            <div className="p-field p-col">
-                                <label htmlFor="quantity">Quantity</label>
-                                <InputNumber id="quantity" value={product.quantity} onValueChange={(e) => onInputNumberChange(e, 'quantity')} />
-                            </div>
-                        </div>
+                  
                     </Dialog>
+
+
+
+
+
+
+
+
+
 
                     <Dialog visible={deleteProductDialog} style={{ width: '450px' }} header="Confirm" modal footer={deleteProductDialogFooter} onHide={hideDeleteProductDialog}>
                         <div className="confirmation-content">

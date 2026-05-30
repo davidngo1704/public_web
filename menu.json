@@ -9,11 +9,16 @@
                 "to": "/"
             },
             {
+                "label": "Quản lý IMEI",
+                "icon": "pi pi-fw pi-sitemap",
+                "to": "/imei_management"
+            },
+            {
                 "label": "Form",
                 "icon": "pi pi-fw pi-sitemap",
                 "to": "/form_demo"
             },
-              {
+            {
                 "label": "Crypto_Blockchain",
                 "icon": "pi pi-fw pi-sitemap",
                 "to": "/crypto_blockchain"

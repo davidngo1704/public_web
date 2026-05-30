@@ -73,9 +73,7 @@ export const PhongTro = (props: any) => {
             setIsCalculating(true);
 
             const phong_1 = Number(electricityInputs["phong_1"]);
-
             const phong_2 = Number(electricityInputs["phong_2"]);
-
             const phong_3 = Number(electricityInputs["phong_3"]);
 
             const lastMonthElectricityNumber_phong_1 = Number(du_lieu_phong_tro_1?.electricityNumber);
@@ -132,62 +130,37 @@ export const PhongTro = (props: any) => {
         try {
             setIsSaving(true);
 
-            let currentRoomData = roomData;
+            const phong_1 = Number(electricityInputs["phong_1"]);
+            const phong_2 = Number(electricityInputs["phong_2"]);
+            const phong_3 = Number(electricityInputs["phong_3"]);
 
-        
-            // Kiểm tra xem đã nhập số điện cho tất cả các phòng chưa
-            const hasAllInputs = currentRoomData.every((room: RoomApiData) => {
-                const input = electricityInputs[room.code];
-                return input && !isNaN(Number(input));
-            });
+            let data_du_lieu_phong_tro_1: any = {...du_lieu_phong_tro_1};
+            let data_du_lieu_phong_tro_2: any = {...du_lieu_phong_tro_2};
+            let data_du_lieu_phong_tro_3: any = {...du_lieu_phong_tro_3};
 
-            if (!hasAllInputs) {
-                toast.current?.show({
-                    severity: 'warn',
-                    summary: 'Cảnh báo',
-                    detail: 'Vui lòng nhập số điện cho tất cả các phòng',
-                    life: 3000
-                });
-                return;
-            }
-
-            // Chuẩn bị dữ liệu để gửi lên API
-            const updatedData = currentRoomData.map((room: RoomApiData) => {
-                const currentInput = Number(electricityInputs[room.code]);
-
-                // Tính toán tháng và năm mới
-                let newMonth = room.month + 1;
-                let newYear = room.year;
-
-                if (newMonth > 12) {
-                    newMonth = 1;
-                    newYear = newYear + 1;
-                }
-
-                // Cập nhật lịch sử: đẩy electricityNumber hiện tại xuống electricityNumber1
-                // và giá trị mới vào electricityNumber
-                const newHistory = {
-                    electricityNumber1: room.history.electricityNumber,
-                    electricityNumber: currentInput
-                };
-
-                return {
-                    ...room,
-                    month: newMonth,
-                    year: newYear,
-                    electricityNumber: currentInput,
-                    history: newHistory
-                };
-            });
-
-      
-            const requestBody = {
-                value: updatedData
+            data_du_lieu_phong_tro_1.electricityNumber = phong_1;
+            data_du_lieu_phong_tro_1.history = {
+                electricityNumber: du_lieu_phong_tro_1?.electricityNumber || 0
             };
 
-        
-            // Cập nhật state với dữ liệu mới
-            setRoomData(updatedData);
+            data_du_lieu_phong_tro_2.electricityNumber = phong_2;
+            data_du_lieu_phong_tro_2.history = {
+                electricityNumber: du_lieu_phong_tro_2?.electricityNumber || 0
+            };
+
+            data_du_lieu_phong_tro_3.electricityNumber = phong_3;
+            data_du_lieu_phong_tro_3.history = {
+                electricityNumber: du_lieu_phong_tro_3?.electricityNumber || 0
+            };
+
+            let newMonth = data_du_lieu_phong_tro_1.month + 1;
+
+            let newYear = data_du_lieu_phong_tro_1.year;
+
+            if (newMonth > 12) {
+                newMonth = 1;
+                newYear = newYear + 1;
+            }
 
             // Hiển thị thông báo thành công
             alert("Dữ liệu đã được lưu thành công!");

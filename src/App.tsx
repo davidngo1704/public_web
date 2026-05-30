@@ -45,6 +45,7 @@ import { Invoice } from './pages/demo/Invoice';
 import { Help } from './pages/demo/Help';
 import { TimelineDemo } from './pages/demo/TimelineDemo';
 import { Aws_Lambda } from './pages/business/Aws_Lambda';
+import { Quan_Ly_IMEI } from './pages/business/Quan_Ly_IMEI';
 
 import PrimeReact from 'primereact/api';
 import { Crypto_Blockchain } from './pages/business/Crypto_Blockchain';
@@ -410,6 +411,8 @@ const App = () => {
                             onNewThemeChange={(e: any) => setNewThemeLoaded(e)} />} 
                         />
                         <Route path="/config" component={InputDemo} />
+
+                        <Route path="/imei_management" component={Quan_Ly_IMEI} />
                         
                         <Route path="/chat" render={() => <Dashboard colorMode={colorMode} isNewThemeLoaded={newThemeLoaded} onNewThemeChange={(e: any) => setNewThemeLoaded(e)} />} />
                         

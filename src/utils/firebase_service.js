@@ -1,4 +1,4 @@
-import { collection, addDoc, getDocs, getDoc, doc, updateDoc, deleteDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs, getDoc, doc, updateDoc, deleteDoc, query, where } from "firebase/firestore";
 import { db } from "./firebase";
 
 export const addObject = async (collection_name, data) => {
@@ -32,6 +32,23 @@ export const getObjects = async (collection_name) => {
     result = [...result, doc.data()];
   });
   return result;
+};
+
+export const searchObjectsByField = async (collection_name, field_name, value, operator = "==") => {
+  try {
+    const q = query(collection(db, collection_name), where(field_name, operator, value));
+    const querySnapshot = await getDocs(q);
+    let result = [];
+
+    querySnapshot.forEach((doc) => {
+      result = [...result, doc.data()];
+    });
+
+    return result;
+  } catch (e) {
+    console.error("Lỗi tìm kiếm dữ liệu: ", e);
+    return [];
+  }
 };
 
 export const updateObject = async (collection_name, data, id) => {

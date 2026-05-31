@@ -9,7 +9,7 @@ import { Rating } from 'primereact/rating';
 import { Toolbar } from 'primereact/toolbar';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
-import {addObject } from '../../utils/firebase_service';
+import {addObject, searchObjectsByField } from '../../utils/firebase_service';
 export const Quan_Ly_IMEI = () => {
 
     let emptyProduct = {
@@ -245,9 +245,16 @@ export const Quan_Ly_IMEI = () => {
             <h5 className="p-m-0">Tìm SĐT</h5>
             <span className="p-input-icon-left">
                 <i className="pi pi-search" />
-                <InputText type="search" onInput={(e) => setGlobalFilter(e.currentTarget.value)} placeholder="Search..." />
-                <Button label="Tìm" className="p-button-success p-mr-2 p-mb-2" onClick={() => {
 
+                <InputText type="search" onInput={(e) => setGlobalFilter(e.currentTarget.value)} placeholder="Search..." />
+
+                <Button label="Tìm" className="p-button-success p-mr-2 p-mb-2" onClick={() => {
+                    searchObjectsByField('quan_ly_imei', 'phone', globalFilter).then((data) => {
+                        console.log(data);
+                        console.log(globalFilter);
+                        setProducts(data);
+                        
+                    });
                 }} />
             </span>
         </div>
@@ -280,24 +287,16 @@ export const Quan_Ly_IMEI = () => {
                     <Toolbar className="p-mb-4 p-toolbar" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
 
                     <DataTable ref={dt} value={products} selection={selectedProducts} onSelectionChange={(e) => setSelectedProducts(e.value)}
-                        dataKey="id" paginator rows={10} rowsPerPageOptions={[5, 10, 25]} className="datatable-responsive"
+                        paginator rows={10} rowsPerPageOptions={[5, 10, 25]} className="datatable-responsive"
                         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
                         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products"
                         globalFilter={globalFilter} emptyMessage="No products found." header={header}>
-                        <Column selectionMode="multiple" headerStyle={{ width: '3rem' }}></Column>
-                        <Column field="code" header="Code" sortable body={codeBodyTemplate}></Column>
-                        <Column field="name" header="Name" sortable body={nameBodyTemplate}></Column>
-                        <Column header="Image" body={imageBodyTemplate}></Column>
-                        <Column field="price" header="Price" body={priceBodyTemplate} sortable></Column>
-                        <Column field="category" header="Category" sortable body={categoryBodyTemplate}></Column>
-                        <Column field="rating" header="Reviews" body={ratingBodyTemplate} sortable></Column>
-                        <Column field="inventoryStatus" header="Status" body={statusBodyTemplate} sortable></Column>
-                        <Column body={actionBodyTemplate}></Column>
+
+                        <Column field="imei" header="imei" sortable ></Column>
+                        <Column field="phone" header="phone" sortable ></Column>
+                        <Column field="username" header="username" sortable ></Column>
+
                     </DataTable>
-
-
-
-
 
                     <Dialog 
                         visible={productDialog} 

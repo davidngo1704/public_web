@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react';
 
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
-import { getObjectById } from '../../utils/firebase_service';
+import { getObjectById, updateObject } from '../../utils/firebase_service';
 
 
 export const PhongTro = (props: any) => {
@@ -161,6 +161,20 @@ export const PhongTro = (props: any) => {
                 newMonth = 1;
                 newYear = newYear + 1;
             }
+            data_du_lieu_phong_tro_1.month = newMonth;
+            data_du_lieu_phong_tro_1.year = newYear;
+            data_du_lieu_phong_tro_2.month = newMonth;
+            data_du_lieu_phong_tro_2.year = newYear;
+            data_du_lieu_phong_tro_3.month = newMonth;
+            data_du_lieu_phong_tro_3.year = newYear;
+
+            let objectToSave = {
+                phong_1: JSON.stringify(data_du_lieu_phong_tro_1),
+                phong_2: JSON.stringify(data_du_lieu_phong_tro_2),
+                phong_3: JSON.stringify(data_du_lieu_phong_tro_3)
+            };
+
+            updateObject("data_common", objectToSave, "du_lieu_phong_tro");
 
             // Hiển thị thông báo thành công
             alert("Dữ liệu đã được lưu thành công!");

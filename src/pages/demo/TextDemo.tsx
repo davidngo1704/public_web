@@ -20,7 +20,9 @@ export const TextDemo = () => {
                         Chuyên LONG SHORT hợp đồng tương lai.</div>
                     <div className="p-mb-3 demo-container p-text-nowrap p-text-truncate" style={{width: '10rem'}}>
                         Ai thuê tôi code, giá chỉ 50k vnd trên 1 giờ</div>
-                    
+                    <div>
+                        liên hệ số điện thoại: 0965001740 hoặc email: davidngo1704@gmail.com
+                    </div>
                 </div>
             </div>
         </div>

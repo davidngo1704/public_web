@@ -6,29 +6,21 @@ export const TextDemo = () => {
         <div className="p-grid text-demo">
             <div className="p-col-12">
                 <div className="card">
-                    <h4>Text</h4>
-                    <p>Manage the alignment and the styling of a text with <a href="https://github.com/primefaces/primeflex">PrimeFlex</a> text utilities.</p>
+                    <h4>Hệ Thống BLockchain, AI, AGI merge Human</h4>
 
-                    <h5>Alignment</h5>
-                    <div className="p-mb-3 p-text-left">Left</div>
-                    <div className="p-mb-3 p-text-center">Center</div>
-                    <div className="p-text-right">Right</div>
+                    <h5>HỆ thống thương mại điện tử chỉ ở khu vực hải phòng</h5>
+                    <div className="p-mb-3 p-text-left">Tạo Đồng Coin Riêng Trên HỆ Solana</div>
+                    <div className="p-mb-3 p-text-center">Data Center Cho AI</div>
+                    <div className="p-text-right">HỆ điều hành Window, Linux, Ubuntu</div>
 
                     <h5>Wrap</h5>
-                    <div className="p-mb-3 demo-container" style={{width: '10rem'}}>Long text wraps and does not overlow.</div>
-                    <div className="p-mb-3 demo-container p-text-nowrap" style={{width: '10rem'}}>Long text does not wrap and overflows the parent.</div>
-                    <div className="p-mb-3 demo-container p-text-nowrap p-text-truncate" style={{width: '10rem'}}>Long text does not wrap and overflows the parent.</div>
-
-                    <h5>Transform</h5>
-                    <div className="p-mb-3 p-text-lowercase">LOWERCASE</div>
-                    <div className="p-mb-3 p-text-uppercase">uppercase</div>
-                    <div className="p-text-capitalize">capitalize</div>
-
-                    <h5>Style</h5>
-                    <div className="p-mb-3 p-text-bold">Bold</div>
-                    <div className="p-mb-3 p-text-normal">Normal</div>
-                    <div className="p-mb-3 p-text-light">Light</div>
-                    <div className="p-mb-3 p-text-italic">Italic</div>
+                    <div className="p-mb-3 demo-container" style={{width: '10rem'}}>
+                        Chuyên giao dịch tiền điện tử, crypto, hàng hóa , logistics. </div>
+                    <div className="p-mb-3 demo-container p-text-nowrap" style={{width: '10rem'}}>
+                        Chuyên LONG SHORT hợp đồng tương lai.</div>
+                    <div className="p-mb-3 demo-container p-text-nowrap p-text-truncate" style={{width: '10rem'}}>
+                        Ai thuê tôi code, giá chỉ 50k vnd trên 1 giờ</div>
+                    
                 </div>
             </div>
         </div>

@@ -229,7 +229,7 @@ export const Crypto_Blockchain = () => {
         <div className="p-grid crud-demo">
             <div>
                 <Card title="WLD" subTitle="Subtitle" style={{ width: '25em' }} footer={footer} header={header}>
-                <p className="p-m-0" style={{ lineHeight: '1.5' }}>WLD, ARB, ETH</p>
+                <p className="p-m-0" style={{ lineHeight: '1.5' }}>ARB</p>
                 </Card>
             </div>
 
